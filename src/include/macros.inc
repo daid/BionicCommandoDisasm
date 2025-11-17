@@ -1,3 +1,7 @@
+MACRO TXT
+SETCHARMAP BASIC
+db \#
+ENDM
 MACRO data_bbp
 db \1
 shift

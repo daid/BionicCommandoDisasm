@@ -5,10 +5,9 @@ INCLUDE "include/macros.inc"
 INCLUDE "include/charmaps.inc"
 INCLUDE "include/constants.inc"
 
+SECTION "bank05", ROMX[$4000], BANK[$05]
 ; Bank5 seems to contain info about graphics tiles to load.
 ; First is a list of pointers lists of [tile_count, target, gfx_pointer] closed with a tile count of 0
-
-SECTION "bank05", ROMX[$4000], BANK[$05]
 ;@data format=p amount=19
     dw   data_05_4002                                  ;; 05:4000 .. $00
 

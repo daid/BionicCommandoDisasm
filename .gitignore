@@ -1,0 +1,4 @@
+_tmp
+.dep
+.obj
+__pycache__

@@ -725,7 +725,10 @@ wC59C:
     ds 1                                               ;; c59c
 
 wC59D:
-    ds 7                                               ;; c59d
+    ds 6                                               ;; c59d
+
+wC5A3:
+    ds 1                                               ;; c5a3
 
 wC5A4:
     ds 1                                               ;; c5a4
@@ -755,7 +758,43 @@ wC5B3:
     ds 1                                               ;; c5b3
 
 wC5B4:
-    ds 76                                              ;; c5b4
+    ds 64                                              ;; c5b4
+
+wC5F4:
+    ds 1                                               ;; c5f4
+
+wC5F5:
+    ds 1                                               ;; c5f5
+
+wC5F6:
+    ds 1                                               ;; c5f6
+
+wC5F7:
+    ds 1                                               ;; c5f7
+
+wC5F8:
+    ds 1                                               ;; c5f8
+
+wC5F9:
+    ds 1                                               ;; c5f9
+
+wC5FA:
+    ds 1                                               ;; c5fa
+
+wC5FB:
+    ds 1                                               ;; c5fb
+
+wC5FC:
+    ds 1                                               ;; c5fc
+
+wC5FD:
+    ds 1                                               ;; c5fd
+
+wC5FE:
+    ds 1                                               ;; c5fe
+
+wC5FF:
+    ds 1                                               ;; c5ff
 
 wC600:
     ds 1                                               ;; c600
@@ -863,7 +902,10 @@ wCC04:
     ds 1                                               ;; cc04
 
 wCC05:
-    ds 6                                               ;; cc05
+    ds 1                                               ;; cc05
+
+wCC06:
+    ds 5                                               ;; cc06
 
 wCC0B:
     ds 1                                               ;; cc0b
@@ -914,7 +956,25 @@ wCC1A:
     ds 1                                               ;; cc1a
 
 wCC1B:
-    ds 18                                              ;; cc1b
+    ds 3                                               ;; cc1b
+
+wCC1E:
+    ds 1                                               ;; cc1e
+
+wCC1F:
+    ds 3                                               ;; cc1f
+
+wCC22:
+    ds 1                                               ;; cc22
+
+wCC23:
+    ds 1                                               ;; cc23
+
+wCC24:
+    ds 1                                               ;; cc24
+
+wCC25:
+    ds 8                                               ;; cc25
 
 wCC2D:
     ds 1                                               ;; cc2d
@@ -1313,7 +1373,34 @@ wD2D0:
     ds 1                                               ;; d2d0
 
 wD2D1:
-    ds 10                                              ;; d2d1
+    ds 1                                               ;; d2d1
+
+wD2D2:
+    ds 1                                               ;; d2d2
+
+wD2D3:
+    ds 1                                               ;; d2d3
+
+wD2D4:
+    ds 1                                               ;; d2d4
+
+wD2D5:
+    ds 1                                               ;; d2d5
+
+wD2D6:
+    ds 1                                               ;; d2d6
+
+wD2D7:
+    ds 1                                               ;; d2d7
+
+wD2D8:
+    ds 1                                               ;; d2d8
+
+wD2D9:
+    ds 1                                               ;; d2d9
+
+wD2DA:
+    ds 1                                               ;; d2da
 
 wLevelDecodePointerLow:
     ds 1                                               ;; d2db
@@ -1608,7 +1695,13 @@ wDF61:
     ds 1                                               ;; df61
 
 wDF62:
-    ds 49                                              ;; df62
+    ds 1                                               ;; df62
+
+wDF63:
+    ds 2                                               ;; df63
+
+wDF65:
+    ds 46                                              ;; df65
 
 wDF93:
     ds 3                                               ;; df93

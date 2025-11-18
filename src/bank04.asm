@@ -12,7 +12,9 @@ SECTION "bank04", ROMX[$4000], BANK[$04]
 
 call_04_4004:
     jp   jp_04_46ee                                    ;; 04:4004 $c3 $ee $46
+
 ;@code
+call_04_4007:
     jp   jp_04_7d29                                    ;; 04:4007 $c3 $29 $7d
     db   $28                                           ;; 04:400a ?
 

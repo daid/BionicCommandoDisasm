@@ -1592,7 +1592,8 @@ wDF54:
 wDF5C:
     ds 1                                               ;; df5c
 
-wDF5D:
+; start this music index after a call to audioStartMusic
+wNextMusic:
     ds 1                                               ;; df5d
 
 wDF5E:

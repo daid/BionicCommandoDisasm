@@ -7,25 +7,33 @@ INCLUDE "include/constants.inc"
 
 SECTION "bank07", ROMX[$4000], BANK[$07]
 
-call_07_4000:
+audioUpdate:
     jp   jp_07_6e62                                    ;; 07:4000 $c3 $62 $6e
 
-call_07_4003:
+; which sfx to play in A
+audioPlaySfx:
     jp   jp_07_6d92                                    ;; 07:4003 $c3 $92 $6d
 
 call_07_4006:
     jp   jp_07_7709                                    ;; 07:4006 $c3 $09 $77
 
-call_07_4009:
+audioStartMusic:
     jp   jp_07_4021                                    ;; 07:4009 $c3 $21 $40
-    db   $c3, $e7, $77                                 ;; 07:400c ???
+;@code
+    jp   jp_07_77e7                                    ;; 07:400c $c3 $e7 $77
     jp   jp_07_7834                                    ;; 07:400f $c3 $34 $78
     jp   jp_07_77e6                                    ;; 07:4012 $c3 $e6 $77
-    db   $c3, $d3, $77, $c3, $56, $7b, $c3, $56        ;; 07:4015 ????????
-    db   $7b, $c3, $56, $7b                            ;; 07:401d ????
+;@code
+    jp   jp_07_77d3                                    ;; 07:4015 $c3 $d3 $77
+;@code
+    jp   jp_07_7b56                                    ;; 07:4018 $c3 $56 $7b
+;@code
+    jp   jp_07_7b56                                    ;; 07:401b $c3 $56 $7b
+;@code
+    jp   jp_07_7b56                                    ;; 07:401e $c3 $56 $7b
 
 jp_07_4021:
-    ld   A, [wDF5D]                                    ;; 07:4021 $fa $5d $df
+    ld   A, [wNextMusic]                               ;; 07:4021 $fa $5d $df
     cp   A, $12                                        ;; 07:4024 $fe $12
     jr   C, .jr_07_4029                                ;; 07:4026 $38 $01
     xor  A, A                                          ;; 07:4028 $af
@@ -3326,16 +3334,34 @@ call_07_775a:
     ldh  [rNR44], A                                    ;; 07:77d0 $e0 $23
 .jr_07_77d2:
     ret                                                ;; 07:77d2 $c9
-    db   $fa, $aa, $df, $b7, $c8, $cd, $41, $78        ;; 07:77d3 ????????
-    db   $fa, $c0, $c0, $e6, $03, $fe, $03, $ca        ;; 07:77db ????????
-    db   $31, $78, $c9                                 ;; 07:77e3 ???
+
+jp_07_77d3:
+    ld   A, [wDFAA]                                    ;; 07:77d3 $fa $aa $df
+    or   A, A                                          ;; 07:77d6 $b7
+    ret  Z                                             ;; 07:77d7 $c8
+    call call_07_7841                                  ;; 07:77d8 $cd $41 $78
+    ld   A, [wC0C0]                                    ;; 07:77db $fa $c0 $c0
+    and  A, $03                                        ;; 07:77de $e6 $03
+    cp   A, $03                                        ;; 07:77e0 $fe $03
+    jp   Z, jp_07_7831                                 ;; 07:77e2 $ca $31 $78
+    ret                                                ;; 07:77e5 $c9
 
 jp_07_77e6:
     ret                                                ;; 07:77e6 $c9
-    db   $21, $4e, $df, $11, $af, $df, $cd, $80        ;; 07:77e7 ????????
-    db   $01, $3e, $01, $ea, $aa, $df, $3e, $02        ;; 07:77ef ????????
-    db   $ea, $98, $df, $3e, $03, $ea, $45, $df        ;; 07:77f7 ????????
-    db   $3e, $01, $ea, $16, $df, $c3, $7e, $03        ;; 07:77ff ????????
+
+jp_07_77e7:
+    ld   HL, wDF4E                                     ;; 07:77e7 $21 $4e $df
+    ld   DE, wDFAF                                     ;; 07:77ea $11 $af $df
+    call call_00_0180                                  ;; 07:77ed $cd $80 $01
+    ld   A, $01                                        ;; 07:77f0 $3e $01
+    ld   [wDFAA], A                                    ;; 07:77f2 $ea $aa $df
+    ld   A, $02                                        ;; 07:77f5 $3e $02
+    ld   [wDF98], A                                    ;; 07:77f7 $ea $98 $df
+    ld   A, $03                                        ;; 07:77fa $3e $03
+    ld   [wExtraLifeCount], A                          ;; 07:77fc $ea $45 $df
+    ld   A, $01                                        ;; 07:77ff $3e $01
+    ld   [wDF16], A                                    ;; 07:7801 $ea $16 $df
+    jp   jp_00_037e                                    ;; 07:7804 $c3 $7e $03
 
 jp_07_7807:
     ld   A, [wDFB4]                                    ;; 07:7807 $fa $b4 $df
@@ -3357,7 +3383,9 @@ jp_07_7807:
     ld   [wDFAB], A                                    ;; 07:782a $ea $ab $df
     ld   [wDFB3], A                                    ;; 07:782d $ea $b3 $df
     ret                                                ;; 07:7830 $c9
-    db   $c3, $db, $03                                 ;; 07:7831 ???
+
+jp_07_7831:
+    jp   jp_00_03db                                    ;; 07:7831 $c3 $db $03
 
 jp_07_7834:
     ld   A, [wDFAA]                                    ;; 07:7834 $fa $aa $df
@@ -3366,59 +3394,113 @@ jp_07_7834:
     xor  A, A                                          ;; 07:783c $af
     ld   [wDFAA], A                                    ;; 07:783d $ea $aa $df
     ret                                                ;; 07:7840 $c9
-    db   $21, $ac, $df, $7e, $b7, $28, $15, $35        ;; 07:7841 ????????
-    db   $fa, $ab, $df, $ea, $c0, $c0, $4f, $fa        ;; 07:7849 ????????
-    db   $b3, $df, $2f, $a1, $ea, $c1, $c0, $79        ;; 07:7851 ????????
-    db   $ea, $b3, $df, $c9, $cd, $97, $78, $da        ;; 07:7859 ????????
-    db   $94, $78, $2a, $47, $e6, $04, $28, $11        ;; 07:7861 ????????
-    db   $78, $0f, $0f, $0f, $e6, $7f, $20, $02        ;; 07:7869 ????????
-    db   $3e, $80, $3d, $ea, $ac, $df, $af, $18        ;; 07:7871 ????????
-    db   $0d, $78, $e6, $08, $28, $05, $2a, $3d        ;; 07:7879 ????????
-    db   $ea, $ac, $df, $78, $e6, $f3, $ea, $ab        ;; 07:7881 ????????
-    db   $df, $7d, $ea, $20, $d3, $7c, $ea, $21        ;; 07:7889 ????????
-    db   $d3, $18, $b5, $c3, $31, $78, $fa, $21        ;; 07:7891 ????????
-    db   $d3, $67, $fa, $20, $d3, $6f, $d6, $f6        ;; 07:7899 ????????
-    db   $7c, $de, $d4, $3f, $c9, $c0, $01, $01        ;; 07:78a1 ????????
-    db   $01, $01, $e5, $18, $23, $6c, $09, $0c        ;; 07:78a9 ????????
-    db   $94, $09, $0f, $ec, $48, $2f, $49, $07        ;; 07:78b1 ????????
-    db   $48, $07, $49, $09, $48, $20, $49, $07        ;; 07:78b9 ????????
-    db   $48, $06, $49, $07, $48, $05, $1c, $28        ;; 07:78c1 ????????
-    db   $2b, $00, $0a, $06, $94, $28, $33, $1c        ;; 07:78c9 ????????
-    db   $18, $19, $00, $48, $0e, $49, $06, $48        ;; 07:78d1 ????????
-    db   $09, $49, $07, $48, $02, $84, $09, $0a        ;; 07:78d9 ????????
-    db   $1c, $18, $2a, $24, $28, $08, $22, $0a        ;; 07:78e1 ????????
-    db   $02, $8a, $04, $88, $05, $8a, $06, $88        ;; 07:78e9 ????????
-    db   $05, $8a, $07, $88, $0b, $00, $28, $0e        ;; 07:78f1 ????????
-    db   $00, $88, $0d, $00, $28, $24, $dc, $48        ;; 07:78f9 ????????
-    db   $02, $49, $06, $48, $07, $49, $0f, $48        ;; 07:7901 ????????
-    db   $0b, $00, $18, $20, $3c, $28, $11, $4c        ;; 07:7909 ????????
-    db   $40, $49, $07, $48, $09, $49, $07, $40        ;; 07:7911 ????????
-    db   $04, $54, $48, $0f, $18, $14, $1c, $28        ;; 07:7919 ????????
-    db   $08, $44, $09, $09, $b5, $18, $27, $2c        ;; 07:7921 ????????
-    db   $09, $0b, $35, $09, $08, $1d, $18, $16        ;; 07:7929 ????????
-    db   $00, $48, $03, $49, $0e, $48, $03, $54        ;; 07:7931 ????????
-    db   $88, $04, $81, $09, $0a, $7c, $18, $18        ;; 07:7939 ????????
-    db   $19, $07, $18, $3a, $59, $04, $19, $07        ;; 07:7941 ????????
-    db   $09, $02, $74, $18, $04, $2d, $0a, $06        ;; 07:7949 ????????
-    db   $44, $0a, $05, $34, $0a, $05, $3c, $0a        ;; 07:7951 ????????
-    db   $04, $34, $0a, $04, $2d, $0a, $05, $34        ;; 07:7959 ????????
-    db   $0a, $06, $34, $0a, $06, $34, $0a, $05        ;; 07:7961 ????????
-    db   $e5, $0a, $06, $4c, $0a, $04, $2c, $0a        ;; 07:7969 ????????
-    db   $05, $34, $0a, $06, $2c, $0a, $05, $34        ;; 07:7971 ????????
-    db   $0a, $05, $34, $0a, $05, $2c, $0a, $06        ;; 07:7979 ????????
-    db   $24, $0a, $06, $2c, $0a, $04, $34, $0a        ;; 07:7981 ????????
-    db   $04, $34, $0a, $04, $4c, $0a, $06, $3c        ;; 07:7989 ????????
-    db   $0a, $05, $24, $0a, $06, $2c, $0a, $06        ;; 07:7991 ????????
-    db   $2c, $0a, $05, $2c, $0a, $0c, $2c, $0a        ;; 07:7999 ????????
-    db   $06, $2c, $0a, $06, $2c, $0a, $05, $2c        ;; 07:79a1 ????????
-    db   $0a, $05, $2c, $0a, $05, $9c, $88, $05        ;; 07:79a9 ????????
-    db   $44, $09, $06, $34, $09, $04, $88, $10        ;; 07:79b1 ????????
-    db   $1c, $88, $02, $e4, $48, $06, $49, $06        ;; 07:79b9 ????????
-    db   $48, $09, $9c, $88, $05, $81, $09, $05        ;; 07:79c1 ????????
-    db   $6c, $88, $14, $cf, $0a, $05, $3c, $0a        ;; 07:79c9 ????????
-    db   $06, $4c, $0a, $07, $44, $0a, $05, $2c        ;; 07:79d1 ????????
-    db   $0a, $06, $34, $0a, $05, $34, $0a, $06        ;; 07:79d9 ????????
-    db   $34, $0a, $06, $00, $00                       ;; 07:79e1 ?????
+
+call_07_7841:
+    ld   HL, wDFAC                                     ;; 07:7841 $21 $ac $df
+    ld   A, [HL]                                       ;; 07:7844 $7e
+    or   A, A                                          ;; 07:7845 $b7
+    jr   Z, .jr_07_785d                                ;; 07:7846 $28 $15
+    dec  [HL]                                          ;; 07:7848 $35
+.jr_07_7849:
+    ld   A, [wDFAB]                                    ;; 07:7849 $fa $ab $df
+    ld   [wC0C0], A                                    ;; 07:784c $ea $c0 $c0
+    ld   C, A                                          ;; 07:784f $4f
+    ld   A, [wDFB3]                                    ;; 07:7850 $fa $b3 $df
+    cpl                                                ;; 07:7853 $2f
+    and  A, C                                          ;; 07:7854 $a1
+    ld   [wC0C1], A                                    ;; 07:7855 $ea $c1 $c0
+    ld   A, C                                          ;; 07:7858 $79
+    ld   [wDFB3], A                                    ;; 07:7859 $ea $b3 $df
+    ret                                                ;; 07:785c $c9
+.jr_07_785d:
+    call call_07_7897                                  ;; 07:785d $cd $97 $78
+    jp   C, .jp_07_7894                                ;; 07:7860 $da $94 $78
+    ld   A, [HL+]                                      ;; 07:7863 $2a
+    ld   B, A                                          ;; 07:7864 $47
+    and  A, $04                                        ;; 07:7865 $e6 $04
+    jr   Z, .jr_07_787a                                ;; 07:7867 $28 $11
+    ld   A, B                                          ;; 07:7869 $78
+    rrca                                               ;; 07:786a $0f
+    rrca                                               ;; 07:786b $0f
+    rrca                                               ;; 07:786c $0f
+    and  A, $7f                                        ;; 07:786d $e6 $7f
+    jr   NZ, .jr_07_7873                               ;; 07:786f $20 $02
+    ld   A, $80                                        ;; 07:7871 $3e $80
+.jr_07_7873:
+    dec  A                                             ;; 07:7873 $3d
+    ld   [wDFAC], A                                    ;; 07:7874 $ea $ac $df
+    xor  A, A                                          ;; 07:7877 $af
+    jr   .jr_07_7887                                   ;; 07:7878 $18 $0d
+.jr_07_787a:
+    ld   A, B                                          ;; 07:787a $78
+    and  A, $08                                        ;; 07:787b $e6 $08
+    jr   Z, .jr_07_7884                                ;; 07:787d $28 $05
+    ld   A, [HL+]                                      ;; 07:787f $2a
+    dec  A                                             ;; 07:7880 $3d
+    ld   [wDFAC], A                                    ;; 07:7881 $ea $ac $df
+.jr_07_7884:
+    ld   A, B                                          ;; 07:7884 $78
+    and  A, $f3                                        ;; 07:7885 $e6 $f3
+.jr_07_7887:
+    ld   [wDFAB], A                                    ;; 07:7887 $ea $ab $df
+    ld   A, L                                          ;; 07:788a $7d
+    ld   [wD320], A                                    ;; 07:788b $ea $20 $d3
+    ld   A, H                                          ;; 07:788e $7c
+    ld   [wD321], A                                    ;; 07:788f $ea $21 $d3
+    jr   .jr_07_7849                                   ;; 07:7892 $18 $b5
+.jp_07_7894:
+    jp   jp_07_7831                                    ;; 07:7894 $c3 $31 $78
+
+call_07_7897:
+    ld   A, [wD321]                                    ;; 07:7897 $fa $21 $d3
+    ld   H, A                                          ;; 07:789a $67
+    ld   A, [wD320]                                    ;; 07:789b $fa $20 $d3
+    ld   L, A                                          ;; 07:789e $6f
+    sub  A, $f6                                        ;; 07:789f $d6 $f6
+    ld   A, H                                          ;; 07:78a1 $7c
+    sbc  A, $d4                                        ;; 07:78a2 $de $d4
+    ccf                                                ;; 07:78a4 $3f
+    ret                                                ;; 07:78a5 $c9
+    db   $c0, $01, $01, $01, $01, $e5, $18, $23        ;; 07:78a6 ????????
+    db   $6c, $09, $0c, $94, $09, $0f, $ec, $48        ;; 07:78ae ????????
+    db   $2f, $49, $07, $48, $07, $49, $09, $48        ;; 07:78b6 ????????
+    db   $20, $49, $07, $48, $06, $49, $07, $48        ;; 07:78be ????????
+    db   $05, $1c, $28, $2b, $00, $0a, $06, $94        ;; 07:78c6 ????????
+    db   $28, $33, $1c, $18, $19, $00, $48, $0e        ;; 07:78ce ????????
+    db   $49, $06, $48, $09, $49, $07, $48, $02        ;; 07:78d6 ????????
+    db   $84, $09, $0a, $1c, $18, $2a, $24, $28        ;; 07:78de ????????
+    db   $08, $22, $0a, $02, $8a, $04, $88, $05        ;; 07:78e6 ????????
+    db   $8a, $06, $88, $05, $8a, $07, $88, $0b        ;; 07:78ee ????????
+    db   $00, $28, $0e, $00, $88, $0d, $00, $28        ;; 07:78f6 ????????
+    db   $24, $dc, $48, $02, $49, $06, $48, $07        ;; 07:78fe ????????
+    db   $49, $0f, $48, $0b, $00, $18, $20, $3c        ;; 07:7906 ????????
+    db   $28, $11, $4c, $40, $49, $07, $48, $09        ;; 07:790e ????????
+    db   $49, $07, $40, $04, $54, $48, $0f, $18        ;; 07:7916 ????????
+    db   $14, $1c, $28, $08, $44, $09, $09, $b5        ;; 07:791e ????????
+    db   $18, $27, $2c, $09, $0b, $35, $09, $08        ;; 07:7926 ????????
+    db   $1d, $18, $16, $00, $48, $03, $49, $0e        ;; 07:792e ????????
+    db   $48, $03, $54, $88, $04, $81, $09, $0a        ;; 07:7936 ????????
+    db   $7c, $18, $18, $19, $07, $18, $3a, $59        ;; 07:793e ????????
+    db   $04, $19, $07, $09, $02, $74, $18, $04        ;; 07:7946 ????????
+    db   $2d, $0a, $06, $44, $0a, $05, $34, $0a        ;; 07:794e ????????
+    db   $05, $3c, $0a, $04, $34, $0a, $04, $2d        ;; 07:7956 ????????
+    db   $0a, $05, $34, $0a, $06, $34, $0a, $06        ;; 07:795e ????????
+    db   $34, $0a, $05, $e5, $0a, $06, $4c, $0a        ;; 07:7966 ????????
+    db   $04, $2c, $0a, $05, $34, $0a, $06, $2c        ;; 07:796e ????????
+    db   $0a, $05, $34, $0a, $05, $34, $0a, $05        ;; 07:7976 ????????
+    db   $2c, $0a, $06, $24, $0a, $06, $2c, $0a        ;; 07:797e ????????
+    db   $04, $34, $0a, $04, $34, $0a, $04, $4c        ;; 07:7986 ????????
+    db   $0a, $06, $3c, $0a, $05, $24, $0a, $06        ;; 07:798e ????????
+    db   $2c, $0a, $06, $2c, $0a, $05, $2c, $0a        ;; 07:7996 ????????
+    db   $0c, $2c, $0a, $06, $2c, $0a, $06, $2c        ;; 07:799e ????????
+    db   $0a, $05, $2c, $0a, $05, $2c, $0a, $05        ;; 07:79a6 ????????
+    db   $9c, $88, $05, $44, $09, $06, $34, $09        ;; 07:79ae ????????
+    db   $04, $88, $10, $1c, $88, $02, $e4, $48        ;; 07:79b6 ????????
+    db   $06, $49, $06, $48, $09, $9c, $88, $05        ;; 07:79be ????????
+    db   $81, $09, $05, $6c, $88, $14, $cf, $0a        ;; 07:79c6 ????????
+    db   $05, $3c, $0a, $06, $4c, $0a, $07, $44        ;; 07:79ce ????????
+    db   $0a, $05, $2c, $0a, $06, $34, $0a, $05        ;; 07:79d6 ????????
+    db   $34, $0a, $06, $34, $0a, $06, $00, $00        ;; 07:79de ????????
 
 data_07_79e6:
     db   $00, $04, $00, $01, $01, $00, $18, $2b        ;; 07:79e6 ????????
@@ -3467,153 +3549,156 @@ data_07_79e6:
     db   $09, $49, $0b, $48, $16, $16, $28, $07        ;; 07:7b3e ????????
     db   $04, $04, $2c, $0b, $21, $00, $00, $00        ;; 07:7b46 ????????
     db   $00, $00, $00, $00, $00, $00, $00, $00        ;; 07:7b4e ????????
-    db   $c9, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b56 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b5e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b66 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b6e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b76 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b7e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b86 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b8e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b96 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b9e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ba6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7bae ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7bb6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7bbe ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7bc6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7bce ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7bd6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7bde ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7be6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7bee ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7bf6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7bfe ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c06 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c0e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c16 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c1e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c26 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c2e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c36 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c3e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c46 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c4e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c56 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c5e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c66 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c6e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c76 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c7e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c86 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c8e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c96 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c9e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ca6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7cae ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7cb6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7cbe ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7cc6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7cce ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7cd6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7cde ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ce6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7cee ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7cf6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7cfe ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d06 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d0e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d16 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d1e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d26 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d2e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d36 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d3e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d46 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d4e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d56 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d5e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d66 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d6e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d76 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d7e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d86 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d8e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d96 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d9e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7da6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7dae ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7db6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7dbe ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7dc6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7dce ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7dd6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7dde ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7de6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7dee ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7df6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7dfe ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e06 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e0e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e16 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e1e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e26 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e2e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e36 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e3e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e46 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e4e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e56 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e5e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e66 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e6e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e76 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e7e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e86 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e8e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e96 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e9e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ea6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7eae ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7eb6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ebe ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ec6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ece ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ed6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ede ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ee6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7eee ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ef6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7efe ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f06 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f0e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f16 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f1e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f26 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f2e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f36 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f3e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f46 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f4e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f56 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f5e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f66 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f6e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f76 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f7e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f86 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f8e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f96 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f9e ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7fa6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7fae ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7fb6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7fbe ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7fc6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7fce ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7fd6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7fde ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7fe6 ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7fee ????????
-    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ff6 ????????
-    db   $ff, $ff                                      ;; 07:7ffe ??
+
+jp_07_7b56:
+    ret                                                ;; 07:7b56 $c9
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b57 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b5f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b67 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b6f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b77 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b7f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b87 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b8f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b97 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7b9f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ba7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7baf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7bb7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7bbf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7bc7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7bcf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7bd7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7bdf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7be7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7bef ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7bf7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7bff ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c07 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c0f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c17 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c1f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c27 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c2f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c37 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c3f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c47 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c4f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c57 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c5f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c67 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c6f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c77 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c7f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c87 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c8f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c97 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7c9f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ca7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7caf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7cb7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7cbf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7cc7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ccf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7cd7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7cdf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ce7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7cef ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7cf7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7cff ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d07 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d0f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d17 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d1f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d27 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d2f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d37 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d3f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d47 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d4f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d57 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d5f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d67 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d6f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d77 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d7f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d87 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d8f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d97 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7d9f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7da7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7daf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7db7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7dbf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7dc7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7dcf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7dd7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ddf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7de7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7def ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7df7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7dff ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e07 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e0f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e17 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e1f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e27 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e2f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e37 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e3f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e47 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e4f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e57 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e5f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e67 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e6f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e77 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e7f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e87 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e8f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e97 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7e9f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ea7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7eaf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7eb7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ebf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ec7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ecf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ed7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7edf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ee7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7eef ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ef7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7eff ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f07 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f0f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f17 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f1f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f27 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f2f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f37 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f3f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f47 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f4f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f57 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f5f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f67 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f6f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f77 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f7f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f87 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f8f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f97 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7f9f ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7fa7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7faf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7fb7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7fbf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7fc7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7fcf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7fd7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7fdf ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7fe7 ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7fef ????????
+    db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 07:7ff7 ????????
+    db   $ff                                           ;; 07:7fff ?

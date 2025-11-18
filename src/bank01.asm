@@ -6439,7 +6439,7 @@ jp_01_7371:
     call call_01_7790                                  ;; 01:7382 $cd $90 $77
     ld   HL, wDF5F                                     ;; 01:7385 $21 $5f $df
     res  0, [HL]                                       ;; 01:7388 $cb $86
-    ld   A, [wDF5D]                                    ;; 01:738a $fa $5d $df
+    ld   A, [wNextMusic]                               ;; 01:738a $fa $5d $df
     cp   A, $12                                        ;; 01:738d $fe $12
     jr   NC, jp_01_7364                                ;; 01:738f $30 $d3
     call call_01_739e                                  ;; 01:7391 $cd $9e $73
@@ -6449,7 +6449,7 @@ jp_01_7371:
     jp   jp_00_1425                                    ;; 01:739b $c3 $25 $14
 
 call_01_739e:
-    ld   A, [wDF5D]                                    ;; 01:739e $fa $5d $df
+    ld   A, [wNextMusic]                               ;; 01:739e $fa $5d $df
     cp   A, $11                                        ;; 01:73a1 $fe $11
     jr   NZ, .jr_01_73b8                               ;; 01:73a3 $20 $13
     ld   A, $0e                                        ;; 01:73a5 $3e $0e
@@ -6460,7 +6460,7 @@ call_01_739e:
     call call_00_1275                                  ;; 01:73af $cd $75 $12
     ld   A, $5e                                        ;; 01:73b2 $3e $5e
     ret  NZ                                            ;; 01:73b4 $c0
-    ld   A, [wDF5D]                                    ;; 01:73b5 $fa $5d $df
+    ld   A, [wNextMusic]                               ;; 01:73b5 $fa $5d $df
 .jr_01_73b8:
     ld   HL, data_01_70d6                              ;; 01:73b8 $21 $d6 $70
     jp   jp_00_0d80                                    ;; 01:73bb $c3 $80 $0d
@@ -6549,7 +6549,7 @@ jr_01_73d4:
 
 jp_01_7459:
     ld   A, [wDF5E]                                    ;; 01:7459 $fa $5e $df
-    ld   [wDF5D], A                                    ;; 01:745c $ea $5d $df
+    ld   [wNextMusic], A                               ;; 01:745c $ea $5d $df
     call call_01_7a7f                                  ;; 01:745f $cd $7f $7a
     xor  A, A                                          ;; 01:7462 $af
     ld   [wC0C5], A                                    ;; 01:7463 $ea $c5 $c0
@@ -6557,7 +6557,7 @@ jp_01_7459:
     call call_00_0b6e                                  ;; 01:7469 $cd $6e $0b
     ld   HL, wDF5F                                     ;; 01:746c $21 $5f $df
     res  7, [HL]                                       ;; 01:746f $cb $be
-    ld   A, [wDF5D]                                    ;; 01:7471 $fa $5d $df
+    ld   A, [wNextMusic]                               ;; 01:7471 $fa $5d $df
     or   A, A                                          ;; 01:7474 $b7
     jr   NZ, .jr_01_7488                               ;; 01:7475 $20 $11
     ld   HL, wDFA9                                     ;; 01:7477 $21 $a9 $df
@@ -6869,7 +6869,7 @@ call_01_765b:
     ret                                                ;; 01:7661 $c9
 
 call_01_7662:
-    ld   A, [wDF5D]                                    ;; 01:7662 $fa $5d $df
+    ld   A, [wNextMusic]                               ;; 01:7662 $fa $5d $df
     ld   HL, wLevelMetaMetaTiles                       ;; 01:7665 $21 $00 $d5
     call call_00_0d88                                  ;; 01:7668 $cd $88 $0d
     inc  HL                                            ;; 01:766b $23
@@ -6953,7 +6953,7 @@ call_01_76d3:
 
 call_01_76d6:
     ld   D, A                                          ;; 01:76d6 $57
-    ld   A, [wDF5D]                                    ;; 01:76d7 $fa $5d $df
+    ld   A, [wNextMusic]                               ;; 01:76d7 $fa $5d $df
     ld   E, A                                          ;; 01:76da $5f
     ld   HL, data_01_7107                              ;; 01:76db $21 $07 $71
 .jr_01_76de:
@@ -7052,7 +7052,7 @@ call_01_774c:
 call_01_775b:
     ld   A, [wDF60]                                    ;; 01:775b $fa $60 $df
     ld   B, A                                          ;; 01:775e $47
-    ld   A, [wDF5D]                                    ;; 01:775f $fa $5d $df
+    ld   A, [wNextMusic]                               ;; 01:775f $fa $5d $df
     ld   HL, wLevelMetaMetaTiles                       ;; 01:7762 $21 $00 $d5
     call call_00_0d88                                  ;; 01:7765 $cd $88 $0d
     inc  HL                                            ;; 01:7768 $23
@@ -7304,7 +7304,7 @@ call_01_78d9:
 
 call_01_78e5:
     ld   A, $12                                        ;; 01:78e5 $3e $12
-    ld   [wDF5D], A                                    ;; 01:78e7 $ea $5d $df
+    ld   [wNextMusic], A                               ;; 01:78e7 $ea $5d $df
     call call_01_78fb                                  ;; 01:78ea $cd $fb $78
     xor  A, A                                          ;; 01:78ed $af
     ld   [wDF5E], A                                    ;; 01:78ee $ea $5e $df
@@ -7493,7 +7493,7 @@ call_01_7a67:
     jr   call_01_7a43                                  ;; 01:7a7d $18 $c4
 
 call_01_7a7f:
-    ld   A, [wDF5D]                                    ;; 01:7a7f $fa $5d $df
+    ld   A, [wNextMusic]                               ;; 01:7a7f $fa $5d $df
     call call_01_71a7                                  ;; 01:7a82 $cd $a7 $71
     ld   HL, wC600                                     ;; 01:7a85 $21 $00 $c6
     xor  A, A                                          ;; 01:7a88 $af
@@ -7518,7 +7518,7 @@ call_01_7aa7:
     ld   A, D                                          ;; 01:7ab8 $7a
     ld   [wC704], A                                    ;; 01:7ab9 $ea $04 $c7
     push DE                                            ;; 01:7abc $d5
-    ld   A, [wDF5D]                                    ;; 01:7abd $fa $5d $df
+    ld   A, [wNextMusic]                               ;; 01:7abd $fa $5d $df
     call call_01_71a7                                  ;; 01:7ac0 $cd $a7 $71
     pop  BC                                            ;; 01:7ac3 $c1
     ld   A, C                                          ;; 01:7ac4 $79

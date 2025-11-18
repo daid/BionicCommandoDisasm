@@ -10,6 +10,28 @@ shift
 dw \1
 shift
 ENDM
+MACRO data_bbwwwwwwpp
+db \1
+shift
+db \1
+shift
+dw \1
+shift
+dw \1
+shift
+dw \1
+shift
+dw \1
+shift
+dw \1
+shift
+dw \1
+shift
+dw \1
+shift
+dw \1
+shift
+ENDM
 MACRO data_pb
 dw \1
 shift

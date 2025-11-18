@@ -15,10 +15,10 @@ wOAMBuffer:
 wC0A4:
     ds 28                                              ;; c0a4
 
-wC0C0:
+wJoypadDown:
     ds 1                                               ;; c0c0
 
-wC0C1:
+wJoypadPressed:
     ds 1                                               ;; c0c1
 
 wC0C2:

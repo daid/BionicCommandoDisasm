@@ -547,11 +547,11 @@ call_01_47ea:
     ld   HL, .data_01_4802                             ;; 01:47ea $21 $02 $48
     ld   DE, $86b0                                     ;; 01:47ed $11 $b0 $86
     ld   BC, $10                                       ;; 01:47f0 $01 $10 $00
-    call call_00_0cd3                                  ;; 01:47f3 $cd $d3 $0c
+    call memcpyVRAM                                    ;; 01:47f3 $cd $d3 $0c
     ld   HL, .data_01_4812                             ;; 01:47f6 $21 $12 $48
     ld   DE, $86e0                                     ;; 01:47f9 $11 $e0 $86
     ld   BC, $10                                       ;; 01:47fc $01 $10 $00
-    jp   call_00_0cd3                                  ;; 01:47ff $c3 $d3 $0c
+    jp   memcpyVRAM                                    ;; 01:47ff $c3 $d3 $0c
 .data_01_4802:
     db   $08, $00, $1c, $08, $1c, $08, $3e, $1c        ;; 01:4802 ????????
     db   $3e, $1c, $7f, $36, $7f, $22, $7f, $63        ;; 01:480a ????????
@@ -1985,7 +1985,7 @@ call_01_5111:
     ld   A, [wDFAA]                                    ;; 01:5199 $fa $aa $df
     or   A, A                                          ;; 01:519c $b7
     call NZ, call_00_0615                              ;; 01:519d $c4 $15 $06
-    ld   A, [wC0C0]                                    ;; 01:51a0 $fa $c0 $c0
+    ld   A, [wJoypadDown]                              ;; 01:51a0 $fa $c0 $c0
     or   A, A                                          ;; 01:51a3 $b7
     jr   Z, .jr_01_51ae                                ;; 01:51a4 $28 $08
     ld   A, [wC0C2]                                    ;; 01:51a6 $fa $c2 $c0
@@ -1993,9 +1993,9 @@ call_01_5111:
     add  A, [HL]                                       ;; 01:51ac $86
     ld   [HL], A                                       ;; 01:51ad $77
 .jr_01_51ae:
-    ld   A, [wC0C0]                                    ;; 01:51ae $fa $c0 $c0
+    ld   A, [wJoypadDown]                              ;; 01:51ae $fa $c0 $c0
     ld   [wC203], A                                    ;; 01:51b1 $ea $03 $c2
-    ld   A, [wC0C1]                                    ;; 01:51b4 $fa $c1 $c0
+    ld   A, [wJoypadPressed]                           ;; 01:51b4 $fa $c1 $c0
     ld   [wC204], A                                    ;; 01:51b7 $ea $04 $c2
 .jr_01_51ba:
     ld   A, [wDF5F]                                    ;; 01:51ba $fa $5f $df
@@ -4271,7 +4271,7 @@ call_01_60fe:
     call call_01_6497                                  ;; 01:6177 $cd $97 $64
     ld   B, $01                                        ;; 01:617a $06 $01
     call call_00_0e76                                  ;; 01:617c $cd $76 $0e
-    ld   A, [wC0C1]                                    ;; 01:617f $fa $c1 $c0
+    ld   A, [wJoypadPressed]                           ;; 01:617f $fa $c1 $c0
     bit  1, A                                          ;; 01:6182 $cb $4f
     jr   Z, .jr_01_618a                                ;; 01:6184 $28 $04
     rst  rst_00_0008                                   ;; 01:6186 $cf
@@ -4454,7 +4454,7 @@ call_01_629f:
     ld   HL, $9800                                     ;; 01:629f $21 $00 $98
     ld   BC, $400                                      ;; 01:62a2 $01 $00 $04
     xor  A, A                                          ;; 01:62a5 $af
-    call call_00_0c8f                                  ;; 01:62a6 $cd $8f $0c
+    call memsetVRAM                                    ;; 01:62a6 $cd $8f $0c
     ld   HL, data_01_62d6                              ;; 01:62a9 $21 $d6 $62
     ld   DE, $99c2                                     ;; 01:62ac $11 $c2 $99
     call call_01_62d0                                  ;; 01:62af $cd $d0 $62
@@ -4471,7 +4471,7 @@ call_01_629f:
 
 call_01_62d0:
     ld   BC, $0f                                       ;; 01:62d0 $01 $0f $00
-    jp   call_00_0cd3                                  ;; 01:62d3 $c3 $d3 $0c
+    jp   memcpyVRAM                                    ;; 01:62d3 $c3 $d3 $0c
 
 data_01_62d6:
     db   $50, $51, $51, $51, $51, $51, $51, $51        ;; 01:62d6 ........
@@ -4488,7 +4488,7 @@ call_01_62f4:
     ld   HL, data_01_64e8                              ;; 01:62fb $21 $e8 $64
     ld   DE, $9040                                     ;; 01:62fe $11 $40 $90
     ld   BC, $570                                      ;; 01:6301 $01 $70 $05
-    call call_00_0cd3                                  ;; 01:6304 $cd $d3 $0c
+    call memcpyVRAM                                    ;; 01:6304 $cd $d3 $0c
     ld   HL, data_01_63b8                              ;; 01:6307 $21 $b8 $63
     ld   DE, $9600                                     ;; 01:630a $11 $00 $96
 .jr_01_630d:
@@ -4504,7 +4504,7 @@ call_01_62f4:
     ld   HL, .data_01_6325                             ;; 01:6319 $21 $25 $63
     ld   DE, $8010                                     ;; 01:631c $11 $10 $80
     ld   BC, $30                                       ;; 01:631f $01 $30 $00
-    jp   call_00_0cd3                                  ;; 01:6322 $c3 $d3 $0c
+    jp   memcpyVRAM                                    ;; 01:6322 $c3 $d3 $0c
 .data_01_6325:
     dw   `00000000                                     ;; 01:6325 $00 $00
     dw   `00111111                                     ;; 01:6327 $3f $00
@@ -4609,7 +4609,7 @@ call_01_63d9:
 
 call_01_63f9:
     ld   BC, $12                                       ;; 01:63f9 $01 $12 $00
-    jp   call_00_0cd3                                  ;; 01:63fc $c3 $d3 $0c
+    jp   memcpyVRAM                                    ;; 01:63fc $c3 $d3 $0c
 
 data_01_63ff:
     dw   data_01_6407                                  ;; 01:63ff pP
@@ -5518,14 +5518,14 @@ call_01_6a67:
     add  HL, DE                                        ;; 01:6a96 $19
     pop  DE                                            ;; 01:6a97 $d1
     ld   BC, $40                                       ;; 01:6a98 $01 $40 $00
-    jp   call_00_0cd3                                  ;; 01:6a9b $c3 $d3 $0c
+    jp   memcpyVRAM                                    ;; 01:6a9b $c3 $d3 $0c
 .jr_01_6a9e:
     pop  DE                                            ;; 01:6a9e $d1
     ld   L, E                                          ;; 01:6a9f $6b
     ld   H, D                                          ;; 01:6aa0 $62
     ld   BC, $40                                       ;; 01:6aa1 $01 $40 $00
     xor  A, A                                          ;; 01:6aa4 $af
-    call call_00_0c8f                                  ;; 01:6aa5 $cd $8f $0c
+    call memsetVRAM                                    ;; 01:6aa5 $cd $8f $0c
     ld   E, L                                          ;; 01:6aa8 $5d
     ld   D, H                                          ;; 01:6aa9 $54
     ret                                                ;; 01:6aaa $c9
@@ -6451,12 +6451,12 @@ jp_01_7312:
     ld   HL, data_01_6d36                              ;; 01:731a $21 $36 $6d
     ld   DE, $9010                                     ;; 01:731d $11 $10 $90
     ld   BC, $3a0                                      ;; 01:7320 $01 $a0 $03
-    call call_00_0cd3                                  ;; 01:7323 $cd $d3 $0c
+    call memcpyVRAM                                    ;; 01:7323 $cd $d3 $0c
     call call_01_72d5                                  ;; 01:7326 $cd $d5 $72
     ld   HL, data_01_7bb6                              ;; 01:7329 $21 $b6 $7b
     ld   DE, $8000                                     ;; 01:732c $11 $00 $80
     ld   BC, $210                                      ;; 01:732f $01 $10 $02
-    call call_00_0cd3                                  ;; 01:7332 $cd $d3 $0c
+    call memcpyVRAM                                    ;; 01:7332 $cd $d3 $0c
     call call_00_0eeb                                  ;; 01:7335 $cd $eb $0e
     ld   A, $d0                                        ;; 01:7338 $3e $d0
     ldh  [rOBP0], A                                    ;; 01:733a $e0 $48
@@ -6560,11 +6560,11 @@ jr_01_73d4:
     call call_00_0b4a                                  ;; 01:73f3 $cd $4a $0b
     call call_01_7a54                                  ;; 01:73f6 $cd $54 $7a
     call call_01_7b1b                                  ;; 01:73f9 $cd $1b $7b
-    ld   A, [wC0C1]                                    ;; 01:73fc $fa $c1 $c0
+    ld   A, [wJoypadPressed]                           ;; 01:73fc $fa $c1 $c0
     and  A, $33                                        ;; 01:73ff $e6 $33
     jr   Z, .jr_01_73f3                                ;; 01:7401 $28 $f0
     call call_01_7b07                                  ;; 01:7403 $cd $07 $7b
-    ld   A, [wC0C1]                                    ;; 01:7406 $fa $c1 $c0
+    ld   A, [wJoypadPressed]                           ;; 01:7406 $fa $c1 $c0
     bit  0, A                                          ;; 01:7409 $cb $47
     jr   NZ, .jr_01_743c                               ;; 01:740b $20 $2f
     bit  1, A                                          ;; 01:740d $cb $4f
@@ -6643,7 +6643,7 @@ jp_01_748e:
 .jr_01_74a0:
     call call_01_7a51                                  ;; 01:74a0 $cd $51 $7a
     call call_00_0b6e                                  ;; 01:74a3 $cd $6e $0b
-    call call_00_0ab7                                  ;; 01:74a6 $cd $b7 $0a
+    call readJoypadInput                               ;; 01:74a6 $cd $b7 $0a
     ld   HL, wC0C5                                     ;; 01:74a9 $21 $c5 $c0
     inc  [HL]                                          ;; 01:74ac $34
     ld   B, $00                                        ;; 01:74ad $06 $00
@@ -7192,7 +7192,7 @@ jp_01_77bf:
     ld   [wDFB8], A                                    ;; 01:77da $ea $b8 $df
 .jr_01_77dd:
     call call_00_0b6e                                  ;; 01:77dd $cd $6e $0b
-    call call_00_0ab7                                  ;; 01:77e0 $cd $b7 $0a
+    call readJoypadInput                               ;; 01:77e0 $cd $b7 $0a
     call call_01_784d                                  ;; 01:77e3 $cd $4d $78
     call call_01_7a51                                  ;; 01:77e6 $cd $51 $7a
     ld   HL, wC710                                     ;; 01:77e9 $21 $10 $c7
@@ -7357,7 +7357,7 @@ call_01_78d9:
     ld   HL, data_01_71b1                              ;; 01:78d9 $21 $b1 $71
     ld   DE, wLevelMetaMetaTiles                       ;; 01:78dc $11 $00 $d5
     ld   BC, $26                                       ;; 01:78df $01 $26 $00
-    jp   call_00_0c12                                  ;; 01:78e2 $c3 $12 $0c
+    jp   memcpy                                        ;; 01:78e2 $c3 $12 $0c
 
 call_01_78e5:
     ld   A, $12                                        ;; 01:78e5 $3e $12

@@ -3124,7 +3124,7 @@ call_02_741f:
     ldh  A, [hFF8C]                                    ;; 02:7466 $f0 $8c
     ld   H, A                                          ;; 02:7468 $67
     ld   BC, $10                                       ;; 02:7469 $01 $10 $00
-    call call_00_015f                                  ;; 02:746c $cd $5f $01
+    call memcpyVRAM_                                   ;; 02:746c $cd $5f $01
     pop  HL                                            ;; 02:746f $e1
     ld   C, L                                          ;; 02:7470 $4d
     ret                                                ;; 02:7471 $c9

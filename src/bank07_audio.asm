@@ -3340,7 +3340,7 @@ jp_07_77d3:
     or   A, A                                          ;; 07:77d6 $b7
     ret  Z                                             ;; 07:77d7 $c8
     call call_07_7841                                  ;; 07:77d8 $cd $41 $78
-    ld   A, [wC0C0]                                    ;; 07:77db $fa $c0 $c0
+    ld   A, [wJoypadDown]                              ;; 07:77db $fa $c0 $c0
     and  A, $03                                        ;; 07:77de $e6 $03
     cp   A, $03                                        ;; 07:77e0 $fe $03
     jp   Z, jp_07_7831                                 ;; 07:77e2 $ca $31 $78
@@ -3403,12 +3403,12 @@ call_07_7841:
     dec  [HL]                                          ;; 07:7848 $35
 .jr_07_7849:
     ld   A, [wDFAB]                                    ;; 07:7849 $fa $ab $df
-    ld   [wC0C0], A                                    ;; 07:784c $ea $c0 $c0
+    ld   [wJoypadDown], A                              ;; 07:784c $ea $c0 $c0
     ld   C, A                                          ;; 07:784f $4f
     ld   A, [wDFB3]                                    ;; 07:7850 $fa $b3 $df
     cpl                                                ;; 07:7853 $2f
     and  A, C                                          ;; 07:7854 $a1
-    ld   [wC0C1], A                                    ;; 07:7855 $ea $c1 $c0
+    ld   [wJoypadPressed], A                           ;; 07:7855 $ea $c1 $c0
     ld   A, C                                          ;; 07:7858 $79
     ld   [wDFB3], A                                    ;; 07:7859 $ea $b3 $df
     ret                                                ;; 07:785c $c9

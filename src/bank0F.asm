@@ -38,11 +38,11 @@ jp_0f_402f:
     ldh  [rSTAT], A                                    ;; 0f:403a $e0 $41
     ldh  [rIF], A                                      ;; 0f:403c $e0 $0f
     ldh  [rIE], A                                      ;; 0f:403e $e0 $ff
-    call call_00_0159                                  ;; 0f:4040 $cd $59 $01
+    call turnLCDOff_                                   ;; 0f:4040 $cd $59 $01
     ld   HL, $8000                                     ;; 0f:4043 $21 $00 $80
     ld   BC, $2000                                     ;; 0f:4046 $01 $00 $20
     xor  A, A                                          ;; 0f:4049 $af
-    call call_00_0162                                  ;; 0f:404a $cd $62 $01
+    call memsetVRAM_                                   ;; 0f:404a $cd $62 $01
     ld   A, $a0                                        ;; 0f:404d $3e $a0
     ldh  [rWX], A                                      ;; 0f:404f $e0 $4b
     ldh  [rWY], A                                      ;; 0f:4051 $e0 $4a
@@ -57,7 +57,7 @@ jp_0f_402f:
     ld   HL, .data_0f_4083                             ;; 0f:4067 $21 $83 $40
     ld   DE, $9900                                     ;; 0f:406a $11 $00 $99
     ld   BC, $14                                       ;; 0f:406d $01 $14 $00
-    call call_00_015f                                  ;; 0f:4070 $cd $5f $01
+    call memcpyVRAM_                                   ;; 0f:4070 $cd $5f $01
     ld   A, $e4                                        ;; 0f:4073 $3e $e4
     ld   [wBGP], A                                     ;; 0f:4075 $ea $d9 $c0
     ld   B, $78                                        ;; 0f:4078 $06 $78
@@ -112,11 +112,11 @@ jp_0f_4097:
 .jr_0f_40e3:
     call call_0f_413d                                  ;; 0f:40e3 $cd $3d $41
     call call_00_01b9                                  ;; 0f:40e6 $cd $b9 $01
-    call call_00_01bc                                  ;; 0f:40e9 $cd $bc $01
-    ld   A, [wC0C1]                                    ;; 0f:40ec $fa $c1 $c0
+    call readJoypadInput_                              ;; 0f:40e9 $cd $bc $01
+    ld   A, [wJoypadPressed]                           ;; 0f:40ec $fa $c1 $c0
     and  A, $84                                        ;; 0f:40ef $e6 $84
     jr   NZ, .jr_0f_411a                               ;; 0f:40f1 $20 $27
-    ld   A, [wC0C1]                                    ;; 0f:40f3 $fa $c1 $c0
+    ld   A, [wJoypadPressed]                           ;; 0f:40f3 $fa $c1 $c0
     bit  6, A                                          ;; 0f:40f6 $cb $77
     jr   NZ, .jr_0f_412c                               ;; 0f:40f8 $20 $32
     and  A, $09                                        ;; 0f:40fa $e6 $09
@@ -127,7 +127,7 @@ jp_0f_4097:
     xor  A, A                                          ;; 0f:4106 $af
     ret                                                ;; 0f:4107 $c9
 .jr_0f_4108:
-    ld   A, [wC0C0]                                    ;; 0f:4108 $fa $c0 $c0
+    ld   A, [wJoypadDown]                              ;; 0f:4108 $fa $c0 $c0
     ld   [wC201], A                                    ;; 0f:410b $ea $01 $c2
     rst  rst_00_0008                                   ;; 0f:410e $cf
     inc  E                                             ;; 0f:410f $1c
@@ -209,7 +209,7 @@ call_0f_4184:
     ld   B, $01                                        ;; 0f:4189 $06 $01
     call call_00_01bf                                  ;; 0f:418b $cd $bf $01
     pop  BC                                            ;; 0f:418e $c1
-    ld   A, [wC0C1]                                    ;; 0f:418f $fa $c1 $c0
+    ld   A, [wJoypadPressed]                           ;; 0f:418f $fa $c1 $c0
     and  A, $0b                                        ;; 0f:4192 $e6 $0b
     jr   NZ, .jr_0f_419b                               ;; 0f:4194 $20 $05
     dec  B                                             ;; 0f:4196 $05
@@ -236,11 +236,11 @@ call_0f_41b0:
     ld   HL, data_0f_4243                              ;; 0f:41b3 $21 $43 $42
     ld   DE, $8010                                     ;; 0f:41b6 $11 $10 $80
     ld   BC, $20                                       ;; 0f:41b9 $01 $20 $00
-    call call_00_015f                                  ;; 0f:41bc $cd $5f $01
+    call memcpyVRAM_                                   ;; 0f:41bc $cd $5f $01
     ld   HL, data_0f_42ec                              ;; 0f:41bf $21 $ec $42
     ld   DE, $9000                                     ;; 0f:41c2 $11 $00 $90
     ld   BC, $750                                      ;; 0f:41c5 $01 $50 $07
-    call call_00_015f                                  ;; 0f:41c8 $cd $5f $01
+    call memcpyVRAM_                                   ;; 0f:41c8 $cd $5f $01
     ld   HL, data_0f_4263                              ;; 0f:41cb $21 $63 $42
     call call_00_02c4                                  ;; 0f:41ce $cd $c4 $02
     ei                                                 ;; 0f:41d1 $fb
@@ -270,7 +270,7 @@ call_0f_41d3:
     ld   HL, $9800                                     ;; 0f:41fb $21 $00 $98
     ld   BC, $400                                      ;; 0f:41fe $01 $00 $04
     xor  A, A                                          ;; 0f:4201 $af
-    call call_00_0162                                  ;; 0f:4202 $cd $62 $01
+    call memsetVRAM_                                   ;; 0f:4202 $cd $62 $01
     xor  A, A                                          ;; 0f:4205 $af
     ld   [wC151], A                                    ;; 0f:4206 $ea $51 $c1
     ldh  [rSCX], A                                     ;; 0f:4209 $e0 $43
@@ -305,7 +305,7 @@ call_0f_4228:
     ld   HL, $99a6                                     ;; 0f:4238 $21 $a6 $99
     ld   BC, $09                                       ;; 0f:423b $01 $09 $00
     xor  A, A                                          ;; 0f:423e $af
-    call call_00_0162                                  ;; 0f:423f $cd $62 $01
+    call memsetVRAM_                                   ;; 0f:423f $cd $62 $01
 .jr_0f_4242:
     ret                                                ;; 0f:4242 $c9
 
@@ -1466,7 +1466,7 @@ jp_0f_4a54:
     call call_0f_4ad4                                  ;; 0f:4abd $cd $d4 $4a
 .jr_0f_4ac0:
     call call_00_0345                                  ;; 0f:4ac0 $cd $45 $03
-    ld   A, [wC0C1]                                    ;; 0f:4ac3 $fa $c1 $c0
+    ld   A, [wJoypadPressed]                           ;; 0f:4ac3 $fa $c1 $c0
     or   A, A                                          ;; 0f:4ac6 $b7
     jr   Z, .jr_0f_4ac0                                ;; 0f:4ac7 $28 $f7
     call call_0f_4afa                                  ;; 0f:4ac9 $cd $fa $4a
@@ -1577,12 +1577,12 @@ call_0f_4b8d:
     ld   HL, data_0f_4caf                              ;; 0f:4b8d $21 $af $4c
     ld   BC, $30                                       ;; 0f:4b90 $01 $30 $00
     ld   DE, $8840                                     ;; 0f:4b93 $11 $40 $88
-    call call_00_015f                                  ;; 0f:4b96 $cd $5f $01
+    call memcpyVRAM_                                   ;; 0f:4b96 $cd $5f $01
     call call_00_0357                                  ;; 0f:4b99 $cd $57 $03
     ld   HL, data_0f_4ddf                              ;; 0f:4b9c $21 $df $4d
     ld   BC, $270                                      ;; 0f:4b9f $01 $70 $02
     ld   DE, $8a00                                     ;; 0f:4ba2 $11 $00 $8a
-    call call_00_015f                                  ;; 0f:4ba5 $cd $5f $01
+    call memcpyVRAM_                                   ;; 0f:4ba5 $cd $5f $01
     ret                                                ;; 0f:4ba8 $c9
     db   $af, $e0, $8d, $3e, $68, $e0, $8a, $3e        ;; 0f:4ba9 ????????
     db   $01, $e0, $8b, $11, $00, $d5, $cd, $ab        ;; 0f:4bb1 ????????
@@ -1594,7 +1594,7 @@ call_0f_4bbd:
 .jr_0f_4bc2:
     push BC                                            ;; 0f:4bc2 $c5
     ld   BC, $14                                       ;; 0f:4bc3 $01 $14 $00
-    call call_00_015f                                  ;; 0f:4bc6 $cd $5f $01
+    call memcpyVRAM_                                   ;; 0f:4bc6 $cd $5f $01
     push HL                                            ;; 0f:4bc9 $e5
     ld   HL, $0c                                       ;; 0f:4bca $21 $0c $00
     add  HL, DE                                        ;; 0f:4bcd $19
@@ -3253,7 +3253,7 @@ call_0f_729d:
     pop  HL                                            ;; 0f:72c4 $e1
     push DE                                            ;; 0f:72c5 $d5
     ld   BC, $02                                       ;; 0f:72c6 $01 $02 $00
-    call call_00_015f                                  ;; 0f:72c9 $cd $5f $01
+    call memcpyVRAM_                                   ;; 0f:72c9 $cd $5f $01
     pop  DE                                            ;; 0f:72cc $d1
     ld   A, $20                                        ;; 0f:72cd $3e $20
     add  A, E                                          ;; 0f:72cf $83
@@ -3262,7 +3262,7 @@ call_0f_729d:
     adc  A, $00                                        ;; 0f:72d2 $ce $00
     ld   D, A                                          ;; 0f:72d4 $57
     ld   BC, $02                                       ;; 0f:72d5 $01 $02 $00
-    call call_00_015f                                  ;; 0f:72d8 $cd $5f $01
+    call memcpyVRAM_                                   ;; 0f:72d8 $cd $5f $01
     ret                                                ;; 0f:72db $c9
 
 call_0f_72dc:
@@ -3339,20 +3339,20 @@ call_0f_7392:
     ld   HL, data_0f_7b91                              ;; 0f:7398 $21 $91 $7b
     ld   DE, $8010                                     ;; 0f:739b $11 $10 $80
     ld   BC, $20                                       ;; 0f:739e $01 $20 $00
-    call call_00_015f                                  ;; 0f:73a1 $cd $5f $01
+    call memcpyVRAM_                                   ;; 0f:73a1 $cd $5f $01
     ld   HL, data_0f_7631                              ;; 0f:73a4 $21 $31 $76
     ld   BC, $560                                      ;; 0f:73a7 $01 $60 $05
     ld   DE, $9000                                     ;; 0f:73aa $11 $00 $90
-    call call_00_015f                                  ;; 0f:73ad $cd $5f $01
+    call memcpyVRAM_                                   ;; 0f:73ad $cd $5f $01
     call call_00_030c                                  ;; 0f:73b0 $cd $0c $03
     ret                                                ;; 0f:73b3 $c9
 
 call_0f_73b4:
     call call_00_01b9                                  ;; 0f:73b4 $cd $b9 $01
-    call call_00_01bc                                  ;; 0f:73b7 $cd $bc $01
+    call readJoypadInput_                              ;; 0f:73b7 $cd $bc $01
     call call_0f_743f                                  ;; 0f:73ba $cd $3f $74
     call call_0f_7484                                  ;; 0f:73bd $cd $84 $74
-    ld   A, [wC0C1]                                    ;; 0f:73c0 $fa $c1 $c0
+    ld   A, [wJoypadPressed]                           ;; 0f:73c0 $fa $c1 $c0
     rrc  A                                             ;; 0f:73c3 $cb $0f
     jr   C, .jr_0f_73e3                                ;; 0f:73c5 $38 $1c
     rrc  A                                             ;; 0f:73c7 $cb $0f

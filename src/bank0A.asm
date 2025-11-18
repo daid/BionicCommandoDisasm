@@ -233,7 +233,7 @@ jp_0a_4135:
     ld   HL, $8d00                                     ;; 0a:414a $21 $00 $8d
     ld   BC, $140                                      ;; 0a:414d $01 $40 $01
     ld   A, $ff                                        ;; 0a:4150 $3e $ff
-    call call_00_0162                                  ;; 0a:4152 $cd $62 $01
+    call memsetVRAM_                                   ;; 0a:4152 $cd $62 $01
     xor  A, A                                          ;; 0a:4155 $af
     ld   HL, wCD79                                     ;; 0a:4156 $21 $79 $cd
     ld   [HL+], A                                      ;; 0a:4159 $22
@@ -297,7 +297,7 @@ jp_0a_4135:
     ldh  A, [hFF8C]                                    ;; 0a:41ae $f0 $8c
     ld   D, A                                          ;; 0a:41b0 $57
     ld   BC, $10                                       ;; 0a:41b1 $01 $10 $00
-    call call_00_015f                                  ;; 0a:41b4 $cd $5f $01
+    call memcpyVRAM_                                   ;; 0a:41b4 $cd $5f $01
     ld   A, E                                          ;; 0a:41b7 $7b
     ldh  [hFF8B], A                                    ;; 0a:41b8 $e0 $8b
     ld   A, D                                          ;; 0a:41ba $7a
@@ -492,7 +492,7 @@ jp_0a_431b:
 jp_0a_432e:
     ld   HL, data_0a_5cde                              ;; 0a:432e $21 $de $5c
     ld   BC, $190                                      ;; 0a:4331 $01 $90 $01
-    jp   call_00_015f                                  ;; 0a:4334 $c3 $5f $01
+    jp   memcpyVRAM_                                   ;; 0a:4334 $c3 $5f $01
     db   $01, $02, $03, $04, $05, $01, $02, $00        ;; 0a:4337 ????????
     db   $06, $07, $08, $09, $0a, $03, $04, $00        ;; 0a:433f ????????
     db   $0b, $0c, $0d, $0e, $0f, $05, $06, $00        ;; 0a:4347 ????????
@@ -1799,7 +1799,7 @@ call_0a_5eea:
     ld   L, A                                          ;; 0a:5efe $6f
     ldh  A, [hFF8C]                                    ;; 0a:5eff $f0 $8c
     ld   H, A                                          ;; 0a:5f01 $67
-    call call_00_015f                                  ;; 0a:5f02 $cd $5f $01
+    call memcpyVRAM_                                   ;; 0a:5f02 $cd $5f $01
     pop  HL                                            ;; 0a:5f05 $e1
     ret                                                ;; 0a:5f06 $c9
 
@@ -1838,11 +1838,11 @@ call_0a_5f14:
     ld   HL, data_0a_7355                              ;; 0a:5f3d $21 $55 $73
     ld   BC, $30                                       ;; 0a:5f40 $01 $30 $00
     ld   DE, $9010                                     ;; 0a:5f43 $11 $10 $90
-    call call_00_015f                                  ;; 0a:5f46 $cd $5f $01
+    call memcpyVRAM_                                   ;; 0a:5f46 $cd $5f $01
     ld   HL, $9800                                     ;; 0a:5f49 $21 $00 $98
     ld   BC, $400                                      ;; 0a:5f4c $01 $00 $04
     xor  A, A                                          ;; 0a:5f4f $af
-    call call_00_0162                                  ;; 0a:5f50 $cd $62 $01
+    call memsetVRAM_                                   ;; 0a:5f50 $cd $62 $01
     xor  A, A                                          ;; 0a:5f53 $af
     ld   [wC151], A                                    ;; 0a:5f54 $ea $51 $c1
     ldh  [rSCX], A                                     ;; 0a:5f57 $e0 $43
@@ -3328,7 +3328,7 @@ call_0a_7797:
     ld   HL, data_0a_786b                              ;; 0a:77d0 $21 $6b $78
     ld   BC, $03                                       ;; 0a:77d3 $01 $03 $00
     ld   DE, wC541                                     ;; 0a:77d6 $11 $41 $c5
-    call call_00_017d                                  ;; 0a:77d9 $cd $7d $01
+    call memcpy_                                       ;; 0a:77d9 $cd $7d $01
     ld   HL, data_0a_78dd                              ;; 0a:77dc $21 $dd $78
     ld   DE, data_0a_786e                              ;; 0a:77df $11 $6e $78
     call call_0a_6012                                  ;; 0a:77e2 $cd $12 $60
@@ -3779,7 +3779,7 @@ jp_0a_7d83:
     ld   BC, $04                                       ;; 0a:7dbd $01 $04 $00
 .jr_0a_7dc0:
     ld   DE, wOAMBuffer                                ;; 0a:7dc0 $11 $00 $c0
-    call call_00_017d                                  ;; 0a:7dc3 $cd $7d $01
+    call memcpy_                                       ;; 0a:7dc3 $cd $7d $01
     ld   DE, $04                                       ;; 0a:7dc6 $11 $04 $00
     ld   B, $03                                        ;; 0a:7dc9 $06 $03
 .jr_0a_7dcb:

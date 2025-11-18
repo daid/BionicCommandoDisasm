@@ -691,7 +691,7 @@ call_0e_4007:
     db   $22, $79, $e6, $0f, $c6, $0c, $22, $c9        ;; 0e:553a ????????
 
 jp_0e_5542:
-    ld   A, [wD580]                                    ;; 0e:5542 $fa $80 $d5
+    ld   A, [wLevelMetaMetaTiles.wD580]                ;; 0e:5542 $fa $80 $d5
     inc  A                                             ;; 0e:5545 $3c
     cp   A, $28                                        ;; 0e:5546 $fe $28
     ret  NC                                            ;; 0e:5548 $d0
@@ -701,7 +701,7 @@ jp_0e_5542:
     add  HL, HL                                        ;; 0e:554d $29
     add  HL, HL                                        ;; 0e:554e $29
     add  HL, HL                                        ;; 0e:554f $29
-    ld   DE, wD600                                     ;; 0e:5550 $11 $00 $d6
+    ld   DE, wLevelMetaMetaTiles.wD600                 ;; 0e:5550 $11 $00 $d6
     add  HL, DE                                        ;; 0e:5553 $19
     ld   [HL], $01                                     ;; 0e:5554 $36 $01
     ret                                                ;; 0e:5556 $c9
@@ -710,9 +710,9 @@ call_0e_5557:
     ld   A, [wDFA1]                                    ;; 0e:5557 $fa $a1 $df
     or   A, A                                          ;; 0e:555a $b7
     ret  NZ                                            ;; 0e:555b $c0
-    ld   HL, wD600                                     ;; 0e:555c $21 $00 $d6
+    ld   HL, wLevelMetaMetaTiles.wD600                 ;; 0e:555c $21 $00 $d6
     xor  A, A                                          ;; 0e:555f $af
-    ld   [wD580], A                                    ;; 0e:5560 $ea $80 $d5
+    ld   [wLevelMetaMetaTiles.wD580], A                ;; 0e:5560 $ea $80 $d5
 .jr_0e_5563:
     ld   C, L                                          ;; 0e:5563 $4d
     ld   A, [HL+]                                      ;; 0e:5564 $2a
@@ -729,9 +729,9 @@ call_0e_5557:
 .jr_0e_5573:
     ld   DE, $0f                                       ;; 0e:5573 $11 $0f $00
     add  HL, DE                                        ;; 0e:5576 $19
-    ld   A, [wD580]                                    ;; 0e:5577 $fa $80 $d5
+    ld   A, [wLevelMetaMetaTiles.wD580]                ;; 0e:5577 $fa $80 $d5
     inc  A                                             ;; 0e:557a $3c
-    ld   [wD580], A                                    ;; 0e:557b $ea $80 $d5
+    ld   [wLevelMetaMetaTiles.wD580], A                ;; 0e:557b $ea $80 $d5
     cp   A, $28                                        ;; 0e:557e $fe $28
     jr   C, .jr_0e_5563                                ;; 0e:5580 $38 $e1
     xor  A, A                                          ;; 0e:5582 $af

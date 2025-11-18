@@ -97,7 +97,10 @@ SECTION "bank00_0150", ROM0[$0150]
 
 romStart:
     jp   jp_00_06f4                                    ;; 00:0150 $c3 $f4 $06
-    db   $c3, $13, $07, $c3, $ad, $06                  ;; 00:0153 ??????
+    db   $c3, $13, $07                                 ;; 00:0153 ???
+
+jp_00_0156:
+    jp   jp_00_06ad                                    ;; 00:0156 $c3 $ad $06
 
 call_00_0159:
     jp   call_00_0b31                                  ;; 00:0159 $c3 $31 $0b
@@ -1632,7 +1635,8 @@ memset:
     pop  DE                                            ;; 00:0c28 $d1
     ret                                                ;; 00:0c29 $c9
 
-call_00_0c2a:
+; hl = e*a
+mul_a_e_to_hl:
     push AF                                            ;; 00:0c2a $f5
     push BC                                            ;; 00:0c2b $c5
     push DE                                            ;; 00:0c2c $d5
@@ -2125,9 +2129,9 @@ call_00_0f9d:
     ldh  [hFF8A], A                                    ;; 00:0fa2 $e0 $8a
     ld   A, $01                                        ;; 00:0fa4 $3e $01
     ldh  [hFF8B], A                                    ;; 00:0fa6 $e0 $8b
-    ld   DE, wD500                                     ;; 00:0fa8 $11 $00 $d5
+    ld   DE, wLevelMetaMetaTiles                       ;; 00:0fa8 $11 $00 $d5
     call call_00_19e6                                  ;; 00:0fab $cd $e6 $19
-    ld   DE, wD500                                     ;; 00:0fae $11 $00 $d5
+    ld   DE, wLevelMetaMetaTiles                       ;; 00:0fae $11 $00 $d5
     ld   L, E                                          ;; 00:0fb1 $6b
     ld   H, D                                          ;; 00:0fb2 $62
     ld   C, $12                                        ;; 00:0fb3 $0e $12
@@ -2800,7 +2804,7 @@ jr_00_13ea:
     jp   Z, jp_00_15ad                                 ;; 00:13fb $ca $ad $15
     dec  A                                             ;; 00:13fe $3d
     jp   Z, jp_00_1723                                 ;; 00:13ff $ca $23 $17
-    ld   HL, wDF52                                     ;; 00:1402 $21 $52 $df
+    ld   HL, wContinueCount                            ;; 00:1402 $21 $52 $df
     dec  [HL]                                          ;; 00:1405 $35
 
 jp_00_1406:
@@ -2810,7 +2814,7 @@ jp_00_1406:
 jp_00_140a:
     ld   SP, $fffe                                     ;; 00:140a $31 $fe $ff
     ld   A, $03                                        ;; 00:140d $3e $03
-    ld   [wDF45], A                                    ;; 00:140f $ea $45 $df
+    ld   [wExtraLifeCount], A                          ;; 00:140f $ea $45 $df
     call call_00_15a3                                  ;; 00:1412 $cd $a3 $15
 
 jp_00_1415:
@@ -3017,7 +3021,7 @@ call_00_15a3:
 
 jp_00_15ad:
     xor  A, A                                          ;; 00:15ad $af
-    ld   [wDF52], A                                    ;; 00:15ae $ea $52 $df
+    ld   [wContinueCount], A                           ;; 00:15ae $ea $52 $df
     ld   [wDFA9], A                                    ;; 00:15b1 $ea $a9 $df
     ld   A, $01                                        ;; 00:15b4 $3e $01
     ld   [wDF4A], A                                    ;; 00:15b6 $ea $4a $df
@@ -3038,8 +3042,8 @@ jp_00_15ad:
     xor  A, A                                          ;; 00:15dc $af
     call memset                                        ;; 00:15dd $cd $1d $0c
     xor  A, A                                          ;; 00:15e0 $af
-    ld   [wDF46], A                                    ;; 00:15e1 $ea $46 $df
-    ld   [wDF47], A                                    ;; 00:15e4 $ea $47 $df
+    ld   [wCartidgeCount], A                           ;; 00:15e1 $ea $46 $df
+    ld   [wCartidgeCount.high], A                      ;; 00:15e4 $ea $47 $df
     ld   A, $03                                        ;; 00:15e7 $3e $03
     ld   [wActiveRomBank], A                           ;; 00:15e9 $ea $d3 $c0
     ld   [$2100], A                                    ;; 00:15ec $ea $00 $21
@@ -3380,7 +3384,7 @@ call_00_17fc:
     ret                                                ;; 00:1938 $c9
 
 call_00_1939:
-    ld   HL, wD500                                     ;; 00:1939 $21 $00 $d5
+    ld   HL, wLevelMetaMetaTiles                       ;; 00:1939 $21 $00 $d5
     ld   BC, $6e0                                      ;; 00:193c $01 $e0 $06
     ld   A, $ff                                        ;; 00:193f $3e $ff
     call memset                                        ;; 00:1941 $cd $1d $0c
@@ -3389,23 +3393,23 @@ call_00_1939:
     ld   A, [wD300]                                    ;; 00:1948 $fa $00 $d3
     ld   H, A                                          ;; 00:194b $67
     ld   A, [HL+]                                      ;; 00:194c $2a
-    ld   [wD2F4], A                                    ;; 00:194d $ea $f4 $d2
+    ld   [wLevelWidthInMetaMetaTiles], A               ;; 00:194d $ea $f4 $d2
     add  A, $04                                        ;; 00:1950 $c6 $04
     ld   [wD2F6], A                                    ;; 00:1952 $ea $f6 $d2
     ld   A, [HL+]                                      ;; 00:1955 $2a
-    ld   [wD2F5], A                                    ;; 00:1956 $ea $f5 $d2
+    ld   [wLevelHeightInMetaMetaTiles], A              ;; 00:1956 $ea $f5 $d2
     add  A, $04                                        ;; 00:1959 $c6 $04
     ld   [wD2F7], A                                    ;; 00:195b $ea $f7 $d2
     ld   A, [HL+]                                      ;; 00:195e $2a
     ld   [wD2F8], A                                    ;; 00:195f $ea $f8 $d2
     push HL                                            ;; 00:1962 $e5
-    ld   A, [wD2F4]                                    ;; 00:1963 $fa $f4 $d2
+    ld   A, [wLevelWidthInMetaMetaTiles]               ;; 00:1963 $fa $f4 $d2
     ldh  [hFF8C], A                                    ;; 00:1966 $e0 $8c
     ld   E, A                                          ;; 00:1968 $5f
     ld   A, $01                                        ;; 00:1969 $3e $01
     ldh  [hFF8D], A                                    ;; 00:196b $e0 $8d
-    ld   A, [wD2F5]                                    ;; 00:196d $fa $f5 $d2
-    call call_00_0c2a                                  ;; 00:1970 $cd $2a $0c
+    ld   A, [wLevelHeightInMetaMetaTiles]              ;; 00:196d $fa $f5 $d2
+    call mul_a_e_to_hl                                 ;; 00:1970 $cd $2a $0c
     ld   A, L                                          ;; 00:1973 $7d
     ldh  [hFF8A], A                                    ;; 00:1974 $e0 $8a
     ld   A, H                                          ;; 00:1976 $7c
@@ -3414,7 +3418,7 @@ call_00_1939:
     ld   L, A                                          ;; 00:197c $6f
     ld   H, $00                                        ;; 00:197d $26 $00
     add  HL, HL                                        ;; 00:197f $29
-    ld   DE, wD502                                     ;; 00:1980 $11 $02 $d5
+    ld   DE, wLevelMetaMetaTiles.wD502                 ;; 00:1980 $11 $02 $d5
     add  HL, DE                                        ;; 00:1983 $19
     ld   E, L                                          ;; 00:1984 $5d
     ld   D, H                                          ;; 00:1985 $54
@@ -3494,9 +3498,9 @@ call_00_19e6:
     xor  A, A                                          ;; 00:19e6 $af
     ld   [wD2E1], A                                    ;; 00:19e7 $ea $e1 $d2
     ld   A, [HL+]                                      ;; 00:19ea $2a
-    ld   [wD2DF], A                                    ;; 00:19eb $ea $df $d2
+    ld   [wLevelDecodeBitsizeA], A                     ;; 00:19eb $ea $df $d2
     ld   A, [HL+]                                      ;; 00:19ee $2a
-    ld   [wD2E0], A                                    ;; 00:19ef $ea $e0 $d2
+    ld   [wLevelDecodeBitsizeB], A                     ;; 00:19ef $ea $e0 $d2
     ld   B, A                                          ;; 00:19f2 $47
     ld   A, $01                                        ;; 00:19f3 $3e $01
 .jr_00_19f5:
@@ -3504,9 +3508,9 @@ call_00_19e6:
     dec  B                                             ;; 00:19f6 $05
     jr   NZ, .jr_00_19f5                               ;; 00:19f7 $20 $fc
     ld   [wD2E2], A                                    ;; 00:19f9 $ea $e2 $d2
-    call call_00_1a76                                  ;; 00:19fc $cd $76 $1a
-    ld   HL, $db4                                      ;; 00:19ff $21 $b4 $0d
-    ld   A, [wD2DF]                                    ;; 00:1a02 $fa $df $d2
+    call storeLevelDecodePointer                       ;; 00:19fc $cd $76 $1a
+    ld   HL, $0db4 ;@=ptr                              ;; 00:19ff $21 $b4 $0d
+    ld   A, [wLevelDecodeBitsizeA]                     ;; 00:1a02 $fa $df $d2
     add  A, L                                          ;; 00:1a05 $85
     ld   L, A                                          ;; 00:1a06 $6f
     ld   A, $00                                        ;; 00:1a07 $3e $00
@@ -3516,15 +3520,15 @@ call_00_19e6:
     ld   [wD2E3], A                                    ;; 00:1a0c $ea $e3 $d2
 .jr_00_1a0f:
     ld   A, $01                                        ;; 00:1a0f $3e $01
-    call call_00_1a83                                  ;; 00:1a11 $cd $83 $1a
+    call getBitsFromEncodedLevelData                   ;; 00:1a11 $cd $83 $1a
     dec  A                                             ;; 00:1a14 $3d
     jr   NZ, .jr_00_1a20                               ;; 00:1a15 $20 $09
-    ld   A, [wD2DF]                                    ;; 00:1a17 $fa $df $d2
-    call call_00_1a83                                  ;; 00:1a1a $cd $83 $1a
+    ld   A, [wLevelDecodeBitsizeA]                     ;; 00:1a17 $fa $df $d2
+    call getBitsFromEncodedLevelData                   ;; 00:1a1a $cd $83 $1a
     ld   [wD2E1], A                                    ;; 00:1a1d $ea $e1 $d2
 .jr_00_1a20:
     ld   A, $01                                        ;; 00:1a20 $3e $01
-    call call_00_1a83                                  ;; 00:1a22 $cd $83 $1a
+    call getBitsFromEncodedLevelData                   ;; 00:1a22 $cd $83 $1a
     push AF                                            ;; 00:1a25 $f5
     call call_00_1a5d                                  ;; 00:1a26 $cd $5d $1a
     pop  AF                                            ;; 00:1a29 $f1
@@ -3532,7 +3536,7 @@ call_00_19e6:
     ld   A, [wD2E1]                                    ;; 00:1a2b $fa $e1 $d2
     jr   Z, .jr_00_1a3a                                ;; 00:1a2e $28 $0a
 .jr_00_1a30:
-    ld   [DE], A                                       ;; 00:1a30 $12
+    ld   [DE], A ;here it writes to D500 metametatilemap ;; 00:1a30 $12
     inc  DE                                            ;; 00:1a31 $13
     call call_00_1aba                                  ;; 00:1a32 $cd $ba $1a
     dec  B                                             ;; 00:1a35 $05
@@ -3566,12 +3570,12 @@ call_00_19e6:
 
 call_00_1a5d:
     ld   A, $01                                        ;; 00:1a5d $3e $01
-    call call_00_1a83                                  ;; 00:1a5f $cd $83 $1a
+    call getBitsFromEncodedLevelData                   ;; 00:1a5f $cd $83 $1a
     dec  A                                             ;; 00:1a62 $3d
     ld   A, $01                                        ;; 00:1a63 $3e $01
     jr   NZ, .jr_00_1a73                               ;; 00:1a65 $20 $0c
-    ld   A, [wD2E0]                                    ;; 00:1a67 $fa $e0 $d2
-    call call_00_1a83                                  ;; 00:1a6a $cd $83 $1a
+    ld   A, [wLevelDecodeBitsizeB]                     ;; 00:1a67 $fa $e0 $d2
+    call getBitsFromEncodedLevelData                   ;; 00:1a6a $cd $83 $1a
     or   A, A                                          ;; 00:1a6d $b7
     jr   NZ, .jr_00_1a73                               ;; 00:1a6e $20 $03
     ld   A, [wD2E2]                                    ;; 00:1a70 $fa $e2 $d2
@@ -3580,37 +3584,38 @@ call_00_1a5d:
     ld   B, A                                          ;; 00:1a74 $47
     ret                                                ;; 00:1a75 $c9
 
-call_00_1a76:
+storeLevelDecodePointer:
     ld   A, L                                          ;; 00:1a76 $7d
-    ld   [wD2DB], A                                    ;; 00:1a77 $ea $db $d2
+    ld   [wLevelDecodePointerLow], A                   ;; 00:1a77 $ea $db $d2
     ld   A, H                                          ;; 00:1a7a $7c
-    ld   [wD2DC], A                                    ;; 00:1a7b $ea $dc $d2
+    ld   [wLevelDecodePointerHigh], A                  ;; 00:1a7b $ea $dc $d2
     xor  A, A                                          ;; 00:1a7e $af
-    ld   [wD2DD], A                                    ;; 00:1a7f $ea $dd $d2
+    ld   [wLevelDecodeDataBitCount], A                 ;; 00:1a7f $ea $dd $d2
     ret                                                ;; 00:1a82 $c9
 
-call_00_1a83:
+; Gets A bits from the encoded level data and store them in A and C
+getBitsFromEncodedLevelData:
     push DE                                            ;; 00:1a83 $d5
     ld   B, A                                          ;; 00:1a84 $47
     ld   C, $00                                        ;; 00:1a85 $0e $00
-    ld   A, [wD2DD]                                    ;; 00:1a87 $fa $dd $d2
+    ld   A, [wLevelDecodeDataBitCount]                 ;; 00:1a87 $fa $dd $d2
     ld   E, A                                          ;; 00:1a8a $5f
-    ld   A, [wD2DE]                                    ;; 00:1a8b $fa $de $d2
+    ld   A, [wLevelDecodeData]                         ;; 00:1a8b $fa $de $d2
     ld   D, A                                          ;; 00:1a8e $57
 .jr_00_1a8f:
     ld   A, E                                          ;; 00:1a8f $7b
     or   A, A                                          ;; 00:1a90 $b7
     jr   NZ, .jr_00_1aa7                               ;; 00:1a91 $20 $14
-    ld   A, [wD2DB]                                    ;; 00:1a93 $fa $db $d2
+    ld   A, [wLevelDecodePointerLow]                   ;; 00:1a93 $fa $db $d2
     ld   L, A                                          ;; 00:1a96 $6f
-    ld   A, [wD2DC]                                    ;; 00:1a97 $fa $dc $d2
+    ld   A, [wLevelDecodePointerHigh]                  ;; 00:1a97 $fa $dc $d2
     ld   H, A                                          ;; 00:1a9a $67
     ld   A, [HL+]                                      ;; 00:1a9b $2a
     ld   D, A                                          ;; 00:1a9c $57
     ld   A, L                                          ;; 00:1a9d $7d
-    ld   [wD2DB], A                                    ;; 00:1a9e $ea $db $d2
+    ld   [wLevelDecodePointerLow], A                   ;; 00:1a9e $ea $db $d2
     ld   A, H                                          ;; 00:1aa1 $7c
-    ld   [wD2DC], A                                    ;; 00:1aa2 $ea $dc $d2
+    ld   [wLevelDecodePointerHigh], A                  ;; 00:1aa2 $ea $dc $d2
     ld   E, $08                                        ;; 00:1aa5 $1e $08
 .jr_00_1aa7:
     rl   D                                             ;; 00:1aa7 $cb $12
@@ -3619,9 +3624,9 @@ call_00_1a83:
     dec  B                                             ;; 00:1aac $05
     jr   NZ, .jr_00_1a8f                               ;; 00:1aad $20 $e0
     ld   A, E                                          ;; 00:1aaf $7b
-    ld   [wD2DD], A                                    ;; 00:1ab0 $ea $dd $d2
+    ld   [wLevelDecodeDataBitCount], A                 ;; 00:1ab0 $ea $dd $d2
     ld   A, D                                          ;; 00:1ab3 $7a
-    ld   [wD2DE], A                                    ;; 00:1ab4 $ea $de $d2
+    ld   [wLevelDecodeData], A                         ;; 00:1ab4 $ea $de $d2
     ld   A, C                                          ;; 00:1ab7 $79
     pop  DE                                            ;; 00:1ab8 $d1
     ret                                                ;; 00:1ab9 $c9
@@ -3638,7 +3643,7 @@ call_00_1aba:
     inc  DE                                            ;; 00:1ac6 $13
     inc  DE                                            ;; 00:1ac7 $13
     inc  DE                                            ;; 00:1ac8 $13
-    ld   A, [wD2F4]                                    ;; 00:1ac9 $fa $f4 $d2
+    ld   A, [wLevelWidthInMetaMetaTiles]               ;; 00:1ac9 $fa $f4 $d2
 .jr_00_1acc:
     ldh  [hFF8C], A                                    ;; 00:1acc $e0 $8c
 .jr_00_1ace:
@@ -3649,7 +3654,7 @@ call_00_1ad0:
     ld   A, [wD2F6]                                    ;; 00:1ad0 $fa $f6 $d2
     ld   E, A                                          ;; 00:1ad3 $5f
     ld   D, $00                                        ;; 00:1ad4 $16 $00
-    ld   HL, wD500                                     ;; 00:1ad6 $21 $00 $d5
+    ld   HL, wLevelMetaMetaTiles                       ;; 00:1ad6 $21 $00 $d5
     ld   BC, wDBE0                                     ;; 00:1ad9 $01 $e0 $db
     ld   A, [wD2F7]                                    ;; 00:1adc $fa $f7 $d2
     ldh  [hFF8A], A                                    ;; 00:1adf $e0 $8a
@@ -5810,7 +5815,7 @@ call_00_2d1e:
     cp   A, $18                                        ;; 00:2d2a $fe $18
     jr   NC, jr_00_2d14                                ;; 00:2d2c $30 $e6
     xor  A, A                                          ;; 00:2d2e $af
-    ld   [wD2DB], A                                    ;; 00:2d2f $ea $db $d2
+    ld   [wLevelDecodePointerLow], A                   ;; 00:2d2f $ea $db $d2
 .jr_00_2d32:
     ld   A, [HL+]                                      ;; 00:2d32 $2a
     or   A, A                                          ;; 00:2d33 $b7
@@ -6675,7 +6680,7 @@ call_00_325e:
     rst  rst_00_0008                                   ;; 00:327c $cf
     ld   D, $c9                                        ;; 00:327d $16 $c9
 .jr_00_327f:
-    ld   DE, wD2DB                                     ;; 00:327f $11 $db $d2
+    ld   DE, wLevelDecodePointerLow                    ;; 00:327f $11 $db $d2
     ld   A, $03                                        ;; 00:3282 $3e $03
     ld   [DE], A                                       ;; 00:3284 $12
     jp   jp_00_3de2                                    ;; 00:3285 $c3 $e2 $3d

@@ -390,9 +390,9 @@ call_0a_4211:
 
 call_0a_4241:
     ld   A, $d5                                        ;; 0a:4241 $3e $d5
-    ld   [wD2DB], A                                    ;; 0a:4243 $ea $db $d2
+    ld   [wLevelDecodePointerLow], A                   ;; 0a:4243 $ea $db $d2
     ld   A, $42                                        ;; 0a:4246 $3e $42
-    ld   [wD2DC], A                                    ;; 0a:4248 $ea $dc $d2
+    ld   [wLevelDecodePointerHigh], A                  ;; 0a:4248 $ea $dc $d2
 
 jp_0a_424b:
     ld   B, $c4                                        ;; 0a:424b $06 $c4
@@ -401,9 +401,9 @@ jp_0a_424b:
 call_0a_424f:
     ld   B, $ff                                        ;; 0a:424f $06 $ff
     ld   A, $e9                                        ;; 0a:4251 $3e $e9
-    ld   [wD2DB], A                                    ;; 0a:4253 $ea $db $d2
+    ld   [wLevelDecodePointerLow], A                   ;; 0a:4253 $ea $db $d2
     ld   A, $42                                        ;; 0a:4256 $3e $42
-    ld   [wD2DC], A                                    ;; 0a:4258 $ea $dc $d2
+    ld   [wLevelDecodePointerHigh], A                  ;; 0a:4258 $ea $dc $d2
     call call_0a_4265                                  ;; 0a:425b $cd $65 $42
 
 data_0a_425e:
@@ -436,18 +436,18 @@ call_0a_4265:
     push BC                                            ;; 0a:428b $c5
     push DE                                            ;; 0a:428c $d5
     call call_00_02e8                                  ;; 0a:428d $cd $e8 $02
-    ld   A, [wD2DB]                                    ;; 0a:4290 $fa $db $d2
+    ld   A, [wLevelDecodePointerLow]                   ;; 0a:4290 $fa $db $d2
     ld   L, A                                          ;; 0a:4293 $6f
-    ld   A, [wD2DC]                                    ;; 0a:4294 $fa $dc $d2
+    ld   A, [wLevelDecodePointerHigh]                  ;; 0a:4294 $fa $dc $d2
     ld   H, A                                          ;; 0a:4297 $67
     inc  HL                                            ;; 0a:4298 $23
     inc  HL                                            ;; 0a:4299 $23
     inc  HL                                            ;; 0a:429a $23
     inc  HL                                            ;; 0a:429b $23
     ld   A, L                                          ;; 0a:429c $7d
-    ld   [wD2DB], A                                    ;; 0a:429d $ea $db $d2
+    ld   [wLevelDecodePointerLow], A                   ;; 0a:429d $ea $db $d2
     ld   A, H                                          ;; 0a:42a0 $7c
-    ld   [wD2DC], A                                    ;; 0a:42a1 $ea $dc $d2
+    ld   [wLevelDecodePointerHigh], A                  ;; 0a:42a1 $ea $dc $d2
     call call_00_0168                                  ;; 0a:42a4 $cd $68 $01
     call call_0a_4028                                  ;; 0a:42a7 $cd $28 $40
     pop  DE                                            ;; 0a:42aa $d1
@@ -482,9 +482,9 @@ jp_0a_431b:
     add  HL, DE                                        ;; 0a:4321 $19
     add  HL, DE                                        ;; 0a:4322 $19
     ld   A, [HL+]                                      ;; 0a:4323 $2a
-    ld   [wD2DB], A                                    ;; 0a:4324 $ea $db $d2
+    ld   [wLevelDecodePointerLow], A                   ;; 0a:4324 $ea $db $d2
     ld   A, [HL+]                                      ;; 0a:4327 $2a
-    ld   [wD2DC], A                                    ;; 0a:4328 $ea $dc $d2
+    ld   [wLevelDecodePointerHigh], A                  ;; 0a:4328 $ea $dc $d2
     jp   jp_0a_424b                                    ;; 0a:432b $c3 $4b $42
 
 jp_0a_432e:

@@ -1431,7 +1431,7 @@ call_01_4d80:
     ld   A, $00                                        ;; 01:4de3 $3e $00
 .jr_01_4de5:
     ld   [wC20B], A                                    ;; 01:4de5 $ea $0b $c2
-    ld   A, [wDF43]                                    ;; 01:4de8 $fa $43 $df
+    ld   A, [wHealth]                                  ;; 01:4de8 $fa $43 $df
     call call_01_4e71                                  ;; 01:4deb $cd $71 $4e
     xor  A, A                                          ;; 01:4dee $af
     ld   [wC212], A                                    ;; 01:4def $ea $12 $c2
@@ -1468,14 +1468,14 @@ call_01_4e16:
 
 call_01_4e30:
     call call_01_4e3a                                  ;; 01:4e30 $cd $3a $4e
-    ld   [wDF43], A                                    ;; 01:4e33 $ea $43 $df
-    ld   [wDF44], A                                    ;; 01:4e36 $ea $44 $df
+    ld   [wHealth], A                                  ;; 01:4e33 $ea $43 $df
+    ld   [wMaxHealth], A                               ;; 01:4e36 $ea $44 $df
     ret                                                ;; 01:4e39 $c9
 
 call_01_4e3a:
-    ld   A, [wDF46]                                    ;; 01:4e3a $fa $46 $df
+    ld   A, [wCartidgeCount]                           ;; 01:4e3a $fa $46 $df
     ld   E, A                                          ;; 01:4e3d $5f
-    ld   A, [wDF47]                                    ;; 01:4e3e $fa $47 $df
+    ld   A, [wCartidgeCount.high]                      ;; 01:4e3e $fa $47 $df
     ld   D, A                                          ;; 01:4e41 $57
     ld   HL, data_01_4000                              ;; 01:4e42 $21 $00 $40
     ld   B, $06                                        ;; 01:4e45 $06 $06
@@ -1509,7 +1509,7 @@ call_01_4e3a:
     ret                                                ;; 01:4e6d $c9
 
 call_01_4e6e:
-    ld   [wDF43], A                                    ;; 01:4e6e $ea $43 $df
+    ld   [wHealth], A                                  ;; 01:4e6e $ea $43 $df
 
 call_01_4e71:
     jp   call_01_601c                                  ;; 01:4e71 $c3 $1c $60
@@ -2222,7 +2222,7 @@ call_01_5337:
 
 call_01_5361:
     call call_01_5337                                  ;; 01:5361 $cd $37 $53
-    ld   A, [wDF43]                                    ;; 01:5364 $fa $43 $df
+    ld   A, [wHealth]                                  ;; 01:5364 $fa $43 $df
     or   A, A                                          ;; 01:5367 $b7
     jr   Z, .jr_01_53cb                                ;; 01:5368 $28 $61
     ld   HL, wC208                                     ;; 01:536a $21 $08 $c2
@@ -2266,7 +2266,7 @@ call_01_5361:
     ld   A, [wDFA0]                                    ;; 01:53a5 $fa $a0 $df
     cp   A, $01                                        ;; 01:53a8 $fe $01
     jr   Z, .jr_01_53b6                                ;; 01:53aa $28 $0a
-    ld   A, [wDF43]                                    ;; 01:53ac $fa $43 $df
+    ld   A, [wHealth]                                  ;; 01:53ac $fa $43 $df
     sub  A, E                                          ;; 01:53af $93
     jr   NC, .jr_01_53b3                               ;; 01:53b0 $30 $01
     xor  A, A                                          ;; 01:53b2 $af
@@ -2391,7 +2391,7 @@ call_01_5486:
     ret  NZ                                            ;; 01:548a $c0
     xor  A, A                                          ;; 01:548b $af
     ld   [wDF02], A                                    ;; 01:548c $ea $02 $df
-    ld   A, [wDF43]                                    ;; 01:548f $fa $43 $df
+    ld   A, [wHealth]                                  ;; 01:548f $fa $43 $df
     or   A, A                                          ;; 01:5492 $b7
     ret  Z                                             ;; 01:5493 $c8
     pop  HL                                            ;; 01:5494 $e1
@@ -4023,14 +4023,14 @@ call_01_5fc3:
     ld   A, [wDFAA]                                    ;; 01:5fdc $fa $aa $df
     or   A, A                                          ;; 01:5fdf $b7
     ret  NZ                                            ;; 01:5fe0 $c0
-    ld   A, [wDF46]                                    ;; 01:5fe1 $fa $46 $df
+    ld   A, [wCartidgeCount]                           ;; 01:5fe1 $fa $46 $df
     ld   L, A                                          ;; 01:5fe4 $6f
-    ld   A, [wDF47]                                    ;; 01:5fe5 $fa $47 $df
+    ld   A, [wCartidgeCount.high]                      ;; 01:5fe5 $fa $47 $df
     ld   H, A                                          ;; 01:5fe8 $67
     add  HL, DE                                        ;; 01:5fe9 $19
     call call_01_6003                                  ;; 01:5fea $cd $03 $60
     call call_01_4e3a                                  ;; 01:5fed $cd $3a $4e
-    ld   HL, wDF44                                     ;; 01:5ff0 $21 $44 $df
+    ld   HL, wMaxHealth                                ;; 01:5ff0 $21 $44 $df
     cp   A, [HL]                                       ;; 01:5ff3 $be
     ret  Z                                             ;; 01:5ff4 $c8
     ld   [HL], A                                       ;; 01:5ff5 $77
@@ -4056,9 +4056,9 @@ call_01_6003:
     ld   H, D                                          ;; 01:6012 $62
 .jr_01_6013:
     ld   A, L                                          ;; 01:6013 $7d
-    ld   [wDF46], A                                    ;; 01:6014 $ea $46 $df
+    ld   [wCartidgeCount], A                           ;; 01:6014 $ea $46 $df
     ld   A, H                                          ;; 01:6017 $7c
-    ld   [wDF47], A                                    ;; 01:6018 $ea $47 $df
+    ld   [wCartidgeCount.high], A                      ;; 01:6018 $ea $47 $df
     ret                                                ;; 01:601b $c9
 
 call_01_601c:
@@ -4066,9 +4066,9 @@ call_01_601c:
     or   A, A                                          ;; 01:601f $b7
     ret  NZ                                            ;; 01:6020 $c0
     ld   HL, wC265                                     ;; 01:6021 $21 $65 $c2
-    ld   A, [wDF43]                                    ;; 01:6024 $fa $43 $df
+    ld   A, [wHealth]                                  ;; 01:6024 $fa $43 $df
     ld   B, A                                          ;; 01:6027 $47
-    ld   A, [wDF44]                                    ;; 01:6028 $fa $44 $df
+    ld   A, [wMaxHealth]                               ;; 01:6028 $fa $44 $df
     sub  A, B                                          ;; 01:602b $90
     ld   C, A                                          ;; 01:602c $4f
     ld   A, B                                          ;; 01:602d $78
@@ -4093,7 +4093,7 @@ call_01_601c:
     cp   A, $02                                        ;; 01:6044 $fe $02
     ld   A, $07                                        ;; 01:6046 $3e $07
     jr   Z, .jr_01_6056                                ;; 01:6048 $28 $0c
-    ld   A, [wDF44]                                    ;; 01:604a $fa $44 $df
+    ld   A, [wMaxHealth]                               ;; 01:604a $fa $44 $df
     add  A, A                                          ;; 01:604d $87
     add  A, A                                          ;; 01:604e $87
     add  A, A                                          ;; 01:604f $87
@@ -4117,8 +4117,8 @@ call_01_6059:
     ret                                                ;; 01:6067 $c9
 .jr_01_6068:
     ld   [HL], $00                                     ;; 01:6068 $36 $00
-    ld   A, [wDF44]                                    ;; 01:606a $fa $44 $df
-    ld   [wDF43], A                                    ;; 01:606d $ea $43 $df
+    ld   A, [wMaxHealth]                               ;; 01:606a $fa $44 $df
+    ld   [wHealth], A                                  ;; 01:606d $ea $43 $df
     ld   [wC264], A                                    ;; 01:6070 $ea $64 $c2
     ret                                                ;; 01:6073 $c9
 
@@ -5619,7 +5619,7 @@ call_01_6ba9:
     ld   A, B                                          ;; 01:6bbd $78
     or   A, C                                          ;; 01:6bbe $b1
     jr   Z, .jr_01_6bc8                                ;; 01:6bbf $28 $07
-    ld   A, [wD2DB]                                    ;; 01:6bc1 $fa $db $d2
+    ld   A, [wLevelDecodePointerLow]                   ;; 01:6bc1 $fa $db $d2
     add  A, C                                          ;; 01:6bc4 $81
     call call_00_0cb5                                  ;; 01:6bc5 $cd $b5 $0c
 .jr_01_6bc8:
@@ -6239,7 +6239,7 @@ data_01_7107:
     db   $53, $78, $46, $48, $6d, $cd, $4c, $00        ;; 01:719f ????????
 
 call_01_71a7:
-    ld   HL, wD500                                     ;; 01:71a7 $21 $00 $d5
+    ld   HL, wLevelMetaMetaTiles                       ;; 01:71a7 $21 $00 $d5
     call call_00_0d88                                  ;; 01:71aa $cd $88 $0d
     ld   E, [HL]                                       ;; 01:71ad $5e
     inc  HL                                            ;; 01:71ae $23
@@ -6566,7 +6566,7 @@ jp_01_7459:
     jr   NZ, .jr_01_7488                               ;; 01:747c $20 $0a
     ld   [HL], $ff                                     ;; 01:747e $36 $ff
     ld   A, $03                                        ;; 01:7480 $3e $03
-    ld   [wDF52], A                                    ;; 01:7482 $ea $52 $df
+    ld   [wContinueCount], A                           ;; 01:7482 $ea $52 $df
     jp   jp_01_7364                                    ;; 01:7485 $c3 $64 $73
 .jr_01_7488:
     jp   jp_01_7371                                    ;; 01:7488 $c3 $71 $73
@@ -6870,7 +6870,7 @@ call_01_765b:
 
 call_01_7662:
     ld   A, [wDF5D]                                    ;; 01:7662 $fa $5d $df
-    ld   HL, wD500                                     ;; 01:7665 $21 $00 $d5
+    ld   HL, wLevelMetaMetaTiles                       ;; 01:7665 $21 $00 $d5
     call call_00_0d88                                  ;; 01:7668 $cd $88 $0d
     inc  HL                                            ;; 01:766b $23
     inc  HL                                            ;; 01:766c $23
@@ -7028,7 +7028,7 @@ call_01_7714:
     ld   A, D                                          ;; 01:7732 $7a
     ld   [wCC02], A                                    ;; 01:7733 $ea $02 $cc
     ld   A, $02                                        ;; 01:7736 $3e $02
-    ld   [wD2DB], A                                    ;; 01:7738 $ea $db $d2
+    ld   [wLevelDecodePointerLow], A                   ;; 01:7738 $ea $db $d2
     ld   A, B                                          ;; 01:773b $78
     call call_01_6ba9                                  ;; 01:773c $cd $a9 $6b
     ld   HL, wCC10                                     ;; 01:773f $21 $10 $cc
@@ -7053,7 +7053,7 @@ call_01_775b:
     ld   A, [wDF60]                                    ;; 01:775b $fa $60 $df
     ld   B, A                                          ;; 01:775e $47
     ld   A, [wDF5D]                                    ;; 01:775f $fa $5d $df
-    ld   HL, wD500                                     ;; 01:7762 $21 $00 $d5
+    ld   HL, wLevelMetaMetaTiles                       ;; 01:7762 $21 $00 $d5
     call call_00_0d88                                  ;; 01:7765 $cd $88 $0d
     inc  HL                                            ;; 01:7768 $23
     inc  HL                                            ;; 01:7769 $23
@@ -7298,7 +7298,7 @@ call_01_78c5:
 
 call_01_78d9:
     ld   HL, data_01_71b1                              ;; 01:78d9 $21 $b1 $71
-    ld   DE, wD500                                     ;; 01:78dc $11 $00 $d5
+    ld   DE, wLevelMetaMetaTiles                       ;; 01:78dc $11 $00 $d5
     ld   BC, $26                                       ;; 01:78df $01 $26 $00
     jp   call_00_0c12                                  ;; 01:78e2 $c3 $12 $0c
 

@@ -73,7 +73,7 @@ jp_0f_4097:
     ld   A, $03                                        ;; 0f:409d $3e $03
     call call_00_0198                                  ;; 0f:409f $cd $98 $01
     ld   [wCC03], A                                    ;; 0f:40a2 $ea $03 $cc
-    ld   A, [wDF52]                                    ;; 0f:40a5 $fa $52 $df
+    ld   A, [wContinueCount]                           ;; 0f:40a5 $fa $52 $df
     or   A, A                                          ;; 0f:40a8 $b7
     ld   A, $02                                        ;; 0f:40a9 $3e $02
     ld   B, $00                                        ;; 0f:40ab $06 $00
@@ -288,7 +288,7 @@ call_0f_41d3:
     jp   jp_00_030c                                    ;; 0f:4225 $c3 $0c $03
 
 call_0f_4228:
-    ld   A, [wDF52]                                    ;; 0f:4228 $fa $52 $df
+    ld   A, [wContinueCount]                           ;; 0f:4228 $fa $52 $df
     or   A, A                                          ;; 0f:422b $b7
     jr   Z, .jr_0f_4238                                ;; 0f:422c $28 $0a
     add  A, $82                                        ;; 0f:422e $c6 $82

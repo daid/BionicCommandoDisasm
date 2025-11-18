@@ -1312,22 +1312,23 @@ wD2D0:
 wD2D1:
     ds 10                                              ;; d2d1
 
-wD2DB:
+wLevelDecodePointerLow:
     ds 1                                               ;; d2db
 
-wD2DC:
+wLevelDecodePointerHigh:
     ds 1                                               ;; d2dc
 
-wD2DD:
+; amount of valid bits still in wLevelDecodeData
+wLevelDecodeDataBitCount:
     ds 1                                               ;; d2dd
 
-wD2DE:
+wLevelDecodeData:
     ds 1                                               ;; d2de
 
-wD2DF:
+wLevelDecodeBitsizeA:
     ds 1                                               ;; d2df
 
-wD2E0:
+wLevelDecodeBitsizeB:
     ds 1                                               ;; d2e0
 
 wD2E1:
@@ -1360,10 +1361,10 @@ wD2F2:
 wD2F3:
     ds 1                                               ;; d2f3
 
-wD2F4:
+wLevelWidthInMetaMetaTiles:
     ds 1                                               ;; d2f4
 
-wD2F5:
+wLevelHeightInMetaMetaTiles:
     ds 1                                               ;; d2f5
 
 wD2F6:
@@ -1450,16 +1451,13 @@ wD320:
 wD321:
     ds 479                                             ;; d321
 
-wD500:
+wLevelMetaMetaTiles:
     ds 2                                               ;; d500
-
-wD502:
+.wD502:
     ds 126                                             ;; d502
-
-wD580:
+.wD580:
     ds 128                                             ;; d580
-
-wD600:
+.wD600:
     ds 1504                                            ;; d600
 
 wDBE0:
@@ -1537,19 +1535,19 @@ wDF41:
 wDF42:
     ds 1                                               ;; df42
 
-wDF43:
+wHealth:
     ds 1                                               ;; df43
 
-wDF44:
+wMaxHealth:
     ds 1                                               ;; df44
 
-wDF45:
+; Includes the current life (displayed is -1)
+wExtraLifeCount:
     ds 1                                               ;; df45
 
-wDF46:
+wCartidgeCount:
     ds 1                                               ;; df46
-
-wDF47:
+.high:
     ds 1                                               ;; df47
 
 wDF48:
@@ -1582,7 +1580,7 @@ wDF50:
 wDF51:
     ds 1                                               ;; df51
 
-wDF52:
+wContinueCount:
     ds 1                                               ;; df52
 
 wDF53:

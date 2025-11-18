@@ -863,8 +863,8 @@ jp_02_4e1f:
     inc  A                                             ;; 02:4f29 $3c
     jp   NZ, $f218                                     ;; 02:4f2a $c2 $18 $f2
 .jp_02_4f2d:
-    ld   A, [wDF44]                                    ;; 02:4f2d $fa $44 $df
-    ld   [wDF43], A                                    ;; 02:4f30 $ea $43 $df
+    ld   A, [wMaxHealth]                               ;; 02:4f2d $fa $44 $df
+    ld   [wHealth], A                                  ;; 02:4f30 $ea $43 $df
     ld   [wC264], A                                    ;; 02:4f33 $ea $64 $c2
     jr   .jp_02_4f1f                                   ;; 02:4f36 $18 $e7
 .jp_02_4f38:
@@ -872,7 +872,7 @@ jp_02_4e1f:
     ld   [wD2B2], A                                    ;; 02:4f3a $ea $b2 $d2
     jr   .jp_02_4f1f                                   ;; 02:4f3d $18 $e0
 .jp_02_4f3f:
-    ld   A, [wDF45]                                    ;; 02:4f3f $fa $45 $df
+    ld   A, [wExtraLifeCount]                          ;; 02:4f3f $fa $45 $df
     inc  A                                             ;; 02:4f42 $3c
     cp   A, $0b                                        ;; 02:4f43 $fe $0b
     jr   C, .jr_02_4f4b                                ;; 02:4f45 $38 $04
@@ -884,7 +884,7 @@ jp_02_4e1f:
     inc  D                                             ;; 02:4f4d $14
     pop  AF                                            ;; 02:4f4e $f1
 .jr_02_4f4f:
-    ld   [wDF45], A                                    ;; 02:4f4f $ea $45 $df
+    ld   [wExtraLifeCount], A                          ;; 02:4f4f $ea $45 $df
     jr   .jp_02_4f1f                                   ;; 02:4f52 $18 $cb
 .jp_02_4f54:
     rst  rst_00_0008                                   ;; 02:4f54 $cf
@@ -919,7 +919,7 @@ jp_02_4e1f:
     ld   [wDF4A], A                                    ;; 02:4f81 $ea $4a $df
     jr   .jp_02_4f1f                                   ;; 02:4f84 $18 $99
 .jp_02_4f86:
-    ld   A, [wDF52]                                    ;; 02:4f86 $fa $52 $df
+    ld   A, [wContinueCount]                           ;; 02:4f86 $fa $52 $df
     inc  A                                             ;; 02:4f89 $3c
     cp   A, $0a                                        ;; 02:4f8a $fe $0a
     jr   C, .jr_02_4f92                                ;; 02:4f8c $38 $04
@@ -931,7 +931,7 @@ jp_02_4e1f:
     inc  D                                             ;; 02:4f94 $14
     pop  AF                                            ;; 02:4f95 $f1
 .jr_02_4f96:
-    ld   [wDF52], A                                    ;; 02:4f96 $ea $52 $df
+    ld   [wContinueCount], A                           ;; 02:4f96 $ea $52 $df
     jp   .jp_02_4f1f                                   ;; 02:4f99 $c3 $1f $4f
 
 call_02_4f9c:

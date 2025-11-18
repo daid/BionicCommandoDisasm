@@ -2453,7 +2453,7 @@ jr_00_112b:
     db   $3e, $03, $18, $f6                            ;; 00:11f0 ????
 
 call_00_11f4:
-    ld   A, [wC0D8]                                    ;; 00:11f4 $fa $d8 $c0
+    ld   A, [wLevelRomBank]                            ;; 00:11f4 $fa $d8 $c0
     ld   [wActiveRomBank], A                           ;; 00:11f7 $ea $d3 $c0
     ld   [$2100], A                                    ;; 00:11fa $ea $00 $21
     call call_00_1202                                  ;; 00:11fd $cd $02 $12
@@ -3261,7 +3261,7 @@ call_00_17fc:
     ld   [wD30C], A                                    ;; 00:180b $ea $0c $d3
     ld   E, A                                          ;; 00:180e $5f
     ld   A, B                                          ;; 00:180f $78
-    ld   [wC0D8], A                                    ;; 00:1810 $ea $d8 $c0
+    ld   [wLevelRomBank], A                            ;; 00:1810 $ea $d8 $c0
     ld   [wActiveRomBank], A                           ;; 00:1813 $ea $d3 $c0
     ld   [$2100], A                                    ;; 00:1816 $ea $00 $21
     ld   A, E                                          ;; 00:1819 $7b
@@ -3379,7 +3379,7 @@ call_00_17fc:
     ld   [wActiveRomBank], A                           ;; 00:191f $ea $d3 $c0
     ld   [$2100], A                                    ;; 00:1922 $ea $00 $21
     call call_04_4004                                  ;; 00:1925 $cd $04 $40
-    ld   A, [wC0D8]                                    ;; 00:1928 $fa $d8 $c0
+    ld   A, [wLevelRomBank]                            ;; 00:1928 $fa $d8 $c0
     ld   [wActiveRomBank], A                           ;; 00:192b $ea $d3 $c0
     ld   [$2100], A                                    ;; 00:192e $ea $00 $21
     ld   A, [HL+]                                      ;; 00:1931 $2a
@@ -5912,7 +5912,7 @@ call_00_2d1e:
     call call_00_2dc1                                  ;; 00:2dad $cd $c1 $2d
     ld   HL, wC572                                     ;; 00:2db0 $21 $72 $c5
     inc  [HL]                                          ;; 00:2db3 $34
-    ld   A, [wC0D8]                                    ;; 00:2db4 $fa $d8 $c0
+    ld   A, [wLevelRomBank]                            ;; 00:2db4 $fa $d8 $c0
     ld   [wActiveRomBank], A                           ;; 00:2db7 $ea $d3 $c0
     ld   [$2100], A                                    ;; 00:2dba $ea $00 $21
     pop  HL                                            ;; 00:2dbd $e1

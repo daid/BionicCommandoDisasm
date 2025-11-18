@@ -46,7 +46,7 @@ wActiveRomBank:
 wC0D5:
     ds 3                                               ;; c0d5
 
-wC0D8:
+wLevelRomBank:
     ds 1                                               ;; c0d8
 
 wBGP:

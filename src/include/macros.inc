@@ -10,12 +10,10 @@ shift
 dw \1
 shift
 ENDM
-MACRO data_bbwwwwwwpp
+MACRO data_bbwwwwwwp
 db \1
 shift
 db \1
-shift
-dw \1
 shift
 dw \1
 shift

@@ -6,7 +6,10 @@ INCLUDE "include/charmaps.inc"
 INCLUDE "include/constants.inc"
 
 SECTION "bank03", ROMX[$4000], BANK[$03]
-    db   $2b, $79, $2b, $79, $2b, $79                  ;; 03:4000 ??????
+;@data format=p amount=3
+    dw   data_03_792b                                  ;; 03:4000 ?? $00
+    dw   data_03_792b                                  ;; 03:4002 ?? $01
+    dw   data_03_792b                                  ;; 03:4004 ?? $02
 
 call_03_4006:
     jp   jp_03_78aa                                    ;; 03:4006 $c3 $aa $78
@@ -2848,7 +2851,7 @@ call_03_73d8:
     ret                                                ;; 03:7404 $c9
 
 jp_03_7405:
-    ld   A, [wDFA2]                                    ;; 03:7405 $fa $a2 $df
+    ld   A, [wGlobalLevelEntryNumber]                  ;; 03:7405 $fa $a2 $df
     ld   B, A                                          ;; 03:7408 $47
     ld   HL, data_03_72fd                              ;; 03:7409 $21 $fd $72
 .jr_03_740c:
@@ -2865,7 +2868,7 @@ jp_03_7405:
     push HL                                            ;; 03:7417 $e5
     call call_03_7422                                  ;; 03:7418 $cd $22 $74
     pop  HL                                            ;; 03:741b $e1
-    ld   A, [wDFA2]                                    ;; 03:741c $fa $a2 $df
+    ld   A, [wGlobalLevelEntryNumber]                  ;; 03:741c $fa $a2 $df
     ld   B, A                                          ;; 03:741f $47
     jr   .jr_03_7413                                   ;; 03:7420 $18 $f1
 
@@ -3028,7 +3031,7 @@ call_03_75b4:
     ldh  [rWY], A                                      ;; 03:75d0 $e0 $4a
     call call_00_03cf                                  ;; 03:75d2 $cd $cf $03
     ld   A, $04                                        ;; 03:75d5 $3e $04
-    ld   [wD2ED], A                                    ;; 03:75d7 $ea $ed $d2
+    ld   [wLevelGraphicsIndex], A                      ;; 03:75d7 $ea $ed $d2
     call call_00_02be                                  ;; 03:75da $cd $be $02
     ld   HL, .data_03_7799                             ;; 03:75dd $21 $99 $77
     call call_00_02c4                                  ;; 03:75e0 $cd $c4 $02
@@ -3168,6 +3171,8 @@ jp_03_78aa:
     db   $27, $28, $a8, $17, $18, $b3, $37, $38        ;; 03:7913 ????????
     db   $bb, $1b, $1c, $cc, $43, $44, $25, $55        ;; 03:791b ????????
     db   $56, $d1, $3c, $3d, $7a, $1e, $1f, $ff        ;; 03:7923 ????????
+
+data_03_792b:
     db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 03:792b ????????
     db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 03:7933 ????????
     db   $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff        ;; 03:793b ????????

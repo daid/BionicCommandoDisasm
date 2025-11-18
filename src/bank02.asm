@@ -2998,7 +2998,7 @@ data_02_737e:
     ret                                                ;; 02:73a5 $c9
 
 call_02_73a6:
-    ld   A, [wD2F3]                                    ;; 02:73a6 $fa $f3 $d2
+    ld   A, [wGlobalLevelLayoutNumber]                 ;; 02:73a6 $fa $f3 $d2
     or   A, A                                          ;; 02:73a9 $b7
     ld   DE, $9150                                     ;; 02:73aa $11 $50 $91
     ret  Z                                             ;; 02:73ad $c8

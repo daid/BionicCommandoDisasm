@@ -7,10 +7,9 @@ INCLUDE "include/constants.inc"
 
 SECTION "wram0", WRAM0[$c000]
 
-wC000:
+wOAMBuffer:
     ds 40                                              ;; c000
-
-wC028:
+.28:
     ds 124                                             ;; c028
 
 wC0A4:
@@ -43,10 +42,10 @@ wC0D2:
 wActiveRomBank:
     ds 2                                               ;; c0d3
 
-wC0D5:
+wLevelLayoutRomBank:
     ds 3                                               ;; c0d5
 
-wLevelRomBank:
+wLevelEntryRomBank:
     ds 1                                               ;; c0d8
 
 wBGP:
@@ -370,7 +369,11 @@ wC234:
 wC236:
     ds 1                                               ;; c236
 
-wC237:
+; Flags that influence how the level start happens:
+; bit 0: looking left
+; bit 1: parachute
+; bit 2: no music
+wLevelStartFlags:
     ds 1                                               ;; c237
 
 wC238:
@@ -1340,7 +1343,8 @@ wD2E2:
 wD2E3:
     ds 10                                              ;; d2e3
 
-wD2ED:
+; Loaded from level layout table.
+wLevelGraphicsIndex:
     ds 1                                               ;; d2ed
 
 wD2EE:
@@ -1354,11 +1358,10 @@ wD2F0:
 
 wD2F1:
     ds 1                                               ;; d2f1
-
-wD2F2:
+.high:
     ds 1                                               ;; d2f2
 
-wD2F3:
+wGlobalLevelLayoutNumber:
     ds 1                                               ;; d2f3
 
 wLevelWidthInMetaMetaTiles:
@@ -1376,34 +1379,29 @@ wD2F7:
 wD2F8:
     ds 1                                               ;; d2f8
 
-wD2F9:
+wLevelLayoutPhysicsPtr:
     ds 1                                               ;; d2f9
-
-wD2FA:
+.high:
     ds 1                                               ;; d2fa
 
-wD2FB:
+wLevelLayoutMetatilePtr:
     ds 1                                               ;; d2fb
-
-wD2FC:
+.high:
     ds 1                                               ;; d2fc
 
-wD2FD:
+wLevelLayoutMegatilePtr:
     ds 1                                               ;; d2fd
-
-wD2FE:
+.high:
     ds 1                                               ;; d2fe
 
-wD2FF:
+wLevelLayoutTilemapPtr:
     ds 1                                               ;; d2ff
-
-wD300:
+.high:
     ds 1                                               ;; d300
 
-wD301:
+wLevelLayoutPtr:
     ds 1                                               ;; d301
-
-wD302:
+.high:
     ds 1                                               ;; d302
 
 wD303:
@@ -1430,10 +1428,11 @@ wD309:
 wD30A:
     ds 1                                               ;; d30a
 
-wD30B:
+wLevelLayoutNumberOffset:
     ds 1                                               ;; d30b
 
-wD30C:
+; Index of the current level entry in the selected level entry bank
+wLevelEntryNumberOffset:
     ds 1                                               ;; d30c
 
 wD30D:
@@ -1650,7 +1649,8 @@ wDFA0:
 wDFA1:
     ds 1                                               ;; dfa1
 
-wDFA2:
+; Entry number that encodes level entry and bank in one. See getBankForLevelEntryNumber
+wGlobalLevelEntryNumber:
     ds 1                                               ;; dfa2
 
 wDFA3:

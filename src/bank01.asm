@@ -1386,7 +1386,7 @@ call_01_4d80:
     ld   [wC2D5], A                                    ;; 01:4d81 $ea $d5 $c2
     ld   [wC2A9], A                                    ;; 01:4d84 $ea $a9 $c2
     ld   [wC200], A                                    ;; 01:4d87 $ea $00 $c2
-    ld   A, [wC237]                                    ;; 01:4d8a $fa $37 $c2
+    ld   A, [wLevelStartFlags]                         ;; 01:4d8a $fa $37 $c2
     ld   B, A                                          ;; 01:4d8d $47
     xor  A, A                                          ;; 01:4d8e $af
     bit  7, B                                          ;; 01:4d8f $cb $78
@@ -1406,7 +1406,7 @@ call_01_4d80:
     ld   A, [wDFAA]                                    ;; 01:4daa $fa $aa $df
     or   A, A                                          ;; 01:4dad $b7
     jr   NZ, .jr_01_4dd8                               ;; 01:4dae $20 $28
-    ld   A, [wC237]                                    ;; 01:4db0 $fa $37 $c2
+    ld   A, [wLevelStartFlags]                         ;; 01:4db0 $fa $37 $c2
     and  A, $02                                        ;; 01:4db3 $e6 $02
     jr   Z, .jr_01_4dd8                                ;; 01:4db5 $28 $21
     ld   HL, wDF0C                                     ;; 01:4db7 $21 $0c $df
@@ -1425,9 +1425,9 @@ call_01_4d80:
     jr   .jr_01_4de5                                   ;; 01:4dd6 $18 $0d
 .jr_01_4dd8:
     call call_00_05e5                                  ;; 01:4dd8 $cd $e5 $05
-    ld   A, [wC237]                                    ;; 01:4ddb $fa $37 $c2
+    ld   A, [wLevelStartFlags]                         ;; 01:4ddb $fa $37 $c2
     and  A, $05                                        ;; 01:4dde $e6 $05
-    ld   [wC237], A                                    ;; 01:4de0 $ea $37 $c2
+    ld   [wLevelStartFlags], A                         ;; 01:4de0 $ea $37 $c2
     ld   A, $00                                        ;; 01:4de3 $3e $00
 .jr_01_4de5:
     ld   [wC20B], A                                    ;; 01:4de5 $ea $0b $c2
@@ -1923,7 +1923,7 @@ call_01_5111:
     cp   A, $01                                        ;; 01:511e $fe $01
     ret  Z                                             ;; 01:5120 $c8
     call call_01_50b9                                  ;; 01:5121 $cd $b9 $50
-    ld   A, [wDFA2]                                    ;; 01:5124 $fa $a2 $df
+    ld   A, [wGlobalLevelEntryNumber]                  ;; 01:5124 $fa $a2 $df
     cp   A, $5f                                        ;; 01:5127 $fe $5f
     jr   NZ, .jr_01_513b                               ;; 01:5129 $20 $10
     ld   A, [wC24A]                                    ;; 01:512b $fa $4a $c2
@@ -3593,7 +3593,7 @@ jr_01_5cf9:
     ld   A, B                                          ;; 01:5d38 $78
     and  A, $0f                                        ;; 01:5d39 $e6 $0f
     ld   B, A                                          ;; 01:5d3b $47
-    ld   DE, wC000                                     ;; 01:5d3c $11 $00 $c0
+    ld   DE, wOAMBuffer                                ;; 01:5d3c $11 $00 $c0
     xor  A, A                                          ;; 01:5d3f $af
     ldh  [hFF8D], A                                    ;; 01:5d40 $e0 $8d
 .jr_01_5d42:
@@ -4483,7 +4483,7 @@ data_01_62e5:
 
 call_01_62f4:
     xor  A, A                                          ;; 01:62f4 $af
-    ld   [wD2ED], A                                    ;; 01:62f5 $ea $ed $d2
+    ld   [wLevelGraphicsIndex], A                      ;; 01:62f5 $ea $ed $d2
     call call_00_1c77                                  ;; 01:62f8 $cd $77 $1c
     ld   HL, data_01_64e8                              ;; 01:62fb $21 $e8 $64
     ld   DE, $9040                                     ;; 01:62fe $11 $40 $90
@@ -6445,7 +6445,7 @@ jp_01_7371:
     call call_01_739e                                  ;; 01:7391 $cd $9e $73
     cp   A, $ff                                        ;; 01:7394 $fe $ff
     jr   Z, jp_01_7364                                 ;; 01:7396 $28 $cc
-    ld   [wDFA2], A                                    ;; 01:7398 $ea $a2 $df
+    ld   [wGlobalLevelEntryNumber], A                  ;; 01:7398 $ea $a2 $df
     jp   jp_00_1425                                    ;; 01:739b $c3 $25 $14
 
 call_01_739e:
@@ -7169,7 +7169,7 @@ jp_01_77bf:
     or   A, A                                          ;; 01:7817 $b7
     ld   A, $0e                                        ;; 01:7818 $3e $0e
     call NZ, call_01_7823                              ;; 01:781a $c4 $23 $78
-    ld   [wDFA2], A                                    ;; 01:781d $ea $a2 $df
+    ld   [wGlobalLevelEntryNumber], A                  ;; 01:781d $ea $a2 $df
     jp   jp_00_1425                                    ;; 01:7820 $c3 $25 $14
 
 call_01_7823:

@@ -356,7 +356,7 @@ data_04_45c1:
     db   $45, $00, $05, $a0, $00                       ;; 04:46e9 ?????
 
 jp_04_46ee:
-    ld   A, [wDFA2]                                    ;; 04:46ee $fa $a2 $df
+    ld   A, [wGlobalLevelEntryNumber]                  ;; 04:46ee $fa $a2 $df
     sub  A, $09                                        ;; 04:46f1 $d6 $09
     jr   C, .jr_04_4713                                ;; 04:46f3 $38 $1e
     cp   A, $05                                        ;; 04:46f5 $fe $05
@@ -2349,7 +2349,7 @@ jp_04_7d29:
     res  7, A                                          ;; 04:7d34 $cb $bf
     ld   [wDF53], A                                    ;; 04:7d36 $ea $53 $df
     ld   HL, data_04_7d0e                              ;; 04:7d39 $21 $0e $7d
-    ld   A, [wDFA2]                                    ;; 04:7d3c $fa $a2 $df
+    ld   A, [wGlobalLevelEntryNumber]                  ;; 04:7d3c $fa $a2 $df
     ld   B, A                                          ;; 04:7d3f $47
 .jr_04_7d40:
     ld   A, [HL+]                                      ;; 04:7d40 $2a

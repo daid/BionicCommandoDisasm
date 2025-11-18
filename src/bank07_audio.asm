@@ -3370,7 +3370,7 @@ jp_07_7807:
     jr   Z, .jr_07_7811                                ;; 07:780f $28 $00
 .jr_07_7811:
     ld   A, [HL+]                                      ;; 07:7811 $2a
-    ld   [wDFA2], A                                    ;; 07:7812 $ea $a2 $df
+    ld   [wGlobalLevelEntryNumber], A                  ;; 07:7812 $ea $a2 $df
     ld   DE, wDF4E                                     ;; 07:7815 $11 $4e $df
     call call_00_0180                                  ;; 07:7818 $cd $80 $01
     ld   A, L                                          ;; 07:781b $7d

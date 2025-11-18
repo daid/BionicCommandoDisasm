@@ -708,7 +708,7 @@ jp_00_06ad:
     db   $3e, $40, $e0, $b0, $18, $dd                  ;; 00:06ee ??????
 
 jp_00_06f4:
-    ld   HL, wC000                                     ;; 00:06f4 $21 $00 $c0
+    ld   HL, wOAMBuffer                                ;; 00:06f4 $21 $00 $c0
     ld   BC, $2000                                     ;; 00:06f7 $01 $00 $20
     xor  A, A                                          ;; 00:06fa $af
     call memset                                        ;; 00:06fb $cd $1d $0c
@@ -1512,8 +1512,8 @@ call_00_0b99:
     ldh  [rLCDC], A                                    ;; 00:0bb0 $e0 $40
     ret                                                ;; 00:0bb2 $c9
 
-call_00_0bb3:
-    ld   HL, wC000                                     ;; 00:0bb3 $21 $00 $c0
+clearOAM:
+    ld   HL, wOAMBuffer                                ;; 00:0bb3 $21 $00 $c0
     ld   DE, $04                                       ;; 00:0bb6 $11 $04 $00
     ld   BC, $28a0                                     ;; 00:0bb9 $01 $a0 $28
 .jr_00_0bbc:
@@ -1933,7 +1933,9 @@ call_00_0d93:
     ld   E, B                                          ;; 00:0d9f $58
     ret                                                ;; 00:0da0 $c9
 
-call_00_0da1:
+; On enter: HL points at a pointer pointing to a table with pointers.
+;   Get entry A from that table and store it in HL
+get_ptr_from_table_indirect:
     ld   E, [HL]                                       ;; 00:0da1 $5e
     inc  HL                                            ;; 00:0da2 $23
     ld   D, [HL]                                       ;; 00:0da3 $56
@@ -2453,7 +2455,7 @@ jr_00_112b:
     db   $3e, $03, $18, $f6                            ;; 00:11f0 ????
 
 call_00_11f4:
-    ld   A, [wLevelRomBank]                            ;; 00:11f4 $fa $d8 $c0
+    ld   A, [wLevelEntryRomBank]                       ;; 00:11f4 $fa $d8 $c0
     ld   [wActiveRomBank], A                           ;; 00:11f7 $ea $d3 $c0
     ld   [$2100], A                                    ;; 00:11fa $ea $00 $21
     call call_00_1202                                  ;; 00:11fd $cd $02 $12
@@ -2479,7 +2481,7 @@ call_00_1202:
     ld   D, A                                          ;; 00:121f $57
     ld   A, [wD2F1]                                    ;; 00:1220 $fa $f1 $d2
     ld   L, A                                          ;; 00:1223 $6f
-    ld   A, [wD2F2]                                    ;; 00:1224 $fa $f2 $d2
+    ld   A, [wD2F1.high]                               ;; 00:1224 $fa $f2 $d2
     ld   H, A                                          ;; 00:1227 $67
 .jr_00_1228:
     ld   A, [HL]                                       ;; 00:1228 $7e
@@ -2842,7 +2844,7 @@ jp_00_1425:
     nop                                                ;; 00:142e $00
     pop  AF                                            ;; 00:142f $f1
     jr   C, jp_00_1415                                 ;; 00:1430 $38 $e3
-    ld   A, [wDFA2]                                    ;; 00:1432 $fa $a2 $df
+    ld   A, [wGlobalLevelEntryNumber]                  ;; 00:1432 $fa $a2 $df
     cp   A, $5a                                        ;; 00:1435 $fe $5a
     jr   NZ, jr_00_1445                                ;; 00:1437 $20 $0c
     ld   A, $03                                        ;; 00:1439 $3e $03
@@ -2937,7 +2939,7 @@ jr_00_1445:
     ld   A, [wDF15]                                    ;; 00:14f9 $fa $15 $df
     or   A, A                                          ;; 00:14fc $b7
     jr   NZ, .jr_00_152f                               ;; 00:14fd $20 $30
-    ld   A, [wC237]                                    ;; 00:14ff $fa $37 $c2
+    ld   A, [wLevelStartFlags]                         ;; 00:14ff $fa $37 $c2
     bit  2, A                                          ;; 00:1502 $cb $57
     jr   Z, .jr_00_150a                                ;; 00:1504 $28 $04
     rst  rst_00_0008                                   ;; 00:1506 $cf
@@ -3129,7 +3131,7 @@ jr_00_16db:
     pop  BC                                            ;; 00:16ee $c1
     dec  B                                             ;; 00:16ef $05
     jr   NZ, .jr_00_16ea                               ;; 00:16f0 $20 $f8
-    ld   A, [wDFA2]                                    ;; 00:16f2 $fa $a2 $df
+    ld   A, [wGlobalLevelEntryNumber]                  ;; 00:16f2 $fa $a2 $df
     cp   A, $5f                                        ;; 00:16f5 $fe $5f
     jr   Z, .jr_00_1713                                ;; 00:16f7 $28 $1a
     ld   A, $03                                        ;; 00:16f9 $3e $03
@@ -3173,7 +3175,7 @@ jp_00_1723:
     db   $c0, $ea, $00, $21, $c3, $04, $40, $e7        ;; 00:1774 ????????
     db   $cd, $84, $60, $c3, $b2, $05                  ;; 00:177c ??????
 
-call_00_1782:
+load16hl_add40_store16de:
     ld   A, [HL+]                                      ;; 00:1782 $2a
     add  A, $40                                        ;; 00:1783 $c6 $40
     ld   [DE], A                                       ;; 00:1785 $12
@@ -3184,7 +3186,7 @@ call_00_1782:
     ret                                                ;; 00:178b $c9
 
 call_00_178c:
-    ld   A, [wDFA2]                                    ;; 00:178c $fa $a2 $df
+    ld   A, [wGlobalLevelEntryNumber]                  ;; 00:178c $fa $a2 $df
     cp   A, $5f                                        ;; 00:178f $fe $5f
     ret  NZ                                            ;; 00:1791 $c0
     ld   A, $04                                        ;; 00:1792 $3e $04
@@ -3206,7 +3208,7 @@ call_00_178c:
     ret                                                ;; 00:17b5 $c9
     db   $90, $00, $40, $00                            ;; 00:17b6 ????
 
-call_00_17ba:
+getBankForLevelLayoutNumber:
     cp   A, $50                                        ;; 00:17ba $fe $50
     jr   NC, .jr_00_17c2                               ;; 00:17bc $30 $04
     ld   B, $04                                        ;; 00:17be $06 $04
@@ -3229,83 +3231,84 @@ call_00_17ba:
 .jr_00_17da:
     ret                                                ;; 00:17da $c9
 
-call_00_17db:
+; For level entry number A return the bank in B and the level entry offset in A
+getBankForLevelEntryNumber:
     cp   A, $40                                        ;; 00:17db $fe $40
-    jr   NC, .jr_00_17e3                               ;; 00:17dd $30 $04
+    jr   NC, .above_40                                 ;; 00:17dd $30 $04
     ld   B, $04                                        ;; 00:17df $06 $04
-    jr   .jr_00_17fb                                   ;; 00:17e1 $18 $18
-.jr_00_17e3:
+    jr   .return                                       ;; 00:17e1 $18 $18
+.above_40:
     cp   A, $50                                        ;; 00:17e3 $fe $50
-    jr   NC, .jr_00_17ed                               ;; 00:17e5 $30 $06
+    jr   NC, .above_50                                 ;; 00:17e5 $30 $06
     ld   B, $03                                        ;; 00:17e7 $06 $03
     sub  A, $40                                        ;; 00:17e9 $d6 $40
-    jr   .jr_00_17fb                                   ;; 00:17eb $18 $0e
-.jr_00_17ed:
+    jr   .return                                       ;; 00:17eb $18 $0e
+.above_50:
     cp   A, $a0                                        ;; 00:17ed $fe $a0
-    jr   NC, .jr_00_17f7                               ;; 00:17ef $30 $06
+    jr   NC, .above_a0                                 ;; 00:17ef $30 $06
     ld   B, $08                                        ;; 00:17f1 $06 $08
     sub  A, $50                                        ;; 00:17f3 $d6 $50
-    jr   .jr_00_17fb                                   ;; 00:17f5 $18 $04
-.jr_00_17f7:
+    jr   .return                                       ;; 00:17f5 $18 $04
+.above_a0:
     ld   B, $09                                        ;; 00:17f7 $06 $09
     sub  A, $a0                                        ;; 00:17f9 $d6 $a0
-.jr_00_17fb:
+.return:
     ret                                                ;; 00:17fb $c9
 
 call_00_17fc:
-    call call_00_0bb3                                  ;; 00:17fc $cd $b3 $0b
+    call clearOAM                                      ;; 00:17fc $cd $b3 $0b
     call call_00_1599                                  ;; 00:17ff $cd $99 $15
     call call_00_3938                                  ;; 00:1802 $cd $38 $39
-    ld   A, [wDFA2]                                    ;; 00:1805 $fa $a2 $df
-    call call_00_17db                                  ;; 00:1808 $cd $db $17
-    ld   [wD30C], A                                    ;; 00:180b $ea $0c $d3
+    ld   A, [wGlobalLevelEntryNumber]                  ;; 00:1805 $fa $a2 $df
+    call getBankForLevelEntryNumber                    ;; 00:1808 $cd $db $17
+    ld   [wLevelEntryNumberOffset], A                  ;; 00:180b $ea $0c $d3
     ld   E, A                                          ;; 00:180e $5f
     ld   A, B                                          ;; 00:180f $78
-    ld   [wLevelRomBank], A                            ;; 00:1810 $ea $d8 $c0
+    ld   [wLevelEntryRomBank], A                       ;; 00:1810 $ea $d8 $c0
     ld   [wActiveRomBank], A                           ;; 00:1813 $ea $d3 $c0
     ld   [$2100], A                                    ;; 00:1816 $ea $00 $21
     ld   A, E                                          ;; 00:1819 $7b
     ld   HL, $4000                                     ;; 00:181a $21 $00 $40
-    call call_00_0da1                                  ;; 00:181d $cd $a1 $0d
+    call get_ptr_from_table_indirect                   ;; 00:181d $cd $a1 $0d
     ld   A, [HL+]                                      ;; 00:1820 $2a
-    ld   [wD2F3], A                                    ;; 00:1821 $ea $f3 $d2
-    call call_00_17ba                                  ;; 00:1824 $cd $ba $17
-    ld   [wD30B], A                                    ;; 00:1827 $ea $0b $d3
+    ld   [wGlobalLevelLayoutNumber], A                 ;; 00:1821 $ea $f3 $d2
+    call getBankForLevelLayoutNumber                   ;; 00:1824 $cd $ba $17
+    ld   [wLevelLayoutNumberOffset], A                 ;; 00:1827 $ea $0b $d3
     ld   A, B                                          ;; 00:182a $78
-    ld   [wC0D5], A                                    ;; 00:182b $ea $d5 $c0
+    ld   [wLevelLayoutRomBank], A                      ;; 00:182b $ea $d5 $c0
     ld   A, [HL+]                                      ;; 00:182e $2a
-    ld   [wC237], A                                    ;; 00:182f $ea $37 $c2
+    ld   [wLevelStartFlags], A                         ;; 00:182f $ea $37 $c2
     ld   DE, wC213                                     ;; 00:1832 $11 $13 $c2
-    call call_00_1782                                  ;; 00:1835 $cd $82 $17
+    call load16hl_add40_store16de                      ;; 00:1835 $cd $82 $17
     ld   DE, wC215                                     ;; 00:1838 $11 $15 $c2
-    call call_00_1782                                  ;; 00:183b $cd $82 $17
+    call load16hl_add40_store16de                      ;; 00:183b $cd $82 $17
     ld   DE, wC15B                                     ;; 00:183e $11 $5b $c1
-    call call_00_1782                                  ;; 00:1841 $cd $82 $17
+    call load16hl_add40_store16de                      ;; 00:1841 $cd $82 $17
     ld   DE, wC15D                                     ;; 00:1844 $11 $5d $c1
-    call call_00_1782                                  ;; 00:1847 $cd $82 $17
+    call load16hl_add40_store16de                      ;; 00:1847 $cd $82 $17
     ld   DE, wC169                                     ;; 00:184a $11 $69 $c1
-    call call_00_1782                                  ;; 00:184d $cd $82 $17
+    call load16hl_add40_store16de                      ;; 00:184d $cd $82 $17
     ld   DE, wC16B                                     ;; 00:1850 $11 $6b $c1
-    call call_00_1782                                  ;; 00:1853 $cd $82 $17
+    call load16hl_add40_store16de                      ;; 00:1853 $cd $82 $17
     call call_00_178c                                  ;; 00:1856 $cd $8c $17
     ld   A, [HL+]                                      ;; 00:1859 $2a
     ld   [wD2F1], A                                    ;; 00:185a $ea $f1 $d2
     ld   A, [HL+]                                      ;; 00:185d $2a
-    ld   [wD2F2], A                                    ;; 00:185e $ea $f2 $d2
+    ld   [wD2F1.high], A                               ;; 00:185e $ea $f2 $d2
     push HL                                            ;; 00:1861 $e5
-    ld   A, [wC237]                                    ;; 00:1862 $fa $37 $c2
+    ld   A, [wLevelStartFlags]                         ;; 00:1862 $fa $37 $c2
     swap A                                             ;; 00:1865 $cb $37
     and  A, $07                                        ;; 00:1867 $e6 $07
     add  A, A                                          ;; 00:1869 $87
     ld   [wDF93], A                                    ;; 00:186a $ea $93 $df
-    ld   A, [wC0D5]                                    ;; 00:186d $fa $d5 $c0
+    ld   A, [wLevelLayoutRomBank]                      ;; 00:186d $fa $d5 $c0
     ld   [wActiveRomBank], A                           ;; 00:1870 $ea $d3 $c0
     ld   [$2100], A                                    ;; 00:1873 $ea $00 $21
     ld   HL, $4002                                     ;; 00:1876 $21 $02 $40
     ld   A, [HL+]                                      ;; 00:1879 $2a
     ld   H, [HL]                                       ;; 00:187a $66
     ld   L, A                                          ;; 00:187b $6f
-    ld   A, [wD30B]                                    ;; 00:187c $fa $0b $d3
+    ld   A, [wLevelLayoutNumberOffset]                 ;; 00:187c $fa $0b $d3
     ld   E, A                                          ;; 00:187f $5f
     add  A, A                                          ;; 00:1880 $87
     add  A, E                                          ;; 00:1881 $83
@@ -3314,34 +3317,34 @@ call_00_17fc:
     add  HL, DE                                        ;; 00:1885 $19
     ld   A, [HL+]                                      ;; 00:1886 $2a
     ld   E, A                                          ;; 00:1887 $5f
-    ld   [wD301], A                                    ;; 00:1888 $ea $01 $d3
+    ld   [wLevelLayoutPtr], A                          ;; 00:1888 $ea $01 $d3
     ld   A, [HL+]                                      ;; 00:188b $2a
     ld   D, A                                          ;; 00:188c $57
-    ld   [wD302], A                                    ;; 00:188d $ea $02 $d3
+    ld   [wLevelLayoutPtr.high], A                     ;; 00:188d $ea $02 $d3
     ld   A, [HL+]                                      ;; 00:1890 $2a
-    ld   [wD2ED], A                                    ;; 00:1891 $ea $ed $d2
+    ld   [wLevelGraphicsIndex], A                      ;; 00:1891 $ea $ed $d2
     ld   L, E                                          ;; 00:1894 $6b
     ld   H, D                                          ;; 00:1895 $62
     ld   A, [HL+]                                      ;; 00:1896 $2a
-    ld   [wD2F9], A                                    ;; 00:1897 $ea $f9 $d2
+    ld   [wLevelLayoutPhysicsPtr], A                   ;; 00:1897 $ea $f9 $d2
     ld   A, [HL+]                                      ;; 00:189a $2a
-    ld   [wD2FA], A                                    ;; 00:189b $ea $fa $d2
+    ld   [wLevelLayoutPhysicsPtr.high], A              ;; 00:189b $ea $fa $d2
     ld   A, [HL+]                                      ;; 00:189e $2a
-    ld   [wD2FB], A                                    ;; 00:189f $ea $fb $d2
+    ld   [wLevelLayoutMetatilePtr], A                  ;; 00:189f $ea $fb $d2
     ld   A, [HL+]                                      ;; 00:18a2 $2a
-    ld   [wD2FC], A                                    ;; 00:18a3 $ea $fc $d2
+    ld   [wLevelLayoutMetatilePtr.high], A             ;; 00:18a3 $ea $fc $d2
     ld   A, [HL+]                                      ;; 00:18a6 $2a
-    ld   [wD2FD], A                                    ;; 00:18a7 $ea $fd $d2
+    ld   [wLevelLayoutMegatilePtr], A                  ;; 00:18a7 $ea $fd $d2
     ld   A, [HL+]                                      ;; 00:18aa $2a
-    ld   [wD2FE], A                                    ;; 00:18ab $ea $fe $d2
+    ld   [wLevelLayoutMegatilePtr.high], A             ;; 00:18ab $ea $fe $d2
     ld   A, [HL+]                                      ;; 00:18ae $2a
-    ld   [wD2FF], A                                    ;; 00:18af $ea $ff $d2
+    ld   [wLevelLayoutTilemapPtr], A                   ;; 00:18af $ea $ff $d2
     ld   A, [HL+]                                      ;; 00:18b2 $2a
-    ld   [wD300], A                                    ;; 00:18b3 $ea $00 $d3
+    ld   [wLevelLayoutTilemapPtr.high], A              ;; 00:18b3 $ea $00 $d3
     ld   DE, wC157                                     ;; 00:18b6 $11 $57 $c1
-    call call_00_1782                                  ;; 00:18b9 $cd $82 $17
+    call load16hl_add40_store16de                      ;; 00:18b9 $cd $82 $17
     ld   DE, wC159                                     ;; 00:18bc $11 $59 $c1
-    call call_00_1782                                  ;; 00:18bf $cd $82 $17
+    call load16hl_add40_store16de                      ;; 00:18bf $cd $82 $17
     ld   A, [wC15B]                                    ;; 00:18c2 $fa $5b $c1
     ld   [wC163], A                                    ;; 00:18c5 $ea $63 $c1
     ld   A, [wC15C]                                    ;; 00:18c8 $fa $5c $c1
@@ -3359,7 +3362,7 @@ call_00_17fc:
     ld   [wActiveRomBank], A                           ;; 00:18eb $ea $d3 $c0
     ld   [$2100], A                                    ;; 00:18ee $ea $00 $21
     call call_03_4015                                  ;; 00:18f1 $cd $15 $40
-    ld   A, [wC0D5]                                    ;; 00:18f4 $fa $d5 $c0
+    ld   A, [wLevelLayoutRomBank]                      ;; 00:18f4 $fa $d5 $c0
     ld   [wActiveRomBank], A                           ;; 00:18f7 $ea $d3 $c0
     ld   [$2100], A                                    ;; 00:18fa $ea $00 $21
     call call_00_1b3f                                  ;; 00:18fd $cd $3f $1b
@@ -3379,7 +3382,7 @@ call_00_17fc:
     ld   [wActiveRomBank], A                           ;; 00:191f $ea $d3 $c0
     ld   [$2100], A                                    ;; 00:1922 $ea $00 $21
     call call_04_4004                                  ;; 00:1925 $cd $04 $40
-    ld   A, [wLevelRomBank]                            ;; 00:1928 $fa $d8 $c0
+    ld   A, [wLevelEntryRomBank]                       ;; 00:1928 $fa $d8 $c0
     ld   [wActiveRomBank], A                           ;; 00:192b $ea $d3 $c0
     ld   [$2100], A                                    ;; 00:192e $ea $00 $21
     ld   A, [HL+]                                      ;; 00:1931 $2a
@@ -3394,9 +3397,9 @@ call_00_1939:
     ld   BC, $6e0                                      ;; 00:193c $01 $e0 $06
     ld   A, $ff                                        ;; 00:193f $3e $ff
     call memset                                        ;; 00:1941 $cd $1d $0c
-    ld   A, [wD2FF]                                    ;; 00:1944 $fa $ff $d2
+    ld   A, [wLevelLayoutTilemapPtr]                   ;; 00:1944 $fa $ff $d2
     ld   L, A                                          ;; 00:1947 $6f
-    ld   A, [wD300]                                    ;; 00:1948 $fa $00 $d3
+    ld   A, [wLevelLayoutTilemapPtr.high]              ;; 00:1948 $fa $00 $d3
     ld   H, A                                          ;; 00:194b $67
     ld   A, [HL+]                                      ;; 00:194c $2a
     ld   [wLevelWidthInMetaMetaTiles], A               ;; 00:194d $ea $f4 $d2
@@ -3833,9 +3836,9 @@ call_00_1bc3:
     ld   H, $00                                        ;; 00:1bf0 $26 $00
     add  HL, HL                                        ;; 00:1bf2 $29
     add  HL, HL                                        ;; 00:1bf3 $29
-    ld   A, [wD2FD]                                    ;; 00:1bf4 $fa $fd $d2
+    ld   A, [wLevelLayoutMegatilePtr]                  ;; 00:1bf4 $fa $fd $d2
     ld   E, A                                          ;; 00:1bf7 $5f
-    ld   A, [wD2FE]                                    ;; 00:1bf8 $fa $fe $d2
+    ld   A, [wLevelLayoutMegatilePtr.high]             ;; 00:1bf8 $fa $fe $d2
     ld   D, A                                          ;; 00:1bfb $57
     add  HL, DE                                        ;; 00:1bfc $19
     ldh  A, [hFF94]                                    ;; 00:1bfd $f0 $94
@@ -3868,10 +3871,10 @@ call_00_1bc3:
     jr   .jr_00_1c34                                   ;; 00:1c25 $18 $0d
 .jr_00_1c27:
     dec  C                                             ;; 00:1c27 $0d
-    ld   A, [wD2F9]                                    ;; 00:1c28 $fa $f9 $d2
+    ld   A, [wLevelLayoutPhysicsPtr]                   ;; 00:1c28 $fa $f9 $d2
     add  A, C                                          ;; 00:1c2b $81
     ld   E, A                                          ;; 00:1c2c $5f
-    ld   A, [wD2FA]                                    ;; 00:1c2d $fa $fa $d2
+    ld   A, [wLevelLayoutPhysicsPtr.high]              ;; 00:1c2d $fa $fa $d2
     adc  A, $00                                        ;; 00:1c30 $ce $00
     ld   D, A                                          ;; 00:1c32 $57
     ld   A, [DE]                                       ;; 00:1c33 $1a
@@ -3893,7 +3896,7 @@ call_00_1c36:
 
 call_00_1c4d:
     ld   HL, $4000                                     ;; 00:1c4d $21 $00 $40
-    ld   A, [wD2ED]                                    ;; 00:1c50 $fa $ed $d2
+    ld   A, [wLevelGraphicsIndex]                      ;; 00:1c50 $fa $ed $d2
     cp   A, $50                                        ;; 00:1c53 $fe $50
     jr   NC, .jr_00_1c5b                               ;; 00:1c55 $30 $04
     ld   B, $05                                        ;; 00:1c57 $06 $05
@@ -5912,7 +5915,7 @@ call_00_2d1e:
     call call_00_2dc1                                  ;; 00:2dad $cd $c1 $2d
     ld   HL, wC572                                     ;; 00:2db0 $21 $72 $c5
     inc  [HL]                                          ;; 00:2db3 $34
-    ld   A, [wLevelRomBank]                            ;; 00:2db4 $fa $d8 $c0
+    ld   A, [wLevelEntryRomBank]                       ;; 00:2db4 $fa $d8 $c0
     ld   [wActiveRomBank], A                           ;; 00:2db7 $ea $d3 $c0
     ld   [$2100], A                                    ;; 00:2dba $ea $00 $21
     pop  HL                                            ;; 00:2dbd $e1
@@ -6089,7 +6092,7 @@ call_00_2e76:
     dec  A                                             ;; 00:2ee3 $3d
     ld   HL, $4000                                     ;; 00:2ee4 $21 $00 $40
 .jr_00_2ee7:
-    call call_00_0da1                                  ;; 00:2ee7 $cd $a1 $0d
+    call get_ptr_from_table_indirect                   ;; 00:2ee7 $cd $a1 $0d
     ld   A, L                                          ;; 00:2eea $7d
     ld   [wCC17], A                                    ;; 00:2eeb $ea $17 $cc
     ld   A, H                                          ;; 00:2eee $7c
@@ -6987,7 +6990,7 @@ call_00_33f2:
     ret                                                ;; 00:3463 $c9
 
 jp_00_3464:
-    ld   A, [wC0D5]                                    ;; 00:3464 $fa $d5 $c0
+    ld   A, [wLevelLayoutRomBank]                      ;; 00:3464 $fa $d5 $c0
     ld   [wActiveRomBank], A                           ;; 00:3467 $ea $d3 $c0
     ld   [$2100], A                                    ;; 00:346a $ea $00 $21
     call call_00_3479                                  ;; 00:346d $cd $79 $34
@@ -7187,10 +7190,10 @@ call_00_353c:
     add  HL, HL                                        ;; 00:35b2 $29
     add  HL, HL                                        ;; 00:35b3 $29
     add  HL, BC                                        ;; 00:35b4 $09
-    ld   A, [wD2FD]                                    ;; 00:35b5 $fa $fd $d2
+    ld   A, [wLevelLayoutMegatilePtr]                  ;; 00:35b5 $fa $fd $d2
     add  A, L                                          ;; 00:35b8 $85
     ld   L, A                                          ;; 00:35b9 $6f
-    ld   A, [wD2FE]                                    ;; 00:35ba $fa $fe $d2
+    ld   A, [wLevelLayoutMegatilePtr.high]             ;; 00:35ba $fa $fe $d2
     adc  A, H                                          ;; 00:35bd $8c
     ld   H, A                                          ;; 00:35be $67
 .jr_00_35bf:
@@ -7209,7 +7212,7 @@ call_00_353c:
     jr   .jr_00_35e2                                   ;; 00:35d2 $18 $0e
 .jr_00_35d4:
     push HL                                            ;; 00:35d4 $e5
-    ld   HL, wD2F9                                     ;; 00:35d5 $21 $f9 $d2
+    ld   HL, wLevelLayoutPhysicsPtr                    ;; 00:35d5 $21 $f9 $d2
     add  A, [HL]                                       ;; 00:35d8 $86
     inc  HL                                            ;; 00:35d9 $23
     ld   D, A                                          ;; 00:35da $57
@@ -7367,10 +7370,10 @@ call_00_365e:
     add  HL, HL                                        ;; 00:36c9 $29
     add  HL, HL                                        ;; 00:36ca $29
     add  HL, BC                                        ;; 00:36cb $09
-    ld   A, [wD2FD]                                    ;; 00:36cc $fa $fd $d2
+    ld   A, [wLevelLayoutMegatilePtr]                  ;; 00:36cc $fa $fd $d2
     add  A, L                                          ;; 00:36cf $85
     ld   L, A                                          ;; 00:36d0 $6f
-    ld   A, [wD2FE]                                    ;; 00:36d1 $fa $fe $d2
+    ld   A, [wLevelLayoutMegatilePtr.high]             ;; 00:36d1 $fa $fe $d2
     adc  A, H                                          ;; 00:36d4 $8c
     ld   H, A                                          ;; 00:36d5 $67
 .jr_00_36d6:
@@ -7390,7 +7393,7 @@ call_00_365e:
     jr   .jr_00_36fc                                   ;; 00:36ec $18 $0e
 .jr_00_36ee:
     push HL                                            ;; 00:36ee $e5
-    ld   HL, wD2F9                                     ;; 00:36ef $21 $f9 $d2
+    ld   HL, wLevelLayoutPhysicsPtr                    ;; 00:36ef $21 $f9 $d2
     add  A, [HL]                                       ;; 00:36f2 $86
     inc  HL                                            ;; 00:36f3 $23
     ld   D, A                                          ;; 00:36f4 $57
@@ -7420,7 +7423,7 @@ call_00_365e:
     ret                                                ;; 00:3712 $c9
 
 jp_00_3713:
-    ld   A, [wC0D5]                                    ;; 00:3713 $fa $d5 $c0
+    ld   A, [wLevelLayoutRomBank]                      ;; 00:3713 $fa $d5 $c0
     ld   [wActiveRomBank], A                           ;; 00:3716 $ea $d3 $c0
     ld   [$2100], A                                    ;; 00:3719 $ea $00 $21
     ld   HL, $374d                                     ;; 00:371c $21 $4d $37
@@ -7450,7 +7453,7 @@ jp_00_3713:
     ld   A, [HL]                                       ;; 00:3752 $7e
     cp   A, $0c                                        ;; 00:3753 $fe $0c
     jr   C, .jr_00_3765                                ;; 00:3755 $38 $0e
-    ld   A, [wC237]                                    ;; 00:3757 $fa $37 $c2
+    ld   A, [wLevelStartFlags]                         ;; 00:3757 $fa $37 $c2
     and  A, $02                                        ;; 00:375a $e6 $02
     jp   Z, jp_00_3801                                 ;; 00:375c $ca $01 $38
     ld   A, $02                                        ;; 00:375f $3e $02
@@ -7585,9 +7588,9 @@ jp_00_3806:
     ld   A, $17                                        ;; 00:3847 $3e $17
     ldh  [hFF8A], A                                    ;; 00:3849 $e0 $8a
     ld   DE, wC103                                     ;; 00:384b $11 $03 $c1
-    ld   A, [wD2FB]                                    ;; 00:384e $fa $fb $d2
+    ld   A, [wLevelLayoutMetatilePtr]                  ;; 00:384e $fa $fb $d2
     ldh  [hFF8C], A                                    ;; 00:3851 $e0 $8c
-    ld   A, [wD2FC]                                    ;; 00:3853 $fa $fc $d2
+    ld   A, [wLevelLayoutMetatilePtr.high]             ;; 00:3853 $fa $fc $d2
     ldh  [hFF8D], A                                    ;; 00:3856 $e0 $8d
     ld   B, $00                                        ;; 00:3858 $06 $00
 .jr_00_385a:
@@ -7678,9 +7681,9 @@ jp_00_3890:
     ld   A, $17                                        ;; 00:38da $3e $17
     ldh  [hFF8A], A                                    ;; 00:38dc $e0 $8a
     ld   DE, wC103                                     ;; 00:38de $11 $03 $c1
-    ld   A, [wD2FB]                                    ;; 00:38e1 $fa $fb $d2
+    ld   A, [wLevelLayoutMetatilePtr]                  ;; 00:38e1 $fa $fb $d2
     ldh  [hFF8C], A                                    ;; 00:38e4 $e0 $8c
-    ld   A, [wD2FC]                                    ;; 00:38e6 $fa $fc $d2
+    ld   A, [wLevelLayoutMetatilePtr.high]             ;; 00:38e6 $fa $fc $d2
     ldh  [hFF8D], A                                    ;; 00:38e9 $e0 $8d
 .jr_00_38eb:
     ldh  A, [hFF8B]                                    ;; 00:38eb $f0 $8b
@@ -7865,7 +7868,7 @@ call_00_39b2:
     dec  B                                             ;; 00:39ed $05
     jr   NZ, .jr_00_39cf                               ;; 00:39ee $20 $df
     ld   A, $a0                                        ;; 00:39f0 $3e $a0
-    ld   HL, wC028                                     ;; 00:39f2 $21 $28 $c0
+    ld   HL, wOAMBuffer.28                             ;; 00:39f2 $21 $28 $c0
     ld   DE, $04                                       ;; 00:39f5 $11 $04 $00
     ld   [HL], A                                       ;; 00:39f8 $77
     add  HL, DE                                        ;; 00:39f9 $19
@@ -8523,7 +8526,7 @@ call_00_3d66:
     db   $c0, $36, $a0, $c9                            ;; 00:3d82 ????
 
 call_00_3d86:
-    ld   HL, wC000                                     ;; 00:3d86 $21 $00 $c0
+    ld   HL, wOAMBuffer                                ;; 00:3d86 $21 $00 $c0
     ld   DE, $04                                       ;; 00:3d89 $11 $04 $00
     ld   A, $a0                                        ;; 00:3d8c $3e $a0
     ld   B, $28                                        ;; 00:3d8e $06 $28

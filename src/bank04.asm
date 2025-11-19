@@ -374,7 +374,7 @@ jp_04_46ee:
     ld   B, D                                          ;; 04:4703 $42
     ld   HL, data_04_45c1                              ;; 04:4704 $21 $c1 $45
 .jr_04_4707:
-    ld   A, [wNextMusic]                               ;; 04:4707 $fa $5d $df
+    ld   A, [wCurrentArea]                             ;; 04:4707 $fa $5d $df
     cp   A, [HL]                                       ;; 04:470a $be
     jr   Z, .jr_04_4712                                ;; 04:470b $28 $05
     ld   C, $07                                        ;; 04:470d $0e $07

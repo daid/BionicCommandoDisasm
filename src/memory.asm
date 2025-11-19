@@ -1678,11 +1678,12 @@ wDF54:
 wDF5C:
     ds 1                                               ;; df5c
 
-; start this music index after a call to audioStartMusic
-wNextMusic:
+; current area that we are on at the map
+wCurrentArea:
     ds 1                                               ;; df5d
 
-wDF5E:
+; targeted area on the map
+wTargetArea:
     ds 1                                               ;; df5e
 
 wDF5F:

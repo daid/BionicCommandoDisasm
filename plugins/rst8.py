@@ -8,7 +8,6 @@ from romInfo import RomInfo
 
 class Rst8Block(CodeBlock):
     def onCall(self, from_memory, from_address, next_addr):
-        print("call", from_memory, from_address, next_addr)
         DataBlock(from_memory, next_addr, format="b", amount=1)
         CodeBlock(from_memory, next_addr + 1)
 

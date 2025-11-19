@@ -33,7 +33,7 @@ audioStartMusic:
     jp   jp_07_7b56                                    ;; 07:401e $c3 $56 $7b
 
 jp_07_4021:
-    ld   A, [wNextMusic]                               ;; 07:4021 $fa $5d $df
+    ld   A, [wCurrentArea]                             ;; 07:4021 $fa $5d $df
     cp   A, $12                                        ;; 07:4024 $fe $12
     jr   C, .jr_07_4029                                ;; 07:4026 $38 $01
     xor  A, A                                          ;; 07:4028 $af
@@ -3352,7 +3352,7 @@ jp_07_77e6:
 jp_07_77e7:
     ld   HL, wDF4E                                     ;; 07:77e7 $21 $4e $df
     ld   DE, wDFAF                                     ;; 07:77ea $11 $af $df
-    call call_00_0180                                  ;; 07:77ed $cd $80 $01
+    call copy_hl_de_4_                                 ;; 07:77ed $cd $80 $01
     ld   A, $01                                        ;; 07:77f0 $3e $01
     ld   [wDFAA], A                                    ;; 07:77f2 $ea $aa $df
     ld   A, $02                                        ;; 07:77f5 $3e $02
@@ -3372,7 +3372,7 @@ jp_07_7807:
     ld   A, [HL+]                                      ;; 07:7811 $2a
     ld   [wGlobalLevelEntryNumber], A                  ;; 07:7812 $ea $a2 $df
     ld   DE, wDF4E                                     ;; 07:7815 $11 $4e $df
-    call call_00_0180                                  ;; 07:7818 $cd $80 $01
+    call copy_hl_de_4_                                 ;; 07:7818 $cd $80 $01
     ld   A, L                                          ;; 07:781b $7d
     ld   [wD320], A                                    ;; 07:781c $ea $20 $d3
     ld   A, H                                          ;; 07:781f $7c

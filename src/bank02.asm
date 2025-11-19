@@ -62,7 +62,7 @@ call_02_40b2:
     ld   A, $21                                        ;; 02:40d7 $3e $21
     add  A, C                                          ;; 02:40d9 $81
     ld   L, A                                          ;; 02:40da $6f
-    call call_00_0183                                  ;; 02:40db $cd $83 $01
+    call copy_de_hl_4_                                 ;; 02:40db $cd $83 $01
     ld   A, [wCC40]                                    ;; 02:40de $fa $40 $cc
     ld   C, A                                          ;; 02:40e1 $4f
     ld   A, [wCC41]                                    ;; 02:40e2 $fa $41 $cc
@@ -189,8 +189,8 @@ call_02_41df:
     ld   A, $0b                                        ;; 02:4200 $3e $0b
     add  A, C                                          ;; 02:4202 $81
     ld   L, A                                          ;; 02:4203 $6f
-    call call_00_0186                                  ;; 02:4204 $cd $86 $01
-    call call_00_0186                                  ;; 02:4207 $cd $86 $01
+    call copy_de_hl_11_                                ;; 02:4204 $cd $86 $01
+    call copy_de_hl_11_                                ;; 02:4207 $cd $86 $01
     ldh  A, [hFF8D]                                    ;; 02:420a $f0 $8d
     ld   E, A                                          ;; 02:420c $5f
     ldh  A, [hFF8E]                                    ;; 02:420d $f0 $8e
@@ -1152,7 +1152,7 @@ jr_02_505a:
     ld   L, C                                          ;; 02:5119 $69
     inc  L                                             ;; 02:511a $2c
     ld   DE, wCC01                                     ;; 02:511b $11 $01 $cc
-    call call_00_0180                                  ;; 02:511e $cd $80 $01
+    call copy_hl_de_4_                                 ;; 02:511e $cd $80 $01
     xor  A, A                                          ;; 02:5121 $af
     ld   [wCC05], A                                    ;; 02:5122 $ea $05 $cc
     ld   A, $26                                        ;; 02:5125 $3e $26
@@ -1718,7 +1718,7 @@ jp_02_54b7:
     ld   A, $0b                                        ;; 02:54be $3e $0b
     add  A, C                                          ;; 02:54c0 $81
     ld   L, A                                          ;; 02:54c1 $6f
-    call call_00_0189                                  ;; 02:54c2 $cd $89 $01
+    call copy_de_hl_14_                                ;; 02:54c2 $cd $89 $01
     ld   A, $0f                                        ;; 02:54c5 $3e $0f
     add  A, C                                          ;; 02:54c7 $81
     ld   L, A                                          ;; 02:54c8 $6f
@@ -3228,7 +3228,7 @@ call_02_741f:
     ld   L, C                                          ;; 02:7532 $69
     inc  L                                             ;; 02:7533 $2c
     ld   DE, wCC01                                     ;; 02:7534 $11 $01 $cc
-    call call_00_0180                                  ;; 02:7537 $cd $80 $01
+    call copy_hl_de_4_                                 ;; 02:7537 $cd $80 $01
     ld   A, $ff                                        ;; 02:753a $3e $ff
     ld   [wCC05], A                                    ;; 02:753c $ea $05 $cc
     ld   A, $10                                        ;; 02:753f $3e $10

@@ -1885,15 +1885,15 @@ call_0a_5f73:
     ld   A, $0b                                        ;; 0a:5f94 $3e $0b
     add  A, C                                          ;; 0a:5f96 $81
     ld   L, A                                          ;; 0a:5f97 $6f
-    call call_00_0186                                  ;; 0a:5f98 $cd $86 $01
-    call call_00_0186                                  ;; 0a:5f9b $cd $86 $01
+    call copy_de_hl_11_                                ;; 0a:5f98 $cd $86 $01
+    call copy_de_hl_11_                                ;; 0a:5f9b $cd $86 $01
     ldh  A, [hFF8D]                                    ;; 0a:5f9e $f0 $8d
     ld   E, A                                          ;; 0a:5fa0 $5f
     ldh  A, [hFF8E]                                    ;; 0a:5fa1 $f0 $8e
     ld   D, A                                          ;; 0a:5fa3 $57
     ld   L, C                                          ;; 0a:5fa4 $69
     inc  L                                             ;; 0a:5fa5 $2c
-    call call_00_0183                                  ;; 0a:5fa6 $cd $83 $01
+    call copy_de_hl_4_                                 ;; 0a:5fa6 $cd $83 $01
     or   A, A                                          ;; 0a:5fa9 $b7
     ret                                                ;; 0a:5faa $c9
 

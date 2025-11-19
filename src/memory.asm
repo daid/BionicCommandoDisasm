@@ -983,7 +983,10 @@ wCC2E:
     ds 1                                               ;; cc2e
 
 wCC2F:
-    ds 17                                              ;; cc2f
+    ds 13                                              ;; cc2f
+
+wCC3C:
+    ds 4                                               ;; cc3c
 
 wCC40:
     ds 1                                               ;; cc40
@@ -1037,7 +1040,13 @@ wCD56:
     ds 1                                               ;; cd56
 
 wCD57:
-    ds 5                                               ;; cd57
+    ds 1                                               ;; cd57
+
+wCD58:
+    ds 1                                               ;; cd58
+
+wCD59:
+    ds 3                                               ;; cd59
 
 wCD5C:
     ds 1                                               ;; cd5c
@@ -1064,7 +1073,16 @@ wCD63:
     ds 1                                               ;; cd63
 
 wCD64:
-    ds 4                                               ;; cd64
+    ds 1                                               ;; cd64
+
+wCD65:
+    ds 1                                               ;; cd65
+
+wCD66:
+    ds 1                                               ;; cd66
+
+wCD67:
+    ds 1                                               ;; cd67
 
 wCD68:
     ds 1                                               ;; cd68
@@ -1778,7 +1796,10 @@ wDFB3:
     ds 1                                               ;; dfb3
 
 wDFB4:
-    ds 4                                               ;; dfb4
+    ds 3                                               ;; dfb4
+
+wDFB7:
+    ds 1                                               ;; dfb7
 
 wDFB8:
     ds 72                                              ;; dfb8

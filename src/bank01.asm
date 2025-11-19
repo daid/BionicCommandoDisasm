@@ -1498,7 +1498,7 @@ call_01_4e3a:
     xor  A, A                                          ;; 01:4e5a $af
 .jr_01_4e5b:
     ld   HL, data_01_4000                              ;; 01:4e5b $21 $00 $40
-    call call_00_0d88                                  ;; 01:4e5e $cd $88 $0d
+    call get_ptr_from_table                            ;; 01:4e5e $cd $88 $0d
     ld   A, L                                          ;; 01:4e61 $7d
     ld   [wDF48], A                                    ;; 01:4e62 $ea $48 $df
     ld   A, H                                          ;; 01:4e65 $7c
@@ -2015,7 +2015,7 @@ call_01_5111:
     cp   A, $0e                                        ;; 01:51d8 $fe $0e
     jr   NC, jp_01_51e3                                ;; 01:51da $30 $07
     ld   HL, data_01_50f3                              ;; 01:51dc $21 $f3 $50
-    call call_00_0d88                                  ;; 01:51df $cd $88 $0d
+    call get_ptr_from_table                            ;; 01:51df $cd $88 $0d
     jp   HL                                            ;; 01:51e2 $e9
 
 jp_01_51e3:
@@ -3545,7 +3545,7 @@ call_01_5cd2:
     ld   E, [HL]                                       ;; 01:5ce8 $5e
     ld   [HL], $00                                     ;; 01:5ce9 $36 $00
     ld   HL, data_01_5dc8                              ;; 01:5ceb $21 $c8 $5d
-    call call_00_0d88                                  ;; 01:5cee $cd $88 $0d
+    call get_ptr_from_table                            ;; 01:5cee $cd $88 $0d
     ld   A, L                                          ;; 01:5cf1 $7d
     ld   [wC210], A                                    ;; 01:5cf2 $ea $10 $c2
     ld   A, H                                          ;; 01:5cf5 $7c
@@ -4595,7 +4595,7 @@ data_01_63b8:
 call_01_63d9:
     ld   A, [wD215]                                    ;; 01:63d9 $fa $15 $d2
     ld   HL, data_01_63ff                              ;; 01:63dc $21 $ff $63
-    call call_00_0d88                                  ;; 01:63df $cd $88 $0d
+    call get_ptr_from_table                            ;; 01:63df $cd $88 $0d
     push HL                                            ;; 01:63e2 $e5
     ld   DE, $9801                                     ;; 01:63e3 $11 $01 $98
     call call_01_63f9                                  ;; 01:63e6 $cd $f9 $63
@@ -6298,7 +6298,7 @@ data_01_7107:
 
 call_01_71a7:
     ld   HL, wLevelMetaMetaTiles                       ;; 01:71a7 $21 $00 $d5
-    call call_00_0d88                                  ;; 01:71aa $cd $88 $0d
+    call get_ptr_from_table                            ;; 01:71aa $cd $88 $0d
     ld   E, [HL]                                       ;; 01:71ad $5e
     inc  HL                                            ;; 01:71ae $23
     ld   D, [HL]                                       ;; 01:71af $56
@@ -6521,7 +6521,7 @@ call_01_739e:
     ld   A, [wCurrentArea]                             ;; 01:73b5 $fa $5d $df
 .jr_01_73b8:
     ld   HL, data_01_70d6                              ;; 01:73b8 $21 $d6 $70
-    jp   jp_00_0d80                                    ;; 01:73bb $c3 $80 $0d
+    jp   get_byte_from_table                           ;; 01:73bb $c3 $80 $0d
 
 call_01_73be:
     ld   HL, wDF60                                     ;; 01:73be $21 $60 $df
@@ -6821,7 +6821,7 @@ call_01_75bd:
 
 call_01_75db:
     ld   DE, data_01_7299                              ;; 01:75db $11 $99 $72
-    call call_00_0d93                                  ;; 01:75de $cd $93 $0d
+    call get_ptr_from_table_de                         ;; 01:75de $cd $93 $0d
     ld   A, E                                          ;; 01:75e1 $7b
     ldh  [hFF8B], A                                    ;; 01:75e2 $e0 $8b
     ld   A, D                                          ;; 01:75e4 $7a
@@ -6929,7 +6929,7 @@ call_01_765b:
 call_01_7662:
     ld   A, [wCurrentArea]                             ;; 01:7662 $fa $5d $df
     ld   HL, wLevelMetaMetaTiles                       ;; 01:7665 $21 $00 $d5
-    call call_00_0d88                                  ;; 01:7668 $cd $88 $0d
+    call get_ptr_from_table                            ;; 01:7668 $cd $88 $0d
     inc  HL                                            ;; 01:766b $23
     inc  HL                                            ;; 01:766c $23
     ld   DE, wC716                                     ;; 01:766d $11 $16 $c7
@@ -7112,7 +7112,7 @@ call_01_775b:
     ld   B, A                                          ;; 01:775e $47
     ld   A, [wCurrentArea]                             ;; 01:775f $fa $5d $df
     ld   HL, wLevelMetaMetaTiles                       ;; 01:7762 $21 $00 $d5
-    call call_00_0d88                                  ;; 01:7765 $cd $88 $0d
+    call get_ptr_from_table                            ;; 01:7765 $cd $88 $0d
     inc  HL                                            ;; 01:7768 $23
     inc  HL                                            ;; 01:7769 $23
 .jr_01_776a:
@@ -7554,7 +7554,7 @@ call_01_79f0:
     ld   L, A                                          ;; 01:7a10 $6f
     ld   A, [HL]                                       ;; 01:7a11 $7e
     ld   HL, data_01_7de4                              ;; 01:7a12 $21 $e4 $7d
-    call call_00_0d88                                  ;; 01:7a15 $cd $88 $0d
+    call get_ptr_from_table                            ;; 01:7a15 $cd $88 $0d
     ld   A, B                                          ;; 01:7a18 $78
     call call_01_7a43                                  ;; 01:7a19 $cd $43 $7a
     pop  HL                                            ;; 01:7a1c $e1
@@ -7577,7 +7577,7 @@ jp_01_7a1f:
     ld   A, [wDF60]                                    ;; 01:7a38 $fa $60 $df
     add  A, A                                          ;; 01:7a3b $87
     or   A, B                                          ;; 01:7a3c $b0
-    call call_00_0d88                                  ;; 01:7a3d $cd $88 $0d
+    call get_ptr_from_table                            ;; 01:7a3d $cd $88 $0d
     ld   A, [wC609]                                    ;; 01:7a40 $fa $09 $c6
 
 call_01_7a43:
@@ -7768,7 +7768,7 @@ call_01_7b74:
 call_01_7b7a:
     ld   HL, data_01_7df6                              ;; 01:7b7a $21 $f6 $7d
     ld   A, [wC712]                                    ;; 01:7b7d $fa $12 $c7
-    call call_00_0d88                                  ;; 01:7b80 $cd $88 $0d
+    call get_ptr_from_table                            ;; 01:7b80 $cd $88 $0d
     ld   A, [wC711]                                    ;; 01:7b83 $fa $11 $c7
     call call_00_3a4f                                  ;; 01:7b86 $cd $4f $3a
 

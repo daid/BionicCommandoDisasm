@@ -16,1039 +16,39 @@ call_03_4006:
 
 call_03_4009:
     jp   jp_03_78a4                                    ;; 03:4009 $c3 $a4 $78
-    db   $c3, $e2, $6c, $c3, $0a, $75, $c3, $ca        ;; 03:400c ????????
-    db   $6c                                           ;; 03:4014 ?
+;@code
+    jp   jp_03_6ce2                                    ;; 03:400c $c3 $e2 $6c
+
+;@code
+jp_03_400f:
+    jp   jp_03_750a                                    ;; 03:400f $c3 $0a $75
+;@code
+    jp   jp_03_6cca                                    ;; 03:4012 $c3 $ca $6c
 
 call_03_4015:
     jp   jp_03_7405                                    ;; 03:4015 $c3 $05 $74
-    db   $c3, $42, $6b                                 ;; 03:4018 ???
+;@code
+    jp   jp_03_6b42                                    ;; 03:4018 $c3 $42 $6b
     jp   jp_03_6b6e                                    ;; 03:401b $c3 $6e $6b
 
 call_03_401e:
     jp   jp_03_6bae                                    ;; 03:401e $c3 $ae $6b
-    db   $c3, $b1, $6b                                 ;; 03:4021 ???
-    jp   jp_03_6bd0                                    ;; 03:4024 $c3 $d0 $6b
+;@code
+    jp   jp_03_6bb1                                    ;; 03:4021 $c3 $b1 $6b
+    jp   call_03_6bd0                                  ;; 03:4024 $c3 $d0 $6b
     jp   call_03_6d89                                  ;; 03:4027 $c3 $89 $6d
-    db   $c3, $6d, $74                                 ;; 03:402a ???
+;@code
+    jp   jp_03_746d                                    ;; 03:402a $c3 $6d $74
     jp   jp_03_7033                                    ;; 03:402d $c3 $33 $70
-    db   $c3, $3c, $68, $c3, $c7, $6c, $c3, $91        ;; 03:4030 ????????
-    db   $6c, $c3, $8d, $74, $c3, $dc, $6c, $c3        ;; 03:4038 ????????
-    db   $df, $78, $c3, $ff, $78                       ;; 03:4040 ?????
+;@code
+    jp   call_03_683c                                  ;; 03:4030 $c3 $3c $68
+    db   $c3, $c7, $6c, $c3, $91, $6c, $c3, $8d        ;; 03:4033 ????????
+    db   $74, $c3, $dc, $6c, $c3, $df, $78, $c3        ;; 03:403b ????????
+    db   $ff, $78                                      ;; 03:4043 ??
     jp   jp_03_74be                                    ;; 03:4045 $c3 $be $74
     db   $c3                                           ;; 03:4048 ?
 
-;@data format=p amount=1
-data_03_4049:
-    dw   data_03_74c8                                  ;; 03:4049 ??
-;@bc_texts amount=93
-    dw   .data_03_4106                                 ;; 03:404b ?? $00
-    dw   .data_03_4124                                 ;; 03:404d ?? $01
-    dw   .data_03_417c                                 ;; 03:404f ?? $02
-    dw   .data_03_4289                                 ;; 03:4051 ?? $03
-    dw   .data_03_42cf                                 ;; 03:4053 ?? $04
-    dw   .data_03_4310                                 ;; 03:4055 ?? $05
-    dw   .data_03_4386                                 ;; 03:4057 ?? $06
-    dw   .data_03_43c5                                 ;; 03:4059 ?? $07
-    dw   .data_03_441c                                 ;; 03:405b ?? $08
-    dw   .data_03_444c                                 ;; 03:405d ?? $09
-    dw   .data_03_4498                                 ;; 03:405f ?? $0a
-    dw   .data_03_44db                                 ;; 03:4061 ?? $0b
-    dw   .data_03_4511                                 ;; 03:4063 ?? $0c
-    dw   .data_03_458f                                 ;; 03:4065 ?? $0d
-    dw   .data_03_4615                                 ;; 03:4067 ?? $0e
-    dw   .data_03_464f                                 ;; 03:4069 ?? $0f
-    dw   .data_03_46b9                                 ;; 03:406b ?? $10
-    dw   .data_03_4716                                 ;; 03:406d ?? $11
-    dw   .data_03_61c4                                 ;; 03:406f ?? $12
-    dw   .data_03_4766                                 ;; 03:4071 ?? $13
-    dw   .data_03_47ba                                 ;; 03:4073 ?? $14
-    dw   .data_03_47f4                                 ;; 03:4075 ?? $15
-    dw   .data_03_48bc                                 ;; 03:4077 ?? $16
-    dw   .data_03_48e8                                 ;; 03:4079 ?? $17
-    dw   .data_03_492a                                 ;; 03:407b ?? $18
-    dw   .data_03_496e                                 ;; 03:407d ?? $19
-    dw   .data_03_49bc                                 ;; 03:407f ?? $1a
-    dw   .data_03_4a32                                 ;; 03:4081 ?? $1b
-    dw   .data_03_4acd                                 ;; 03:4083 ?? $1c
-    dw   .data_03_4b08                                 ;; 03:4085 ?? $1d
-    dw   .data_03_4b83                                 ;; 03:4087 ?? $1e
-    dw   .data_03_4bbb                                 ;; 03:4089 ?? $1f
-    dw   .data_03_4c0b                                 ;; 03:408b ?? $20
-    dw   .data_03_4c8a                                 ;; 03:408d ?? $21
-    dw   .data_03_4d1f                                 ;; 03:408f ?? $22
-    dw   .data_03_4d57                                 ;; 03:4091 ?? $23
-    dw   .data_03_4df3                                 ;; 03:4093 ?? $24
-    dw   .data_03_4e5d                                 ;; 03:4095 ?? $25
-    dw   .data_03_4ec2                                 ;; 03:4097 ?? $26
-    dw   .data_03_4f09                                 ;; 03:4099 ?? $27
-    dw   .data_03_4f48                                 ;; 03:409b ?? $28
-    dw   .data_03_4faf                                 ;; 03:409d ?? $29
-    dw   .data_03_508e                                 ;; 03:409f ?? $2a
-    dw   .data_03_61c4                                 ;; 03:40a1 ?? $2b
-    dw   .data_03_50da                                 ;; 03:40a3 ?? $2c
-    dw   .data_03_5138                                 ;; 03:40a5 ?? $2d
-    dw   .data_03_5185                                 ;; 03:40a7 ?? $2e
-    dw   .data_03_528c                                 ;; 03:40a9 ?? $2f
-    dw   .data_03_531a                                 ;; 03:40ab ?? $30
-    dw   .data_03_531b                                 ;; 03:40ad ?? $31
-    dw   .data_03_534b                                 ;; 03:40af ?? $32
-    dw   .data_03_534c                                 ;; 03:40b1 ?? $33
-    dw   .data_03_5417                                 ;; 03:40b3 ?? $34
-    dw   .data_03_5418                                 ;; 03:40b5 ?? $35
-    dw   .data_03_5419                                 ;; 03:40b7 ?? $36
-    dw   .data_03_544e                                 ;; 03:40b9 ?? $37
-    dw   .data_03_5493                                 ;; 03:40bb ?? $38
-    dw   .data_03_5494                                 ;; 03:40bd ?? $39
-    dw   .data_03_5495                                 ;; 03:40bf ?? $3a
-    dw   .data_03_552a                                 ;; 03:40c1 ?? $3b
-    dw   .data_03_555e                                 ;; 03:40c3 ?? $3c
-    dw   .data_03_5587                                 ;; 03:40c5 ?? $3d
-    dw   .data_03_55c1                                 ;; 03:40c7 ?? $3e
-    dw   .data_03_61c4                                 ;; 03:40c9 ?? $3f
-    dw   .data_03_56c5                                 ;; 03:40cb ?? $40
-    dw   .data_03_56e9                                 ;; 03:40cd ?? $41
-    dw   .data_03_5764                                 ;; 03:40cf ?? $42
-    dw   .data_03_57e1                                 ;; 03:40d1 ?? $43
-    dw   .data_03_5878                                 ;; 03:40d3 ?? $44
-    dw   .data_03_58ef                                 ;; 03:40d5 ?? $45
-    dw   .data_03_598e                                 ;; 03:40d7 ?? $46
-    dw   .data_03_5a12                                 ;; 03:40d9 ?? $47
-    dw   .data_03_5a53                                 ;; 03:40db ?? $48
-    dw   .data_03_5cd9                                 ;; 03:40dd ?? $49
-    dw   .data_03_5cda                                 ;; 03:40df ?? $4a
-    dw   .data_03_5d80                                 ;; 03:40e1 ?? $4b
-    dw   .data_03_5dda                                 ;; 03:40e3 ?? $4c
-    dw   .data_03_5e1e                                 ;; 03:40e5 ?? $4d
-    dw   .data_03_4ce6                                 ;; 03:40e7 ?? $4e
-    dw   .data_03_5e4c                                 ;; 03:40e9 ?? $4f
-    dw   .data_03_5e80                                 ;; 03:40eb ?? $50
-    dw   .data_03_5e4d                                 ;; 03:40ed ?? $51
-    dw   .data_03_5e4e                                 ;; 03:40ef ?? $52
-    dw   .data_03_5ea1                                 ;; 03:40f1 pP $53
-    dw   .data_03_5fc4                                 ;; 03:40f3 ?? $54
-    dw   .data_03_5ffc                                 ;; 03:40f5 ?? $55
-    dw   .data_03_649f                                 ;; 03:40f7 ?? $56
-    dw   .data_03_652e                                 ;; 03:40f9 ?? $57
-    dw   .data_03_6576                                 ;; 03:40fb ?? $58
-    dw   .data_03_60d0                                 ;; 03:40fd ?? $59
-    dw   .data_03_618d                                 ;; 03:40ff ?? $5a
-    dw   .data_03_61a7                                 ;; 03:4101 ?? $5b
-    dw   .data_03_61a8                                 ;; 03:4103 ?? $5c
-    db   $00                                           ;; 03:4105 ?
-.data_03_4106:
-    db   $fa, $01                                      ;; 03:4106 ??
-    TXT  "I've got to geto"                            ;; 03:4108 ????????????????
-    TXT  "ut of here![EOT]"                            ;; 03:4118 ????????????
-.data_03_4124:
-    db   $fa, $01                                      ;; 03:4124 ??
-    TXT  "They've stolen\n"                            ;; 03:4126 ???????????????
-    TXT  "our escape devi-"                            ;; 03:4135 ????????????????
-    TXT  "ce. "                                        ;; 03:4145 ????
-    db   $fb, $3c                                      ;; 03:4149 ??
-    TXT  "Now there isno w"                            ;; 03:414b ????????????????
-    TXT  "ay to go\n"                                  ;; 03:415b ?????????
-    TXT  "back to the\n"                               ;; 03:4164 ????????????
-    TXT  "helicopter.[EOT]"                            ;; 03:4170 ????????????
-.data_03_417c:
-    db   $f9, $04                                      ;; 03:417c ??
-    TXT  "Don't forget to\n"                           ;; 03:417e ????????????????
-    TXT  "contact our sol-"                            ;; 03:418e ????????????????
-    TXT  "diers in each\n"                             ;; 03:419e ??????????????
-    TXT  "area to obtain\n"                            ;; 03:41ac ???????????????
-    TXT  "info. "                                      ;; 03:41bb ??????
-    db   $fb, $3c                                      ;; 03:41c1 ??
-    TXT  "Use the\n"                                   ;; 03:41c3 ????????
-    TXT  "communication\n"                             ;; 03:41cb ??????????????
-    TXT  "rooms to open\n"                             ;; 03:41d9 ??????????????
-    TXT  "doors to other\n"                            ;; 03:41e7 ???????????????
-    TXT  "areas and to\n"                              ;; 03:41f6 ?????????????
-    TXT  "contact agents.\n"                           ;; 03:4203 ????????????????
-    db   $fb, $3c                                      ;; 03:4213 ??
-    TXT  "Tap enemy commu-"                            ;; 03:4215 ????????????????
-    TXT  "nications if\n"                              ;; 03:4225 ?????????????
-    TXT  "necessary.\n"                                ;; 03:4232 ???????????
-    db   $fb, $3c                                      ;; 03:423d ??
-    TXT  "But be careful.\n"                           ;; 03:423f ????????????????
-    db   $fb, $3c                                      ;; 03:424f ??
-    TXT  "If you are\n"                                ;; 03:4251 ???????????
-    TXT  "detected tapping"                            ;; 03:425c ????????????????
-    TXT  ",enemy soldiers\n"                           ;; 03:426c ????????????????
-    TXT  "will attack.[EOT]"                           ;; 03:427c ?????????????
-.data_03_4289:
-    db   $f9, $10                                      ;; 03:4289 ??
-    TXT  "Listen up!\n"                                ;; 03:428b ???????????
-    db   $fb, $3c                                      ;; 03:4296 ??
-    TXT  "Keep the enemy\n"                            ;; 03:4298 ???????????????
-    TXT  "away from this\n"                            ;; 03:42a7 ???????????????
-    TXT  "power reactor."                              ;; 03:42b6 ??????????????
-    db   $f9, $11                                      ;; 03:42c4 ??
-    TXT  "Yes,Sir.[EOT]"                               ;; 03:42c6 ?????????
-.data_03_42cf:
-    db   $f9, $04                                      ;; 03:42cf ??
-    TXT  "Area 2 is a\n"                               ;; 03:42d1 ????????????
-    TXT  "neutral area.\r"                             ;; 03:42dd ??????????????
-    TXT  "You can obtain\n"                            ;; 03:42eb ???????????????
-    TXT  "items as well as"                            ;; 03:42fa ????????????????
-    TXT  "info.[EOT]"                                  ;; 03:430a ??????
-.data_03_4310:
-    db   $f9, $11                                      ;; 03:4310 ??
-    TXT  "Captain,intell-i"                            ;; 03:4312 ????????????????
-    TXT  "gence says thats"                            ;; 03:4322 ????????????????
-    TXT  "omeone has\n"                                ;; 03:4332 ???????????
-    TXT  "broken into\n"                               ;; 03:433d ????????????
-    TXT  "the base."                                   ;; 03:4349 ?????????
-    db   $f9, $10                                      ;; 03:4352 ??
-    TXT  "Gather some tr-o"                            ;; 03:4354 ????????????????
-    TXT  "ops. "                                       ;; 03:4364 ?????
-    db   $fb, $3c                                      ;; 03:4369 ??
-    TXT  "Intercept\n"                                 ;; 03:436b ??????????
-    TXT  "and defeat them."                            ;; 03:4375 ????????????????
-    TXT  "[EOT]"                                       ;; 03:4385 ?
-.data_03_4386:
-    db   $fa, $10                                      ;; 03:4386 ??
-    TXT  "Destroy them!\n"                             ;; 03:4388 ??????????????
-    db   $fb, $3c                                      ;; 03:4396 ??
-    TXT  "We cannot allow\n"                           ;; 03:4398 ????????????????
-    TXT  "them to proceed\n"                           ;; 03:43a8 ????????????????
-    TXT  "any further.[EOT]"                           ;; 03:43b8 ?????????????
-.data_03_43c5:
-    db   $fa, $06                                      ;; 03:43c5 ??
-    TXT  "This is a neu-\n"                            ;; 03:43c7 ???????????????
-    TXT  "tral area.\n"                                ;; 03:43d6 ???????????
-    db   $fb, $3c                                      ;; 03:43e1 ??
-    TXT  "Please keep in\n"                            ;; 03:43e3 ???????????????
-    TXT  "mind that you\n"                             ;; 03:43f2 ??????????????
-    TXT  "are prohibited\n"                            ;; 03:4400 ???????????????
-    TXT  "from firing.[EOT]"                           ;; 03:440f ?????????????
-.data_03_441c:
-    db   $fa, $04                                      ;; 03:441c ??
-    TXT  "Super Joe!?\n"                               ;; 03:441e ????????????
-    db   $fb, $3c                                      ;; 03:442a ??
-    TXT  "What has happen-"                            ;; 03:442c ????????????????
-    TXT  "ed to our hero?[EOT]"                        ;; 03:443c ????????????????
-.data_03_444c:
-    db   $fa, $11                                      ;; 03:444c ??
-    TXT  "Why on the\n"                                ;; 03:444e ???????????
-    TXT  "earth are\n"                                 ;; 03:4459 ??????????
-    TXT  "you here?\r"                                 ;; 03:4463 ??????????
-    TXT  "Get out of here\n"                           ;; 03:446d ????????????????
-    TXT  "before you're\n"                             ;; 03:447d ??????????????
-    TXT  "terminated!![EOT]"                           ;; 03:448b ?????????????
-.data_03_4498:
-    db   $fa, $04                                      ;; 03:4498 ??
-    TXT  "I'm glad you\n"                              ;; 03:449a ?????????????
-    TXT  "are here.\r"                                 ;; 03:44a7 ??????????
-    TXT  "Press the START\n"                           ;; 03:44b1 ????????????????
-    TXT  "button to\n"                                 ;; 03:44c1 ??????????
-    TXT  "launch a flare.[EOT]"                        ;; 03:44cb ????????????????
-.data_03_44db:
-    db   $fa, $04                                      ;; 03:44db ??
-    TXT  "It's dark\n"                                 ;; 03:44dd ??????????
-    TXT  "inside.\r"                                   ;; 03:44e7 ????????
-    TXT  "Flares can\n"                                ;; 03:44ef ???????????
-    TXT  "be obtained\n"                               ;; 03:44fa ????????????
-    TXT  "in Area 2.[EOT]"                             ;; 03:4506 ???????????
-.data_03_4511:
-    db   $f9, $05                                      ;; 03:4511 ??
-    TXT  "There are 4 ty-p"                            ;; 03:4513 ????????????????
-    TXT  "es of video\n"                               ;; 03:4523 ????????????
-    TXT  "receivers.\n"                                ;; 03:452f ???????????
-    TXT  "The one you're\n"                            ;; 03:453a ???????????????
-    TXT  "carrying with\n"                             ;; 03:4549 ??????????????
-    TXT  "you is the\n"                                ;; 03:4557 ???????????
-    TXT  "[A] type,and you\n"                          ;; 03:4562 ???????????????
-    TXT  "can use it in\n"                             ;; 03:4571 ??????????????
-    TXT  "Area 1,3 and 4.[EOT]"                        ;; 03:457f ????????????????
-.data_03_458f:
-    db   $f9, $11                                      ;; 03:458f ??
-    TXT  "Captain,could\n"                             ;; 03:4591 ??????????????
-    TXT  "you tell me\n"                               ;; 03:459f ????????????
-    TXT  "about the\n"                                 ;; 03:45ab ??????????
-    TXT  "Albatross\n"                                 ;; 03:45b5 ??????????
-    TXT  "project,sir?"                                ;; 03:45bf ????????????
-    db   $f9, $0f                                      ;; 03:45cb ??
-    TXT  "I don't know\n"                              ;; 03:45cd ?????????????
-    TXT  "what you are\n"                              ;; 03:45da ?????????????
-    TXT  "talking about.\n"                            ;; 03:45e7 ???????????????
-    TXT  "Only the\n"                                  ;; 03:45f6 ?????????
-    TXT  "commanders might"                            ;; 03:45ff ????????????????
-    TXT  "know.[EOT]"                                  ;; 03:460f ??????
-.data_03_4615:
-    db   $fa, $0f                                      ;; 03:4615 ??
-    TXT  "Curse you,\n"                                ;; 03:4617 ???????????
-    TXT  "Bionic Commando!"                            ;; 03:4622 ????????????????
-    TXT  "\r"                                          ;; 03:4632 ?
-    TXT  "You cannot\n"                                ;; 03:4633 ???????????
-    TXT  "compare with me!"                            ;; 03:463e ????????????????
-    TXT  "[EOT]"                                       ;; 03:464e ?
-.data_03_464f:
-    db   $f9, $04                                      ;; 03:464f ??
-    TXT  "Information\n"                               ;; 03:4651 ????????????
-    TXT  "suggests that\n"                             ;; 03:465d ??????????????
-    TXT  "the lab in\n"                                ;; 03:466b ???????????
-    TXT  "Area 6 has got a"                            ;; 03:4676 ????????????????
-    TXT  "leak and it's\n"                             ;; 03:4686 ??????????????
-    TXT  "soaking through\n"                           ;; 03:4694 ????????????????
-    TXT  "the wall\n"                                  ;; 03:46a4 ?????????
-    TXT  "right here.[EOT]"                            ;; 03:46ad ????????????
-.data_03_46b9:
-    db   $f9, $11                                      ;; 03:46b9 ??
-    TXT  "He is too\n"                                 ;; 03:46bb ??????????
-    TXT  "strong to be\n"                              ;; 03:46c5 ?????????????
-    TXT  "destroyed.\n"                                ;; 03:46d2 ???????????
-    TXT  "Oh no,\n"                                    ;; 03:46dd ???????
-    TXT  "General Rile!"                               ;; 03:46e4 ?????????????
-    db   $f9, $00                                      ;; 03:46f1 ??
-    TXT  "You are a\n"                                 ;; 03:46f3 ??????????
-    TXT  "good fighter,\n"                             ;; 03:46fd ??????????????
-    TXT  "Super Joe.[EOT]"                             ;; 03:470b ???????????
-.data_03_4716:
-    db   $fa, $0e                                      ;; 03:4716 ??
-    TXT  "The guardian-\n"                             ;; 03:4718 ??????????????
-    TXT  "system is\n"                                 ;; 03:4726 ??????????
-    TXT  "now operating.\n"                            ;; 03:4730 ???????????????
-    TXT  "We will switch\n"                            ;; 03:473f ???????????????
-    TXT  "to attack mode\n"                            ;; 03:474e ???????????????
-    TXT  "shortly.[EOT]"                               ;; 03:475d ?????????
-.data_03_4766:
-    db   $fa, $04                                      ;; 03:4766 ??
-    TXT  "Please remembert"                            ;; 03:4768 ????????????????
-    TXT  "hat you cannot\n"                            ;; 03:4778 ???????????????
-    TXT  "get information\n"                           ;; 03:4787 ????????????????
-    TXT  "without a\n"                                 ;; 03:4797 ??????????
-    TXT  "suitable\n"                                  ;; 03:47a1 ?????????
-    TXT  "video receiver.[EOT]"                        ;; 03:47aa ????????????????
-.data_03_47ba:
-    db   $fa, $11                                      ;; 03:47ba ??
-    TXT  "You better turn\n"                           ;; 03:47bc ????????????????
-    TXT  "back.\r"                                     ;; 03:47cc ??????
-    TXT  "The inner area\n"                            ;; 03:47d2 ???????????????
-    TXT  "is very\n"                                   ;; 03:47e1 ????????
-    TXT  "dangerous.[EOT]"                             ;; 03:47e9 ???????????
-.data_03_47f4:
-    db   $fa, $09                                      ;; 03:47f4 ??
-    TXT  "I haven't seen\n"                            ;; 03:47f6 ???????????????
-    TXT  "you for a\n"                                 ;; 03:4805 ??????????
-    TXT  "long time,Rad.\n"                            ;; 03:480f ???????????????
-    TXT  "The [B] receiver\n"                          ;; 03:481e ???????????????
-    TXT  "is kept inside\n"                            ;; 03:482d ???????????????
-    TXT  "this room.\n"                                ;; 03:483c ???????????
-    TXT  "Don't forget to\n"                           ;; 03:4847 ????????????????
-    TXT  "bring it with\n"                             ;; 03:4857 ??????????????
-    TXT  "you when you\n"                              ;; 03:4865 ?????????????
-    TXT  "proceed to \n"                               ;; 03:4872 ????????????
-    TXT  "Area 6.\n"                                   ;; 03:487e ????????
-    db   $fb, $3c                                      ;; 03:4886 ??
-    TXT  "You'll find\n"                               ;; 03:4888 ????????????
-    TXT  "other soldiers\n"                            ;; 03:4894 ???????????????
-    TXT  "from the\n"                                  ;; 03:48a3 ?????????
-    TXT  "FF Corps there.[EOT]"                        ;; 03:48ac ????????????????
-.data_03_48bc:
-    db   $f9, $04                                      ;; 03:48bc ??
-    TXT  "They are makingm"                            ;; 03:48be ????????????????
-    TXT  "utants from\n"                               ;; 03:48ce ????????????
-    TXT  "human beings.[EOT]"                          ;; 03:48da ??????????????
-.data_03_48e8:
-    db   $f9, $10                                      ;; 03:48e8 ??
-    TXT  "We've done it!\n"                            ;; 03:48ea ???????????????
-    db   $fb, $3c                                      ;; 03:48f9 ??
-    TXT  "The Federal Army"                            ;; 03:48fb ????????????????
-    TXT  "is no match for\n"                           ;; 03:490b ????????????????
-    TXT  "this creature.[EOT]"                         ;; 03:491b ???????????????
-.data_03_492a:
-    db   $fa, $0d                                      ;; 03:492a ??
-    TXT  "No one can\n"                                ;; 03:492c ???????????
-    TXT  "defeat this\n"                               ;; 03:4937 ????????????
-    TXT  "creature and\n"                              ;; 03:4943 ?????????????
-    TXT  "you will be\n"                               ;; 03:4950 ????????????
-    TXT  "its first\n"                                 ;; 03:495c ??????????
-    TXT  "victim![EOT]"                                ;; 03:4966 ????????
-.data_03_496e:
-    db   $fa, $04                                      ;; 03:496e ??
-    TXT  "This gate is ino"                            ;; 03:4970 ????????????????
-    TXT  "ur way.\n"                                   ;; 03:4980 ????????
-    db   $fb, $3c                                      ;; 03:4988 ??
-    TXT  "We can blow it\n"                            ;; 03:498a ???????????????
-    TXT  "to pieces with\n"                            ;; 03:4999 ???????????????
-    TXT  "a grenade\n"                                 ;; 03:49a8 ??????????
-    TXT  "launcher.[EOT]"                              ;; 03:49b2 ??????????
-.data_03_49bc:
-    db   $f9, $05                                      ;; 03:49bc ??
-    TXT  "Please keep in\n"                            ;; 03:49be ???????????????
-    TXT  "mind that\n"                                 ;; 03:49cd ??????????
-    TXT  "General Rile\n"                              ;; 03:49d7 ?????????????
-    TXT  "will be waiting\n"                           ;; 03:49e4 ????????????????
-    TXT  "for you in\n"                                ;; 03:49f4 ???????????
-    TXT  "Area 8.\n"                                   ;; 03:49ff ????????
-    TXT  "We believe that\n"                           ;; 03:4a07 ????????????????
-    TXT  "he has kidnapped"                            ;; 03:4a17 ????????????????
-    TXT  "Super Joe.[EOT]"                             ;; 03:4a27 ???????????
-.data_03_4a32:
-    db   $f9, $11                                      ;; 03:4a32 ??
-    TXT  "Captain,please\n"                            ;; 03:4a34 ???????????????
-    TXT  "do not forget to"                            ;; 03:4a43 ????????????????
-    TXT  "bring a \n"                                  ;; 03:4a53 ?????????
-    TXT  "[G] receiver with\n"                         ;; 03:4a5c ????????????????
-    TXT  "you when you\n"                              ;; 03:4a6c ?????????????
-    TXT  "enter Area 10.\n"                            ;; 03:4a79 ???????????????
-    TXT  "[B] receiver is\n"                           ;; 03:4a88 ??????????????
-    TXT  "effective in\n"                              ;; 03:4a96 ?????????????
-    TXT  "Area 6,7 and 8."                             ;; 03:4aa3 ???????????????
-    db   $f9, $10                                      ;; 03:4ab2 ??
-    TXT  "Oh,I almost\n"                               ;; 03:4ab4 ????????????
-    TXT  "forget that.[EOT]"                           ;; 03:4ac0 ?????????????
-.data_03_4acd:
-    db   $fa, $10                                      ;; 03:4acd ??
-    TXT  "Hurry up! "                                  ;; 03:4acf ??????????
-    db   $fb, $3c                                      ;; 03:4ad9 ??
-    TXT  "What\n"                                      ;; 03:4adb ?????
-    TXT  "on earth is go-\n"                           ;; 03:4ae0 ????????????????
-    TXT  "ing on outside?\n"                           ;; 03:4af0 ????????????????
-    TXT  "Charge![EOT]"                                ;; 03:4b00 ????????
-.data_03_4b08:
-    db   $f9, $04                                      ;; 03:4b08 ??
-    TXT  "I was captured\n"                            ;; 03:4b0a ???????????????
-    TXT  "and taken to\n"                              ;; 03:4b19 ?????????????
-    TXT  "Rile's place,\n"                             ;; 03:4b26 ??????????????
-    TXT  "but I don't see\n"                           ;; 03:4b34 ????????????????
-    TXT  "Super Joe\n"                                 ;; 03:4b44 ??????????
-    TXT  "anywhere.\n"                                 ;; 03:4b4e ??????????
-    TXT  "He seems to have"                            ;; 03:4b58 ????????????????
-    TXT  "been taken\n"                                ;; 03:4b68 ???????????
-    TXT  "somewhere else.[EOT]"                        ;; 03:4b73 ????????????????
-.data_03_4b83:
-    db   $f9, $00                                      ;; 03:4b83 ??
-    TXT  "Hurry up and\n"                              ;; 03:4b85 ?????????????
-    TXT  "break the\n"                                 ;; 03:4b92 ??????????
-    TXT  "door open!"                                  ;; 03:4b9c ??????????
-    db   $f9, $11                                      ;; 03:4ba6 ??
-    TXT  "AA......HHH.\n"                              ;; 03:4ba8 ??????????
-    TXT  "Yes,Sir.[EOT]"                               ;; 03:4bb2 ?????????
-.data_03_4bbb:
-    db   $f9, $04                                      ;; 03:4bbb ??
-    TXT  "Information\n"                               ;; 03:4bbd ????????????
-    TXT  "suggests that\n"                             ;; 03:4bc9 ??????????????
-    TXT  "Director Wiseman"                            ;; 03:4bd7 ????????????????
-    TXT  "is visiting\n"                               ;; 03:4be7 ????????????
-    TXT  "upstairs.\n"                                 ;; 03:4bf3 ??????????
-    db   $fb, $3c                                      ;; 03:4bfd ??
-    TXT  "Go get him.[EOT]"                            ;; 03:4bff ????????????
-.data_03_4c0b:
-    db   $f9, $11                                      ;; 03:4c0b ??
-    TXT  "Watch out,\n"                                ;; 03:4c0d ???????????
-    TXT  "general Rile.\n"                             ;; 03:4c18 ??????????????
-    db   $fb, $3c                                      ;; 03:4c26 ??
-    TXT  "Soldiers of the\n"                           ;; 03:4c28 ????????????????
-    TXT  "FF Corps have\n"                             ;; 03:4c38 ??????????????
-    TXT  "sneaked into\n"                              ;; 03:4c46 ?????????????
-    TXT  "this tower."                                 ;; 03:4c53 ???????????
-    db   $f9, $00                                      ;; 03:4c5e ??
-    TXT  "Don't worry.\n"                              ;; 03:4c60 ?????????????
-    db   $fb, $3c                                      ;; 03:4c6d ??
-    TXT  "The FF Corps are"                            ;; 03:4c6f ????????????????
-    TXT  "just kids.[EOT]"                             ;; 03:4c7f ???????????
-.data_03_4c8a:
-    db   $fa, $0a                                      ;; 03:4c8a ??
-    TXT  "Welcome,\n"                                  ;; 03:4c8c ?????????
-    TXT  "FF Corps.\r"                                 ;; 03:4c95 ??????????
-    TXT  "What on earth\n"                             ;; 03:4c9f ??????????????
-    TXT  "are you doing\n"                             ;; 03:4cad ??????????????
-    TXT  "here?"                                       ;; 03:4cbb ?????
-    db   $fa, $0b                                      ;; 03:4cc0 ??
-    TXT  "Director,\n"                                 ;; 03:4cc2 ??????????
-    TXT  "please retreat\n"                            ;; 03:4ccc ???????????????
-    TXT  "from here.\n"                                ;; 03:4cdb ???????????
-.data_03_4ce6:
-    TXT  "Rad Spencer,\n"                              ;; 03:4ce6 ?????????????
-    TXT  "I'll see if\n"                               ;; 03:4cf3 ????????????
-    TXT  "you'll do better"                            ;; 03:4cff ????????????????
-    TXT  "than Super Joe.[EOT]"                        ;; 03:4d0f ????????????????
-.data_03_4d1f:
-    db   $fa, $06                                      ;; 03:4d1f ??
-    TXT  "This is Area 9.\r"                           ;; 03:4d21 ????????????????
-    TXT  "You need a\n"                                ;; 03:4d31 ???????????
-    TXT  "permit to enter\n"                           ;; 03:4d3c ????????????????
-    TXT  "this area.[EOT]"                             ;; 03:4d4c ???????????
-.data_03_4d57:
-    db   $fa, $04                                      ;; 03:4d57 ??
-    TXT  "I saw a man whol"                            ;; 03:4d59 ????????????????
-    TXT  "ooked like\n"                                ;; 03:4d69 ???????????
-    TXT  "Super Joe.\n"                                ;; 03:4d74 ???????????
-    TXT  "He seemed to\n"                              ;; 03:4d7f ?????????????
-    TXT  "be heading for\n"                            ;; 03:4d8c ???????????????
-    TXT  "Area 10.\n"                                  ;; 03:4d9b ?????????
-    TXT  "A woman was also"                            ;; 03:4da4 ????????????????
-    TXT  "heading for\n"                               ;; 03:4db4 ????????????
-    TXT  "Area 10.\n"                                  ;; 03:4dc0 ?????????
-    TXT  "She looked like\n"                           ;; 03:4dc9 ????????????????
-    TXT  "a member of\n"                               ;; 03:4dd9 ????????????
-    TXT  "the FF Corps.[EOT]"                          ;; 03:4de5 ??????????????
-.data_03_4df3:
-    db   $fa, $11                                      ;; 03:4df3 ??
-    TXT  "Area 10 is the\n"                            ;; 03:4df5 ???????????????
-    TXT  "capital of our\n"                            ;; 03:4e04 ???????????????
-    TXT  "Dukedom. "                                   ;; 03:4e13 ?????????
-    db   $fb, $3c                                      ;; 03:4e1c ??
-    TXT  "You arethe first"                            ;; 03:4e1e ????????????????
-    TXT  " to\n"                                       ;; 03:4e2e ????
-    TXT  "have sneaked\n"                              ;; 03:4e32 ?????????????
-    TXT  "into the heart\n"                            ;; 03:4e3f ???????????????
-    TXT  "of our empire.[EOT]"                         ;; 03:4e4e ???????????????
-.data_03_4e5d:
-    db   $fa, $04                                      ;; 03:4e5d ??
-    TXT  "A [G] receiver isk"                          ;; 03:4e5f ????????????????
-    TXT  "ept in here.\n"                              ;; 03:4e6f ?????????????
-    db   $fb, $3c                                      ;; 03:4e7c ??
-    TXT  "You won't be\n"                              ;; 03:4e7e ?????????????
-    TXT  "able to obtain\n"                            ;; 03:4e8b ???????????????
-    TXT  "info in Area 10\n"                           ;; 03:4e9a ????????????????
-    TXT  "without the\n"                               ;; 03:4eaa ????????????
-    TXT  "[G] receiver.[EOT]"                          ;; 03:4eb6 ????????????
-.data_03_4ec2:
-    db   $f9, $04                                      ;; 03:4ec2 ??
-    TXT  "[G] receiver is\n"                           ;; 03:4ec4 ??????????????
-    TXT  "effective in\n"                              ;; 03:4ed2 ?????????????
-    TXT  "Area 10,12 and\n"                            ;; 03:4edf ???????????????
-    TXT  "13.\n"                                       ;; 03:4eee ????
-    db   $fb, $3c                                      ;; 03:4ef2 ??
-    TXT  "Find the\n"                                  ;; 03:4ef4 ?????????
-    TXT  "[D] receiver.[EOT]"                          ;; 03:4efd ????????????
-.data_03_4f09:
-    db   $f9, $11                                      ;; 03:4f09 ??
-    TXT  "Captain,\n"                                  ;; 03:4f0b ?????????
-    TXT  "everyone is in\n"                            ;; 03:4f14 ???????????????
-    TXT  "position."                                   ;; 03:4f23 ?????????
-    db   $f9, $0f                                      ;; 03:4f2c ??
-    TXT  "Why don't you\n"                             ;; 03:4f2e ??????????????
-    TXT  "Ambush him?[EOT]"                            ;; 03:4f3c ????????????
-.data_03_4f48:
-    db   $fa, $0f                                      ;; 03:4f48 ??
-    TXT  "I've caught\n"                               ;; 03:4f4a ????????????
-    TXT  "him! "                                       ;; 03:4f56 ?????
-    db   $fb, $3c                                      ;; 03:4f5b ??
-    TXT  "I'm sorry\n"                                 ;; 03:4f5d ??????????
-    TXT  "to tell you that"                            ;; 03:4f67 ????????????????
-    TXT  "Joe is not here."                            ;; 03:4f77 ????????????????
-    db   $fb, $3c                                      ;; 03:4f87 ??
-    TXT  "But you will rot"                            ;; 03:4f89 ????????????????
-    TXT  "in this cell\n"                              ;; 03:4f99 ?????????????
-    TXT  "forever.[EOT]"                               ;; 03:4fa6 ?????????
-.data_03_4faf:
-    db   $fa, $12                                      ;; 03:4faf ??
-    TXT  "Rad,is that\n"                               ;; 03:4fb1 ????????????
-    TXT  "really you? \r"                              ;; 03:4fbd ?????????????
-    TXT  "I thought you\n"                             ;; 03:4fca ??????????????
-    TXT  "could have\n"                                ;; 03:4fd8 ???????????
-    TXT  "done better.\n"                              ;; 03:4fe3 ?????????????
-    TXT  "You can use my\n"                            ;; 03:4ff0 ???????????????
-    TXT  "wire and weapons"                            ;; 03:4fff ????????????????
-    TXT  "hidden somewhere"                            ;; 03:500f ????????????????
-    TXT  "in this Area.\n"                             ;; 03:501f ??????????????
-    db   $fb, $3c                                      ;; 03:502d ??
-    TXT  "Use them to get\n"                           ;; 03:502f ????????????????
-    TXT  "out of this area"                            ;; 03:503f ????????????????
-    TXT  "and head for\n"                              ;; 03:504f ?????????????
-    TXT  "Area 11 to help\n"                           ;; 03:505c ????????????????
-    TXT  "the resistance\n"                            ;; 03:506c ???????????????
-    TXT  "fight the\n"                                 ;; 03:507b ??????????
-    TXT  "Doraize.[EOT]"                               ;; 03:5085 ?????????
-.data_03_508e:
-    db   $fa, $0f                                      ;; 03:508e ??
-    TXT  "Super Joe has\n"                             ;; 03:5090 ??????????????
-    TXT  "been taken to\n"                             ;; 03:509e ??????????????
-    TXT  "Area 13,\n"                                  ;; 03:50ac ?????????
-    TXT  "but you will\n"                              ;; 03:50b5 ?????????????
-    TXT  "never leave\n"                               ;; 03:50c2 ????????????
-    TXT  "here alive.[EOT]"                            ;; 03:50ce ????????????
-.data_03_50da:
-    db   $fa, $08                                      ;; 03:50da ??
-    TXT  "This is the\n"                               ;; 03:50dc ????????????
-    TXT  "headquarters of\n"                           ;; 03:50e8 ????????????????
-    TXT  "the resistance.\n"                           ;; 03:50f8 ????????????????
-    TXT  "Soldiers from\n"                             ;; 03:5108 ??????????????
-    TXT  "the Federal Army"                            ;; 03:5116 ????????????????
-    TXT  "are\n"                                       ;; 03:5126 ????
-    TXT  "welcome here.[EOT]"                          ;; 03:512a ??????????????
-.data_03_5138:
-    db   $fa, $08                                      ;; 03:5138 ??
-    TXT  "A captured\n"                                ;; 03:513a ???????????
-    TXT  "Doraize soldier\n"                           ;; 03:5145 ????????????????
-    TXT  "is in this room."                            ;; 03:5155 ????????????????
-    TXT  "Do you wish\n"                               ;; 03:5165 ????????????
-    TXT  "to interrogate\n"                            ;; 03:5171 ???????????????
-    TXT  "him?[EOT]"                                   ;; 03:5180 ?????
-.data_03_5185:
-    db   $fa, $07                                      ;; 03:5185 ??
-    TXT  "Are you a\n"                                 ;; 03:5187 ??????????
-    TXT  "Bionic Commando?"                            ;; 03:5191 ????????????????
-    db   $fb, $3c                                      ;; 03:51a1 ??
-    TXT  "I am Mac,\n"                                 ;; 03:51a3 ??????????
-    TXT  "a leader of the\n"                           ;; 03:51ad ????????????????
-    TXT  "resistance.\n"                               ;; 03:51bd ????????????
-    db   $fb, $3c                                      ;; 03:51c9 ??
-    TXT  "I need to talk\n"                            ;; 03:51cb ???????????????
-    TXT  "to you. "                                    ;; 03:51da ????????
-    db   $fb, $3c                                      ;; 03:51e2 ??
-    TXT  "There isa launch"                            ;; 03:51e4 ????????????????
-    TXT  " pad fornuclear "                            ;; 03:51f4 ????????????????
-    TXT  "missilesin Area "                            ;; 03:5204 ????????????????
-    TXT  "12.\n"                                       ;; 03:5214 ????
-    db   $fb, $3c                                      ;; 03:5218 ??
-    TXT  "You must stop\n"                             ;; 03:521a ??????????????
-    TXT  "the Doraize from"                            ;; 03:5228 ????????????????
-    TXT  "destroying the\n"                            ;; 03:5238 ???????????????
-    TXT  "world with these"                            ;; 03:5247 ????????????????
-    TXT  "missiles.\n"                                 ;; 03:5257 ??????????
-    TXT  "Please return\n"                             ;; 03:5261 ??????????????
-    TXT  "here after you\n"                            ;; 03:526f ???????????????
-    TXT  "destroy them.[EOT]"                          ;; 03:527e ??????????????
-.data_03_528c:
-    db   $fa, $07                                      ;; 03:528c ??
-    TXT  "Thank you,Rad.\n"                            ;; 03:528e ???????????????
-    db   $fb, $3c                                      ;; 03:529d ??
-    TXT  "Please take\n"                               ;; 03:529f ????????????
-    TXT  "this Armor Med.\n"                           ;; 03:52ab ????????????????
-    TXT  "Use the Vulcan\n"                            ;; 03:52bb ???????????????
-    TXT  "M274 to destroy\n"                           ;; 03:52ca ????????????????
-    TXT  "obstacles which\n"                           ;; 03:52da ????????????????
-    TXT  "cannot be\n"                                 ;; 03:52ea ??????????
-    TXT  "destroyed with\n"                            ;; 03:52f4 ???????????????
-    TXT  "\r"                                          ;; 03:5303 ?
-    TXT  "the grenade\n"                               ;; 03:5304 ????????????
-    TXT  "launcher.[EOT]"                              ;; 03:5310 ??????????
-.data_03_531a:
-    TXT  "[EOT]"                                       ;; 03:531a ?
-.data_03_531b:
-    db   $fa, $11                                      ;; 03:531b ??
-    TXT  "I won't tell\n"                              ;; 03:531d ?????????????
-    TXT  "you anything!\n"                             ;; 03:532a ??????????????
-    db   $fb, $3c                                      ;; 03:5338 ??
-    TXT  "Come back later."                            ;; 03:533a ????????????????
-    TXT  "[EOT]"                                       ;; 03:534a ?
-.data_03_534b:
-    TXT  "[EOT]"                                       ;; 03:534b ?
-.data_03_534c:
-    db   $fa, $11                                      ;; 03:534c ??
-    TXT  "This wire......\n"                           ;; 03:534e ?????????????
-    db   $fb, $3c                                      ;; 03:535b ??
-    TXT  "aaarrr........\n"                            ;; 03:535d ???????????
-    db   $fb, $1e                                      ;; 03:5368 ??
-    TXT  "Are you a\n"                                 ;; 03:536a ??????????
-    TXT  "Bionic Commando?"                            ;; 03:5374 ????????????????
-    db   $fb, $3c                                      ;; 03:5384 ??
-    TXT  "Oh,I.... I'll ......\n"                      ;; 03:5386 ????????????????
-    TXT  "tell you\n"                                  ;; 03:5396 ?????????
-    TXT  "everything I\n"                              ;; 03:539f ?????????????
-    TXT  "know,so please\n"                            ;; 03:53ac ???????????????
-    TXT  "don't hurt me.\n"                            ;; 03:53bb ???????????????
-    TXT  "The secret\n"                                ;; 03:53ca ???????????
-    TXT  "tunnel is hidden"                            ;; 03:53d5 ????????????????
-    TXT  "between Area 9\n"                            ;; 03:53e5 ???????????????
-    TXT  "and 11 and\n"                                ;; 03:53f4 ???????????
-    TXT  "between Area 14\n"                           ;; 03:53ff ????????????????
-    TXT  "and 15.[EOT]"                                ;; 03:540f ????????
-.data_03_5417:
-    TXT  "[EOT]"                                       ;; 03:5417 ?
-.data_03_5418:
-    TXT  "[EOT]"                                       ;; 03:5418 ?
-.data_03_5419:
-    db   $f9, $04                                      ;; 03:5419 ??
-    TXT  "What?!\n"                                    ;; 03:541b ???????
-    db   $fb, $3c                                      ;; 03:5422 ??
-    TXT  "A nuclear\n"                                 ;; 03:5424 ??????????
-    TXT  "missile!\n"                                  ;; 03:542e ?????????
-    TXT  "Is this the\n"                               ;; 03:5437 ????????????
-    TXT  "Albatross?[EOT]"                             ;; 03:5443 ???????????
-.data_03_544e:
-    db   $f9, $10                                      ;; 03:544e ??
-    TXT  "Get ready to\n"                              ;; 03:5450 ?????????????
-    TXT  "launch the\n"                                ;; 03:545d ???????????
-    TXT  "missile.\n"                                  ;; 03:5468 ?????????
-    TXT  "Wipe out the\n"                              ;; 03:5471 ?????????????
-    TXT  "entire\n"                                    ;; 03:547e ???????
-    TXT  "Federal Army.[EOT]"                          ;; 03:5485 ??????????????
-.data_03_5493:
-    TXT  "[EOT]"                                       ;; 03:5493 ?
-.data_03_5494:
-    TXT  "[EOT]"                                       ;; 03:5494 ?
-.data_03_5495:
-    db   $fa, $10                                      ;; 03:5495 ??
-    TXT  "This missile isj"                            ;; 03:5497 ????????????????
-    TXT  "ust a toy com-\n"                            ;; 03:54a7 ???????????????
-    TXT  "pared with the\n"                            ;; 03:54b6 ???????????????
-    TXT  "Albatross. "                                 ;; 03:54c5 ???????????
-    db   $fb, $3c                                      ;; 03:54d0 ??
-    TXT  "I'm\n"                                       ;; 03:54d2 ????
-    TXT  "sorry I can't\n"                             ;; 03:54d6 ??????????????
-    TXT  "show you the\n"                              ;; 03:54e4 ?????????????
-    TXT  "real Albatross,\n"                           ;; 03:54f1 ????????????????
-    TXT  "but instead I'll"                            ;; 03:5501 ????????????????
-    TXT  "show you\n"                                  ;; 03:5511 ?????????
-    TXT  "my\n"                                        ;; 03:551a ???
-    TXT  "machine gun![EOT]"                           ;; 03:551d ?????????????
-.data_03_552a:
-    db   $f9, $04                                      ;; 03:552a ??
-    TXT  "Watch out!\n"                                ;; 03:552c ???????????
-    db   $fb, $3c                                      ;; 03:5537 ??
-    TXT  "It's a trick!\r"                             ;; 03:5539 ??????????????
-    TXT  "They're aiming\n"                            ;; 03:5547 ???????????????
-    TXT  "at you![EOT]"                                ;; 03:5556 ????????
-.data_03_555e:
-    db   $f9, $00                                      ;; 03:555e ??
-    TXT  "Rad,come here.\n"                            ;; 03:5560 ???????????????
-    db   $fb, $3c                                      ;; 03:556f ??
-    TXT  "Super Joe is\n"                              ;; 03:5571 ?????????????
-    TXT  "in here.[EOT]"                               ;; 03:557e ?????????
-.data_03_5587:
-    db   $fa, $0b                                      ;; 03:5587 ??
-    TXT  "Rad!!\n"                                     ;; 03:5589 ??????
-    db   $fb, $1e                                      ;; 03:558f ??
-    TXT  "I've been wait-\n"                           ;; 03:5591 ????????????????
-    TXT  "ing for you.\r"                              ;; 03:55a1 ?????????????
-    TXT  "I will\n"                                    ;; 03:55ae ???????
-    TXT  "crush you!![EOT]"                            ;; 03:55b5 ????????????
-.data_03_55c1:
-    db   $fa, $01                                      ;; 03:55c1 ??
-    TXT  "Joe,I'll get\n"                              ;; 03:55c3 ?????????????
-    TXT  "you out of here."                            ;; 03:55d0 ????????????????
-    db   $fa, $02                                      ;; 03:55e0 ??
-    TXT  "Thanks!\n"                                   ;; 03:55e2 ????????
-    db   $fb, $3c                                      ;; 03:55ea ??
-    TXT  "I've found out\n"                            ;; 03:55ec ???????????????
-    TXT  "about the\n"                                 ;; 03:55fb ??????????
-    TXT  "Albatross\n"                                 ;; 03:5605 ??????????
-    TXT  "project.\r"                                  ;; 03:560f ?????????
-    TXT  "They are\n"                                  ;; 03:5618 ?????????
-    TXT  "building a\n"                                ;; 03:5621 ???????????
-    TXT  "floating\n"                                  ;; 03:562c ?????????
-    TXT  "fortress to con-"                            ;; 03:5635 ????????????????
-    TXT  "trol the world.\n"                           ;; 03:5645 ????????????????
-    db   $fb, $3c                                      ;; 03:5655 ??
-    TXT  "A dock for the\n"                            ;; 03:5657 ???????????????
-    TXT  "Albatross\n"                                 ;; 03:5666 ??????????
-    TXT  "fortress is in\n"                            ;; 03:5670 ???????????????
-    TXT  "Area 16.\n"                                  ;; 03:567f ?????????
-    TXT  "A man\n"                                     ;; 03:5688 ??????
-    TXT  "named Destroyer\n"                           ;; 03:568e ????????????????
-    TXT  "keeps weapons in"                            ;; 03:569e ????????????????
-    TXT  "\n"                                          ;; 03:56ae ?
-    TXT  "Area 14.\n"                                  ;; 03:56af ?????????
-    db   $fb, $3c                                      ;; 03:56b8 ??
-    TXT  "Good Luck![EOT]"                             ;; 03:56ba ???????????
-.data_03_56c5:
-    db   $fa, $06                                      ;; 03:56c5 ??
-    TXT  "You might like\n"                            ;; 03:56c7 ???????????????
-    TXT  "the stuff\n"                                 ;; 03:56d6 ??????????
-    TXT  "in here.[EOT]"                               ;; 03:56e0 ?????????
-.data_03_56e9:
-    db   $fa, $08                                      ;; 03:56e9 ??
-    TXT  "Welcome.\n"                                  ;; 03:56eb ?????????
-    db   $fb, $3c                                      ;; 03:56f4 ??
-    TXT  "My name is\n"                                ;; 03:56f6 ???????????
-    TXT  "Destroyer.\n"                                ;; 03:5701 ???????????
-    TXT  "A M83A3\n"                                   ;; 03:570c ????????
-    TXT  "machine gun is\n"                            ;; 03:5714 ???????????????
-    TXT  "kept in here.\n"                             ;; 03:5723 ??????????????
-    TXT  "Super Joe\n"                                 ;; 03:5731 ??????????
-    TXT  "told me that a\n"                            ;; 03:573b ???????????????
-    TXT  "[D] receiver is\n"                           ;; 03:574a ??????????????
-    TXT  "in Area 15.[EOT]"                            ;; 03:5758 ????????????
-.data_03_5764:
-    db   $f9, $02                                      ;; 03:5764 ??
-    TXT  "Destroy the\n"                               ;; 03:5766 ????????????
-    TXT  "Albatross before"                            ;; 03:5772 ????????????????
-    TXT  "it takes off.\n"                             ;; 03:5782 ??????????????
-    TXT  "Is the fortress\n"                           ;; 03:5790 ????????????????
-    TXT  "the entire Alba-"                            ;; 03:57a0 ????????????????
-    TXT  "tross project?\n"                            ;; 03:57b0 ???????????????
-    TXT  "I think it's\n"                              ;; 03:57bf ?????????????
-    TXT  "more than\n"                                 ;; 03:57cc ??????????
-    TXT  "just that?[EOT]"                             ;; 03:57d6 ???????????
-.data_03_57e1:
-    db   $f9, $11                                      ;; 03:57e1 ??
-    TXT  "All systems\n"                               ;; 03:57e3 ????????????
-    TXT  "have been\n"                                 ;; 03:57ef ??????????
-    TXT  "checked.\n"                                  ;; 03:57f9 ?????????
-    TXT  "The Albatross\n"                             ;; 03:5802 ??????????????
-    TXT  "is ready to\n"                               ;; 03:5810 ????????????
-    TXT  "take off."                                   ;; 03:581c ?????????
-    db   $f9, $0a                                      ;; 03:5825 ??
-    TXT  "Now I've got\n"                              ;; 03:5827 ?????????????
-    TXT  "control of the\n"                            ;; 03:5834 ???????????????
-    TXT  "whole world.\n"                              ;; 03:5843 ?????????????
-    TXT  "The Federal Army"                            ;; 03:5850 ????????????????
-    TXT  "is helpless\n"                               ;; 03:5860 ????????????
-    TXT  "against me![EOT]"                            ;; 03:586c ????????????
-.data_03_5878:
-    db   $fa, $0d                                      ;; 03:5878 ??
-    TXT  "You're late,\n"                              ;; 03:587a ?????????????
-    TXT  "the Albatross\n"                             ;; 03:5887 ??????????????
-    TXT  "has already\n"                               ;; 03:5895 ????????????
-    TXT  "taken off.\n"                                ;; 03:58a1 ???????????
-    db   $fb, $3c                                      ;; 03:58ac ??
-    TXT  "Now I shall\n"                               ;; 03:58ae ????????????
-    TXT  "smash you just\n"                            ;; 03:58ba ???????????????
-    TXT  "like I will\n"                               ;; 03:58c9 ????????????
-    TXT  "smash the\n"                                 ;; 03:58d5 ??????????
-    TXT  "Federal States![EOT]"                        ;; 03:58df ????????????????
-.data_03_58ef:
-    db   $f9, $03                                      ;; 03:58ef ??
-    TXT  "Super Joe and\n"                             ;; 03:58f1 ??????????????
-    TXT  "Rad,the only way"                            ;; 03:58ff ????????????????
-    TXT  "to destroy the\n"                            ;; 03:590f ???????????????
-    TXT  "Albatross is to\n"                           ;; 03:591e ????????????????
-    TXT  "enter from the\n"                            ;; 03:592e ???????????????
-    TXT  "top and destroy\n"                           ;; 03:593d ????????????????
-    TXT  "the power\n"                                 ;; 03:594d ??????????
-    TXT  "station."                                    ;; 03:5957 ????????
-    db   $f9, $02                                      ;; 03:595f ??
-    TXT  "Yes,Sir."                                    ;; 03:5961 ????????
-    db   $f9, $01                                      ;; 03:5969 ??
-    TXT  "We'll enter\n"                               ;; 03:596b ????????????
-    TXT  "the Albatross\n"                             ;; 03:5977 ??????????????
-    TXT  "shortly.[EOT]"                               ;; 03:5985 ?????????
-.data_03_598e:
-    db   $fa, $02                                      ;; 03:598e ??
-    TXT  "Leave the\n"                                 ;; 03:5990 ??????????
-    TXT  "bridge to me.\r"                             ;; 03:599a ??????????????
-    TXT  "You take care of"                            ;; 03:59a8 ????????????????
-    TXT  "the power\n"                                 ;; 03:59b8 ??????????
-    TXT  "station."                                    ;; 03:59c2 ????????
-    db   $fa, $01                                      ;; 03:59ca ??
-    TXT  "Yes,Sir."                                    ;; 03:59cc ????????
-    db   $fa, $02                                      ;; 03:59d4 ??
-    TXT  "This is the\n"                               ;; 03:59d6 ????????????
-    TXT  "last area we\n"                              ;; 03:59e2 ?????????????
-    TXT  "need to destroy."                            ;; 03:59ef ????????????????
-    db   $fa, $01                                      ;; 03:59ff ??
-    TXT  "I can\n"                                     ;; 03:5a01 ??????
-    TXT  "handle it.[EOT]"                             ;; 03:5a07 ???????????
-.data_03_5a12:
-    db   $fa, $13                                      ;; 03:5a12 ??
-    TXT  "The machine hasr"                            ;; 03:5a14 ????????????????
-    TXT  "egenerated me!\r"                            ;; 03:5a24 ???????????????
-    TXT  "You will not\n"                              ;; 03:5a33 ?????????????
-    TXT  "survive\n"                                   ;; 03:5a40 ????????
-    TXT  "my attack![EOT]"                             ;; 03:5a48 ???????????
-.data_03_5a53:
-    db   $fa, $13                                      ;; 03:5a53 ??
-    TXT  "You did it,Rad!"                             ;; 03:5a55 ???????????????
-    db   $fb, $3c                                      ;; 03:5a64 ??
-    TXT  "But,this float-\n"                           ;; 03:5a66 ????????????????
-    TXT  "ing fortress is\n"                           ;; 03:5a76 ????????????????
-    TXT  "just a part of \n"                           ;; 03:5a86 ????????????????
-    TXT  "the Albatross \n"                            ;; 03:5a96 ???????????????
-    TXT  "plan.\n"                                     ;; 03:5aa5 ??????
-    TXT  "The secret of\n"                             ;; 03:5aab ??????????????
-    TXT  "the Albatross is"                            ;; 03:5ab9 ????????????????
-    TXT  "\n"                                          ;; 03:5ac9 ?
-    TXT  "the ultimate\n"                              ;; 03:5aca ?????????????
-    TXT  "lethal weapon.\n"                            ;; 03:5ad7 ???????????????
-    db   $fb, $3c                                      ;; 03:5ae6 ??
-    TXT  "It has not been\n"                           ;; 03:5ae8 ????????????????
-    TXT  "unveiled yet,but"                            ;; 03:5af8 ????????????????
-    TXT  "it'll terminate\n"                           ;; 03:5b08 ????????????????
-    TXT  "the whole world\n"                           ;; 03:5b18 ????????????????
-    TXT  "once it has been"                            ;; 03:5b28 ????????????????
-    TXT  "activated.\n"                                ;; 03:5b38 ???????????
-    db   $fb, $3c                                      ;; 03:5b43 ??
-    TXT  "Look at this,\n"                             ;; 03:5b45 ??????????????
-    TXT  "Rad."                                        ;; 03:5b53 ????
-    db   $fa, $01                                      ;; 03:5b57 ??
-    TXT  "This is a......\n"                           ;; 03:5b59 ?????????????
-    TXT  "FF Corps' badge."                            ;; 03:5b66 ????????????????
-    db   $fa, $13                                      ;; 03:5b76 ??
-    TXT  "You're right.\n"                             ;; 03:5b78 ??????????????
-    db   $fb, $3c                                      ;; 03:5b86 ??
-    TXT  "I'm an ex-\n"                                ;; 03:5b88 ???????????
-    TXT  "Bionic Commando."                            ;; 03:5b93 ????????????????
-    TXT  "I happened to\n"                             ;; 03:5ba3 ??????????????
-    TXT  "hear about\n"                                ;; 03:5bb1 ???????????
-    TXT  "the Albatross\n"                             ;; 03:5bbc ??????????????
-    TXT  "project and I\n"                             ;; 03:5bca ??????????????
-    TXT  "decided to\n"                                ;; 03:5bd8 ???????????
-    TXT  "become a\n"                                  ;; 03:5be3 ?????????
-    TXT  "Wiseman's\n"                                 ;; 03:5bec ??????????
-    TXT  "soldier.\n"                                  ;; 03:5bf6 ?????????
-    TXT  "\r"                                          ;; 03:5bff ?
-    TXT  "I've been \n"                                ;; 03:5c00 ???????????
-    TXT  "waiting for a\n"                             ;; 03:5c0b ??????????????
-    TXT  "true soldier to\n"                           ;; 03:5c19 ????????????????
-    TXT  "come and destroy"                            ;; 03:5c29 ????????????????
-    TXT  "\n"                                          ;; 03:5c39 ?
-    TXT  "the Albatross.\n"                            ;; 03:5c3a ???????????????
-    db   $fb, $3c                                      ;; 03:5c49 ??
-    TXT  "Rad Spencer,you\n"                           ;; 03:5c4b ????????????????
-    TXT  "are the greatest"                            ;; 03:5c5b ????????????????
-    TXT  "soldier\n"                                   ;; 03:5c6b ????????
-    TXT  "I've ever seen.\n"                           ;; 03:5c73 ????????????????
-    TXT  "Destroy the\n"                               ;; 03:5c83 ????????????
-    TXT  "entire project,\n"                           ;; 03:5c8f ????????????????
-    TXT  "Rad.\n"                                      ;; 03:5c9f ?????
-    TXT  "The fate of the\n"                           ;; 03:5ca4 ????????????????
-    TXT  "earth is in\n"                               ;; 03:5cb4 ????????????
-    TXT  "your hands."                                 ;; 03:5cc0 ???????????
-    db   $fa, $01                                      ;; 03:5ccb ??
-    TXT  "Oh,Rile....!![EOT]"                          ;; 03:5ccd ????????????
-.data_03_5cd9:
-    TXT  "[EOT]"                                       ;; 03:5cd9 ?
-.data_03_5cda:
-    db   $fa, $02                                      ;; 03:5cda ??
-    TXT  "I've wrecked\n"                              ;; 03:5cdc ?????????????
-    TXT  "the bridge,\n"                               ;; 03:5ce9 ????????????
-    TXT  "\r"                                          ;; 03:5cf5 ?
-    TXT  "but I failed\n"                              ;; 03:5cf6 ?????????????
-    TXT  "to terminate\n"                              ;; 03:5d03 ?????????????
-    TXT  "Wiseman.\n"                                  ;; 03:5d10 ?????????
-    TXT  "He's gonna\n"                                ;; 03:5d19 ???????????
-    TXT  "take the escape\n"                           ;; 03:5d24 ????????????????
-    TXT  "pod to get\n"                                ;; 03:5d34 ???????????
-    TXT  "out of here.\n"                              ;; 03:5d3f ?????????????
-    db   $fb, $3c                                      ;; 03:5d4c ??
-    TXT  "Use this\n"                                  ;; 03:5d4e ?????????
-    TXT  "S-APDS gun\n"                                ;; 03:5d57 ???????????
-    TXT  "to shoot\n"                                  ;; 03:5d62 ?????????
-    TXT  "through the\n"                               ;; 03:5d6b ????????????
-    TXT  "cockpit.[EOT]"                               ;; 03:5d77 ?????????
-.data_03_5d80:
-    db   $fa, $01                                      ;; 03:5d80 ??
-    TXT  "Wiseman,\n"                                  ;; 03:5d82 ?????????
-    TXT  "this is\n"                                   ;; 03:5d8b ????????
-    TXT  "the end of\n"                                ;; 03:5d93 ???????????
-    TXT  "your plans and\n"                            ;; 03:5d9e ???????????????
-    TXT  "your life!!"                                 ;; 03:5dad ???????????
-    db   $f8, $03                                      ;; 03:5db8 ??
-    db   $fa, $0a                                      ;; 03:5dba ??
-    db   $f8, $01                                      ;; 03:5dbc ??
-    TXT  "Uhhh....!!\n"                                ;; 03:5dbe ?????????
-    db   $fb, $3c                                      ;; 03:5dc7 ??
-    TXT  "My....dream......!!"                         ;; 03:5dc9 ??????????????
-    db   $fb, $5a                                      ;; 03:5dd7 ??
-    TXT  "[EOT]"                                       ;; 03:5dd9 ?
-.data_03_5dda:
-    db   $fa, $00                                      ;; 03:5dda ??
-    TXT  "The Albatross\n"                             ;; 03:5ddc ??????????????
-    TXT  "is now out of\n"                             ;; 03:5dea ??????????????
-    TXT  "control.\n"                                  ;; 03:5df8 ?????????
-    TXT  "60 seconds\n"                                ;; 03:5e01 ???????????
-    TXT  "before\n"                                    ;; 03:5e0c ???????
-    TXT  "explosion.[EOT]"                             ;; 03:5e13 ???????????
-.data_03_5e1e:
-    db   $fa, $0d                                      ;; 03:5e1e ??
-    TXT  "The director isw"                            ;; 03:5e20 ????????????????
-    TXT  "aiting for us.\n"                            ;; 03:5e30 ???????????????
-    db   $fb, $3c                                      ;; 03:5e3f ??
-    TXT  "Follow me![EOT]"                             ;; 03:5e41 ???????????
-.data_03_5e4c:
-    TXT  "[EOT]"                                       ;; 03:5e4c ?
-.data_03_5e4d:
-    TXT  "[EOT]"                                       ;; 03:5e4d ?
-.data_03_5e4e:
-    db   $fa, $10                                      ;; 03:5e4e ??
-    TXT  "Stop him!!\n"                                ;; 03:5e50 ???????????
-    TXT  "\r"                                          ;; 03:5e5b ?
-    TXT  "Defend the\n"                                ;; 03:5e5c ???????????
-    TXT  "director from\n"                             ;; 03:5e67 ??????????????
-    TXT  "the enemy![EOT]"                             ;; 03:5e75 ???????????
-.data_03_5e80:
-    db   $fa, $01                                      ;; 03:5e80 ??
-    TXT  "We've gotten\n"                              ;; 03:5e82 ?????????????
-    TXT  "back the\n"                                  ;; 03:5e8f ?????????
-    TXT  "weapons.[EOT]"                               ;; 03:5e98 ?????????
-.data_03_5ea1:
-    db   $f9, $04                                      ;; 03:5ea1 ..
-    db   $fb, $1e                                      ;; 03:5ea3 ..
-    TXT  "Chief,\n"                                    ;; 03:5ea5 .......
-    TXT  "headquarters is\n"                           ;; 03:5eac ................
-    TXT  "contacting us."                              ;; 03:5ebc .......???????
-    db   $f9, $03                                      ;; 03:5eca ??
-    TXT  "Rad,as you wellk"                            ;; 03:5ecc ????????????????
-    TXT  "now,Super Joe\n"                             ;; 03:5edc ??????????????
-    TXT  "is missing.\n"                               ;; 03:5eea ????????????
-    TXT  "Your mission is\n"                           ;; 03:5ef6 ????????????????
-    TXT  "to sneak into\n"                             ;; 03:5f06 ??????????????
-    TXT  "the Doraize base"                            ;; 03:5f14 ????????????????
-    TXT  "to rescue\n"                                 ;; 03:5f24 ??????????
-    TXT  "Super Joe and\n"                             ;; 03:5f2e ??????????????
-    TXT  "destroy the\n"                               ;; 03:5f3c ????????????
-    TXT  "Albatross\n"                                 ;; 03:5f48 ??????????
-    TXT  "project. "                                   ;; 03:5f52 ?????????
-    db   $fb, $3c                                      ;; 03:5f5b ??
-    TXT  "Our\n"                                       ;; 03:5f5d ????
-    TXT  "special forces\n"                            ;; 03:5f61 ???????????????
-    TXT  "unit has already"                            ;; 03:5f70 ????????????????
-    TXT  "been deployed in"                            ;; 03:5f80 ????????????????
-    TXT  "Area 0 to assist"                            ;; 03:5f90 ????????????????
-    TXT  "you with\n"                                  ;; 03:5fa0 ?????????
-    TXT  "your mission.\n"                             ;; 03:5fa9 ??????????????
-    db   $fb, $3c                                      ;; 03:5fb7 ??
-    TXT  "Good luck![EOT]"                             ;; 03:5fb9 ???????????
-.data_03_5fc4:
-    db   $f9, $04                                      ;; 03:5fc4 ??
-    TXT  "Look at this!\r"                             ;; 03:5fc6 ??????????????
-    TXT  "The Doraize Army"                            ;; 03:5fd4 ????????????????
-    TXT  "destroyed\n"                                 ;; 03:5fe4 ??????????
-    TXT  "the elevator.[EOT]"                          ;; 03:5fee ??????????????
-.data_03_5ffc:
-    db   $f9, $11                                      ;; 03:5ffc ??
-    TXT  "Captain,\n"                                  ;; 03:5ffe ?????????
-    TXT  "can you tell me\n"                           ;; 03:6007 ????????????????
-    TXT  "how to\n"                                    ;; 03:6017 ???????
-    TXT  "operate the\n"                               ;; 03:601e ????????????
-    TXT  "elevators?"                                  ;; 03:602a ??????????
-    db   $f9, $10                                      ;; 03:6034 ??
-    TXT  "Jump onto the\n"                             ;; 03:6036 ??????????????
-    TXT  "elevator and\n"                              ;; 03:6044 ?????????????
-    TXT  "push either\n"                               ;; 03:6051 ????????????
-    TXT  "up or down."                                 ;; 03:605d ???????????
-    db   $f9, $11                                      ;; 03:6068 ??
-    TXT  "Yes,Sir!\n"                                  ;; 03:606a ?????????
-    db   $fb, $3c                                      ;; 03:6073 ??
-    db   $f8, $03                                      ;; 03:6075 ??
-    TXT  "Oh....No!?"                                  ;; 03:6077 ????????
-    db   $f9, $10                                      ;; 03:607f ??
-    db   $f8, $01                                      ;; 03:6081 ??
-    TXT  "I forgot to\n"                               ;; 03:6083 ????????????
-    TXT  "tell you that\n"                             ;; 03:608f ??????????????
-    TXT  "one of the\n"                                ;; 03:609d ???????????
-    TXT  "elevators will\n"                            ;; 03:60a8 ???????????????
-    TXT  "crash if you\n"                              ;; 03:60b7 ?????????????
-    TXT  "step on it.[EOT]"                            ;; 03:60c4 ????????????
-.data_03_60d0:
-    db   $fa, $01                                      ;; 03:60d0 ??
-    TXT  "You're......\n"                              ;; 03:60d2 ??????????
-    TXT  "Wiseman!!!"                                  ;; 03:60dc ??????????
-    db   $fa, $0a                                      ;; 03:60e6 ??
-    TXT  "Humm......\n"                                ;; 03:60e8 ????????
-    TXT  "you got this far"                            ;; 03:60f0 ????????????????
-    TXT  "kid,but you'll\n"                            ;; 03:6100 ???????????????
-    TXT  "go no further!\n"                            ;; 03:610f ???????????????
-    db   $fb, $3c                                      ;; 03:611e ??
-    TXT  "You are nothing\n"                           ;; 03:6120 ????????????????
-    TXT  "but an infant\n"                             ;; 03:6130 ??????????????
-    TXT  "compared to the\n"                           ;; 03:613e ????????????????
-    TXT  "power of the\n"                              ;; 03:614e ?????????????
-    TXT  "Albatross.\n"                                ;; 03:615b ???????????
-    TXT  "Now is\n"                                    ;; 03:6166 ???????
-    TXT  "the time for you"                            ;; 03:616d ????????????????
-    TXT  "to be punished.[EOT]"                        ;; 03:617d ????????????????
-.data_03_618d:
-    db   $fa, $01                                      ;; 03:618d ??
-    TXT  "You cannot\n"                                ;; 03:618f ???????????
-    TXT  "escape,wimp![EOT]"                           ;; 03:619a ?????????????
-.data_03_61a7:
-    TXT  "[EOT]"                                       ;; 03:61a7 ?
-.data_03_61a8:
-    db   $fa, $10                                      ;; 03:61a8 ??
-    TXT  "Stop now or be\n"                            ;; 03:61aa ???????????????
-    TXT  "destroyed.[EOT]"                             ;; 03:61b9 ???????????
-.data_03_61c4:
-    db   $fa, $06                                      ;; 03:61c4 ??
-    TXT  "This is a\n"                                 ;; 03:61c6 ??????????
-    TXT  "neutral area.\r"                             ;; 03:61d0 ??????????????
-    TXT  "Please refrain\n"                            ;; 03:61de ???????????????
-    TXT  "from firing\n"                               ;; 03:61ed ????????????
-    TXT  "here.[EOT]"                                  ;; 03:61f9 ??????
+INCLUDE "data/text0.asm"
 ;@data format=p amount=27
     dw   .data_03_6258                                 ;; 03:61ff ?? $00
     dw   .data_03_6235                                 ;; 03:6201 ?? $01
@@ -1334,6 +334,8 @@ data_03_6778:
 ;@bc_text
 data_03_677f:
     TXT  "Enemies !![EOT]"                             ;; 03:677f ???????????
+
+data_03_678a:
     db   $01, $01, $0e, $4e, $4c, $26, $01, $01        ;; 03:678a ????????
     db   $1f, $40, $4f, $26, $fe, $01, $01, $1e        ;; 03:6792 ????????
     db   $44, $4b, $44, $42, $53, $fe, $01, $01        ;; 03:679a ????????
@@ -1352,11 +354,15 @@ data_03_677f:
     db   $54, $4b, $42, $40, $4d, $01, $18, $04        ;; 03:6802 ????????
     db   $09, $06, $00, $1b, $51, $4e, $53, $44        ;; 03:680a ????????
     db   $42, $53, $01, $1e, $54, $48, $53, $00        ;; 03:6812 ????????
+
+data_03_681a:
     db   $22, $44, $28, $55, $44, $01, $4e, $41        ;; 03:681a ????????
-    db   $53, $40, $48, $4d, $44, $43, $fe, $00        ;; 03:6822 ????????
-    db   $a6, $67, $b2, $67, $c3, $67, $d2, $67        ;; 03:682a ????????
-    db   $e3, $67, $f0, $67, $f7, $67, $01, $68        ;; 03:6832 ????????
-    db   $0d, $68                                      ;; 03:683a ??
+    db   $53, $40, $48, $4d, $44, $43                  ;; 03:6822 ??????
+
+data_03_6828:
+    db   $fe, $00, $a6, $67, $b2, $67, $c3, $67        ;; 03:6828 ????????
+    db   $d2, $67, $e3, $67, $f0, $67, $f7, $67        ;; 03:6830 ????????
+    db   $01, $68, $0d, $68                            ;; 03:6838 ????
 
 call_03_683c:
     ld   A, [wCD74]                                    ;; 03:683c $fa $74 $cd
@@ -1542,6 +548,8 @@ data_03_68d2:
     db   %00111100                                     ;; 03:6928 $3c
     db   %00000000                                     ;; 03:6929 $00
 
+
+data_03_692a:
     db   %00011100                                     ;; 03:692a $1c
     db   %00111110                                     ;; 03:692b $3e
     db   %01100011                                     ;; 03:692c $63
@@ -1944,12 +952,38 @@ call_03_6b3a:
     call call_00_02e8                                  ;; 03:6b3b $cd $e8 $02
     pop  AF                                            ;; 03:6b3e $f1
     jp   call_00_015c                                  ;; 03:6b3f $c3 $5c $01
-    db   $2a, $b7, $c8, $e5, $d5, $d6, $41, $6f        ;; 03:6b42 ????????
-    db   $26, $00, $29, $29, $29, $29, $01, $2a        ;; 03:6b4a ????????
-    db   $69, $09, $11, $06, $d2, $06, $08, $2a        ;; 03:6b52 ????????
-    db   $12, $13, $12, $13, $05, $20, $f8, $d1        ;; 03:6b5a ????????
-    db   $21, $06, $d2, $01, $10, $00, $cd, $5f        ;; 03:6b62 ????????
-    db   $01, $e1, $18, $d4                            ;; 03:6b6a ????
+
+jp_03_6b42:
+    ld   A, [HL+]                                      ;; 03:6b42 $2a
+    or   A, A                                          ;; 03:6b43 $b7
+    ret  Z                                             ;; 03:6b44 $c8
+    push HL                                            ;; 03:6b45 $e5
+    push DE                                            ;; 03:6b46 $d5
+    sub  A, $41                                        ;; 03:6b47 $d6 $41
+    ld   L, A                                          ;; 03:6b49 $6f
+    ld   H, $00                                        ;; 03:6b4a $26 $00
+    add  HL, HL                                        ;; 03:6b4c $29
+    add  HL, HL                                        ;; 03:6b4d $29
+    add  HL, HL                                        ;; 03:6b4e $29
+    add  HL, HL                                        ;; 03:6b4f $29
+    ld   BC, data_03_692a                              ;; 03:6b50 $01 $2a $69
+    add  HL, BC                                        ;; 03:6b53 $09
+    ld   DE, wD206                                     ;; 03:6b54 $11 $06 $d2
+    ld   B, $08                                        ;; 03:6b57 $06 $08
+.jr_03_6b59:
+    ld   A, [HL+]                                      ;; 03:6b59 $2a
+    ld   [DE], A                                       ;; 03:6b5a $12
+    inc  DE                                            ;; 03:6b5b $13
+    ld   [DE], A                                       ;; 03:6b5c $12
+    inc  DE                                            ;; 03:6b5d $13
+    dec  B                                             ;; 03:6b5e $05
+    jr   NZ, .jr_03_6b59                               ;; 03:6b5f $20 $f8
+    pop  DE                                            ;; 03:6b61 $d1
+    ld   HL, wD206                                     ;; 03:6b62 $21 $06 $d2
+    ld   BC, $10                                       ;; 03:6b65 $01 $10 $00
+    call memcpyVRAM_                                   ;; 03:6b68 $cd $5f $01
+    pop  HL                                            ;; 03:6b6b $e1
+    jr   jp_03_6b42                                    ;; 03:6b6c $18 $d4
 
 jp_03_6b6e:
     push DE                                            ;; 03:6b6e $d5
@@ -1998,6 +1032,8 @@ call_03_6b8c:
 
 jp_03_6bae:
     ld   HL, $8800                                     ;; 03:6bae $21 $00 $88
+
+jp_03_6bb1:
     xor  A, A                                          ;; 03:6bb1 $af
     ld   BC, $10                                       ;; 03:6bb2 $01 $10 $00
     call memsetVRAM_                                   ;; 03:6bb5 $cd $62 $01
@@ -2018,7 +1054,7 @@ jp_03_6bae:
     jr   NZ, .jr_03_6bbd                               ;; 03:6bcd $20 $ee
     ret                                                ;; 03:6bcf $c9
 
-jp_03_6bd0:
+call_03_6bd0:
     ld   A, E                                          ;; 03:6bd0 $7b
     ld   [wCD5E], A                                    ;; 03:6bd1 $ea $5e $cd
     ld   A, D                                          ;; 03:6bd4 $7a
@@ -2127,24 +1163,84 @@ jp_03_6bd0:
     db   $10, $ea, $63, $cd, $fa, $db, $d2, $ea        ;; 03:6cb1 ????????
     db   $72, $cd, $3e, $02, $ea, $5d, $cd, $cd        ;; 03:6cb9 ????????
     db   $52, $6d, $cd, $bc, $01, $c9, $06, $79        ;; 03:6cc1 ????????
-    db   $c9, $fa, $5c, $cd, $3c, $fe, $5e, $38        ;; 03:6cc9 ????????
-    db   $02, $3e, $01, $ea, $5c, $cd, $47, $cd        ;; 03:6cd1 ????????
-    db   $dc, $6c, $c9, $af, $ea, $db, $d2, $18        ;; 03:6cd9 ????????
-    db   $05, $3e, $01, $ea, $db, $d2, $78, $b7        ;; 03:6ce1 ????????
-    db   $c8, $ea, $5c, $cd, $fa, $d9, $c0, $ea        ;; 03:6ce9 ????????
-    db   $b7, $df, $3e, $e4, $ea, $d9, $c0, $cd        ;; 03:6cf1 ????????
-    db   $59, $70, $cd, $90, $70, $3e, $02, $ea        ;; 03:6cf9 ????????
-    db   $5e, $cd, $3e, $09, $ea, $5f, $cd, $3e        ;; 03:6d01 ????????
-    db   $68, $ea, $62, $cd, $3e, $10, $ea, $63        ;; 03:6d09 ????????
-    db   $cd, $fa, $db, $d2, $ea, $72, $cd, $21        ;; 03:6d11 ????????
-    db   $e2, $c2, $af, $5e, $22, $56, $22, $d5        ;; 03:6d19 ????????
-    db   $5e, $22, $56, $22, $d5, $cd, $52, $6d        ;; 03:6d21 ????????
-    db   $21, $e5, $c2, $d1, $72, $2b, $73, $2b        ;; 03:6d29 ????????
-    db   $d1, $72, $2b, $73, $cd, $5c, $72, $cd        ;; 03:6d31 ????????
-    db   $6b, $72, $fa, $64, $cd, $e0, $48, $fa        ;; 03:6d39 ????????
-    db   $b7, $df, $ea, $d9, $c0, $fa, $4e, $df        ;; 03:6d41 ????????
-    db   $fe, $06, $cc, $90, $03, $cd, $bc, $01        ;; 03:6d49 ????????
-    db   $c9                                           ;; 03:6d51 ?
+    db   $c9                                           ;; 03:6cc9 ?
+
+jp_03_6cca:
+    ld   A, [wCD5C]                                    ;; 03:6cca $fa $5c $cd
+    inc  A                                             ;; 03:6ccd $3c
+    cp   A, $5e                                        ;; 03:6cce $fe $5e
+    jr   C, .jr_03_6cd4                                ;; 03:6cd0 $38 $02
+    ld   A, $01                                        ;; 03:6cd2 $3e $01
+.jr_03_6cd4:
+    ld   [wCD5C], A                                    ;; 03:6cd4 $ea $5c $cd
+    ld   B, A                                          ;; 03:6cd7 $47
+    call call_03_6cdc                                  ;; 03:6cd8 $cd $dc $6c
+    ret                                                ;; 03:6cdb $c9
+
+call_03_6cdc:
+    xor  A, A                                          ;; 03:6cdc $af
+    ld   [wLevelDecodePointerLow], A                   ;; 03:6cdd $ea $db $d2
+    jr   jr_03_6ce7                                    ;; 03:6ce0 $18 $05
+
+jp_03_6ce2:
+    ld   A, $01                                        ;; 03:6ce2 $3e $01
+    ld   [wLevelDecodePointerLow], A                   ;; 03:6ce4 $ea $db $d2
+
+jr_03_6ce7:
+    ld   A, B                                          ;; 03:6ce7 $78
+    or   A, A                                          ;; 03:6ce8 $b7
+    ret  Z                                             ;; 03:6ce9 $c8
+    ld   [wCD5C], A                                    ;; 03:6cea $ea $5c $cd
+    ld   A, [wBGP]                                     ;; 03:6ced $fa $d9 $c0
+    ld   [wDFB7], A                                    ;; 03:6cf0 $ea $b7 $df
+    ld   A, $e4                                        ;; 03:6cf3 $3e $e4
+    ld   [wBGP], A                                     ;; 03:6cf5 $ea $d9 $c0
+    call call_03_7059                                  ;; 03:6cf8 $cd $59 $70
+    call call_03_7090                                  ;; 03:6cfb $cd $90 $70
+    ld   A, $02                                        ;; 03:6cfe $3e $02
+    ld   [wCD5E], A                                    ;; 03:6d00 $ea $5e $cd
+    ld   A, $09                                        ;; 03:6d03 $3e $09
+    ld   [wCD5F], A                                    ;; 03:6d05 $ea $5f $cd
+    ld   A, $68                                        ;; 03:6d08 $3e $68
+    ld   [wCD62], A                                    ;; 03:6d0a $ea $62 $cd
+    ld   A, $10                                        ;; 03:6d0d $3e $10
+    ld   [wCD63], A                                    ;; 03:6d0f $ea $63 $cd
+    ld   A, [wLevelDecodePointerLow]                   ;; 03:6d12 $fa $db $d2
+    ld   [wCD72], A                                    ;; 03:6d15 $ea $72 $cd
+    ld   HL, wC2E2                                     ;; 03:6d18 $21 $e2 $c2
+    xor  A, A                                          ;; 03:6d1b $af
+    ld   E, [HL]                                       ;; 03:6d1c $5e
+    ld   [HL+], A                                      ;; 03:6d1d $22
+    ld   D, [HL]                                       ;; 03:6d1e $56
+    ld   [HL+], A                                      ;; 03:6d1f $22
+    push DE                                            ;; 03:6d20 $d5
+    ld   E, [HL]                                       ;; 03:6d21 $5e
+    ld   [HL+], A                                      ;; 03:6d22 $22
+    ld   D, [HL]                                       ;; 03:6d23 $56
+    ld   [HL+], A                                      ;; 03:6d24 $22
+    push DE                                            ;; 03:6d25 $d5
+    call call_03_6d52                                  ;; 03:6d26 $cd $52 $6d
+    ld   HL, wC2E5                                     ;; 03:6d29 $21 $e5 $c2
+    pop  DE                                            ;; 03:6d2c $d1
+    ld   [HL], D                                       ;; 03:6d2d $72
+    dec  HL                                            ;; 03:6d2e $2b
+    ld   [HL], E                                       ;; 03:6d2f $73
+    dec  HL                                            ;; 03:6d30 $2b
+    pop  DE                                            ;; 03:6d31 $d1
+    ld   [HL], D                                       ;; 03:6d32 $72
+    dec  HL                                            ;; 03:6d33 $2b
+    ld   [HL], E                                       ;; 03:6d34 $73
+    call call_03_725c                                  ;; 03:6d35 $cd $5c $72
+    call call_03_726b                                  ;; 03:6d38 $cd $6b $72
+    ld   A, [wCD64]                                    ;; 03:6d3b $fa $64 $cd
+    ldh  [rOBP0], A                                    ;; 03:6d3e $e0 $48
+    ld   A, [wDFB7]                                    ;; 03:6d40 $fa $b7 $df
+    ld   [wBGP], A                                     ;; 03:6d43 $ea $d9 $c0
+    ld   A, [wDF4E]                                    ;; 03:6d46 $fa $4e $df
+    cp   A, $06                                        ;; 03:6d49 $fe $06
+    call Z, call_00_0390                               ;; 03:6d4b $cc $90 $03
+    call readJoypadInput_                              ;; 03:6d4e $cd $bc $01
+    ret                                                ;; 03:6d51 $c9
 
 call_03_6d52:
     ld   A, $0e                                        ;; 03:6d52 $3e $0e
@@ -2160,7 +1256,7 @@ call_03_6d52:
     sub  A, $5e                                        ;; 03:6d6b $d6 $5e
     ld   HL, $61fd ;@=value hex=true                   ;; 03:6d6d $21 $fd $61
 .jr_03_6d70:
-    call call_00_018f                                  ;; 03:6d70 $cd $8f $01
+    call get_ptr_from_table_                           ;; 03:6d70 $cd $8f $01
     call call_03_6d89                                  ;; 03:6d73 $cd $89 $6d
     call call_03_6ddf                                  ;; 03:6d76 $cd $df $6d
     jr   NZ, .jr_03_6d85                               ;; 03:6d79 $20 $0a
@@ -2312,7 +1408,7 @@ call_03_6e36:
     and  A, $03                                        ;; 03:6e72 $e6 $03
     jr   Z, .jr_03_6e66                                ;; 03:6e74 $28 $f0
     ld   [wCD71], A                                    ;; 03:6e76 $ea $71 $cd
-    jp   jp_03_6ea4                                    ;; 03:6e79 $c3 $a4 $6e
+    jp   call_03_6ea4                                  ;; 03:6e79 $c3 $a4 $6e
 
 call_03_6e7c:
     ld   HL, wCD6D                                     ;; 03:6e7c $21 $6d $cd
@@ -2323,7 +1419,7 @@ call_03_6e7c:
     inc  HL                                            ;; 03:6e83 $23
     inc  [HL]                                          ;; 03:6e84 $34
     bit  0, [HL]                                       ;; 03:6e85 $cb $46
-    jr   Z, jp_03_6ea4                                 ;; 03:6e87 $28 $1b
+    jr   Z, call_03_6ea4                               ;; 03:6e87 $28 $1b
     ld   HL, wCD6D                                     ;; 03:6e89 $21 $6d $cd
     ld   [HL], $0c                                     ;; 03:6e8c $36 $0c
     ld   A, [wCD68]                                    ;; 03:6e8e $fa $68 $cd
@@ -2341,7 +1437,7 @@ jr_03_6e92:
     ld   A, B                                          ;; 03:6ea0 $78
     jp   call_03_6b3a                                  ;; 03:6ea1 $c3 $3a $6b
 
-jp_03_6ea4:
+call_03_6ea4:
     ld   HL, wCD6D                                     ;; 03:6ea4 $21 $6d $cd
     ld   [HL], $06                                     ;; 03:6ea7 $36 $06
     ld   B, $00                                        ;; 03:6ea9 $06 $00
@@ -2582,7 +1678,7 @@ jp_03_7033:
     and  A, B                                          ;; 03:7050 $a0
     jr   Z, .jr_03_7042                                ;; 03:7051 $28 $ef
     ld   [wCD71], A                                    ;; 03:7053 $ea $71 $cd
-    jp   jp_03_6ea4                                    ;; 03:7056 $c3 $a4 $6e
+    jp   call_03_6ea4                                  ;; 03:7056 $c3 $a4 $6e
 
 call_03_7059:
     call call_00_01b3                                  ;; 03:7059 $cd $b3 $01
@@ -2607,11 +1703,23 @@ call_03_7059:
     ld   A, $02                                        ;; 03:708a $3e $02
     ld   [wCD5D], A                                    ;; 03:708c $ea $5d $cd
     ret                                                ;; 03:708f $c9
-    db   $fa, $5b, $c1, $ea, $58, $cd, $6f, $fa        ;; 03:7090 ????????
-    db   $5c, $c1, $ea, $59, $cd, $67, $11, $04        ;; 03:7098 ????????
-    db   $00, $19, $7d, $e6, $f8, $ea, $5b, $c1        ;; 03:70a0 ????????
-    db   $ea, $51, $c1, $7c, $ea, $5c, $c1, $c3        ;; 03:70a8 ????????
-    db   $8c, $71                                      ;; 03:70b0 ??
+
+call_03_7090:
+    ld   A, [wC15B]                                    ;; 03:7090 $fa $5b $c1
+    ld   [wCD58], A                                    ;; 03:7093 $ea $58 $cd
+    ld   L, A                                          ;; 03:7096 $6f
+    ld   A, [wC15C]                                    ;; 03:7097 $fa $5c $c1
+    ld   [wCD59], A                                    ;; 03:709a $ea $59 $cd
+    ld   H, A                                          ;; 03:709d $67
+    ld   DE, $04                                       ;; 03:709e $11 $04 $00
+    add  HL, DE                                        ;; 03:70a1 $19
+    ld   A, L                                          ;; 03:70a2 $7d
+    and  A, $f8                                        ;; 03:70a3 $e6 $f8
+    ld   [wC15B], A                                    ;; 03:70a5 $ea $5b $c1
+    ld   [wC151], A                                    ;; 03:70a8 $ea $51 $c1
+    ld   A, H                                          ;; 03:70ab $7c
+    ld   [wC15C], A                                    ;; 03:70ac $ea $5c $c1
+    jp   jp_03_718c                                    ;; 03:70af $c3 $8c $71
 
 call_03_70b2:
     ld   HL, $8900                                     ;; 03:70b2 $21 $00 $89
@@ -2673,6 +1781,8 @@ data_03_70fc:
     dw   `00000030                                     ;; 03:7116 $02 $02
     dw   `00000303                                     ;; 03:7118 $05 $05
     dw   `00000030                                     ;; 03:711a $02 $02
+
+data_03_711c:
     dw   `00000000                                     ;; 03:711c $00 $00
     dw   `00000000                                     ;; 03:711e $00 $00
     dw   `00000000                                     ;; 03:7120 $00 $00
@@ -2739,15 +1849,33 @@ data_03_717c:
     dw   `00033000                                     ;; 03:7188 $18 $18
     dw   `00033000                                     ;; 03:718a $18 $18
 
-    db   $cd, $1e, $72, $1e, $00, $16, $08, $21        ;; 03:718c ????????
-    db   $a8, $71, $06, $09, $e5, $2a, $66, $6f        ;; 03:7194 ????????
-    db   $c5, $cd, $3b, $72, $c1, $e1, $23, $23        ;; 03:719c ????????
-    db   $05, $20, $f1, $c9, $ba, $71, $ce, $71        ;; 03:71a4 ????????
-    db   $e2, $71, $ce, $71, $f6, $71, $ce, $71        ;; 03:71ac ????????
-    db   $0a, $72, $ce, $71, $ba, $71, $80, $81        ;; 03:71b4 ????????
-    db   $81, $81, $81, $81, $81, $81, $81, $81        ;; 03:71bc ????????
-    db   $81, $81, $81, $81, $81, $81, $81, $81        ;; 03:71c4 ????????
-    db   $81, $80, $82, $00                            ;; 03:71cc ????
+
+jp_03_718c:
+    call call_03_721e                                  ;; 03:718c $cd $1e $72
+    ld   E, $00                                        ;; 03:718f $1e $00
+    ld   D, $08                                        ;; 03:7191 $16 $08
+    ld   HL, .data_03_71a8                             ;; 03:7193 $21 $a8 $71
+    ld   B, $09                                        ;; 03:7196 $06 $09
+.jr_03_7198:
+    push HL                                            ;; 03:7198 $e5
+    ld   A, [HL+]                                      ;; 03:7199 $2a
+    ld   H, [HL]                                       ;; 03:719a $66
+    ld   L, A                                          ;; 03:719b $6f
+    push BC                                            ;; 03:719c $c5
+    call call_03_723b                                  ;; 03:719d $cd $3b $72
+    pop  BC                                            ;; 03:71a0 $c1
+    pop  HL                                            ;; 03:71a1 $e1
+    inc  HL                                            ;; 03:71a2 $23
+    inc  HL                                            ;; 03:71a3 $23
+    dec  B                                             ;; 03:71a4 $05
+    jr   NZ, .jr_03_7198                               ;; 03:71a5 $20 $f1
+    ret                                                ;; 03:71a7 $c9
+.data_03_71a8:
+    db   $ba, $71, $ce, $71, $e2, $71, $ce, $71        ;; 03:71a8 ????????
+    db   $f6, $71, $ce, $71, $0a, $72, $ce, $71        ;; 03:71b0 ????????
+    db   $ba, $71, $80, $81, $81, $81, $81, $81        ;; 03:71b8 ????????
+    db   $81, $81, $81, $81, $81, $81, $81, $81        ;; 03:71c0 ????????
+    db   $81, $81, $81, $81, $81, $80, $82, $00        ;; 03:71c8 ????????
 
 data_03_71d0:
     db   $00, $00, $00, $00, $00, $00, $00, $00        ;; 03:71d0 ........
@@ -2759,27 +1887,95 @@ data_03_71d0:
     db   $a8, $a9, $aa, $ab, $ac, $ad, $ae, $af        ;; 03:7200 ????????
     db   $00, $82, $82, $00, $b0, $b1, $b2, $b3        ;; 03:7208 ????????
     db   $b4, $b5, $b6, $b7, $b8, $b9, $ba, $bb        ;; 03:7210 ????????
-    db   $bc, $bd, $be, $bf, $00, $82, $1e, $0c        ;; 03:7218 ????????
-    db   $16, $01, $21, $50, $72, $cd, $3f, $72        ;; 03:7220 ????????
-    db   $06, $05, $c5, $21, $56, $72, $cd, $3f        ;; 03:7228 ????????
-    db   $72, $c1, $05, $20, $f5, $21, $50, $72        ;; 03:7230 ????????
-    db   $c3, $3f, $72, $0e, $14, $18, $02, $0e        ;; 03:7238 ????????
-    db   $06, $d5, $e5, $cd, $e8, $02, $e1, $cd        ;; 03:7240 ????????
-    db   $65, $01, $cd, $b9, $01, $d1, $14, $c9        ;; 03:7248 ????????
-    db   $80, $81, $81, $81, $81, $80, $82, $03        ;; 03:7250 ????????
-    db   $03, $03, $03, $82, $cd, $63, $03, $cd        ;; 03:7258 ????????
-    db   $b3, $01, $cd, $b9, $01, $fa, $64, $cd        ;; 03:7260 ????????
-    db   $e0, $48, $c9, $cd, $87, $72, $cd, $bb        ;; 03:7268 ????????
-    db   $02, $cd, $54, $03, $cd, $ca, $02, $fa        ;; 03:7270 ????????
-    db   $58, $cd, $ea, $5b, $c1, $ea, $51, $c1        ;; 03:7278 ????????
-    db   $fa, $59, $cd, $ea, $5c, $c1, $c9, $fa        ;; 03:7280 ????????
-    db   $5b, $c1, $c6, $f8, $ea, $3b, $c1, $fa        ;; 03:7288 ????????
-    db   $5c, $c1, $ce, $ff, $ea, $3c, $c1, $fa        ;; 03:7290 ????????
-    db   $5d, $c1, $ea, $3d, $c1, $fa, $5e, $c1        ;; 03:7298 ????????
-    db   $ea, $3e, $c1, $06, $12, $c5, $cd, $c7        ;; 03:72a0 ????????
-    db   $02, $cd, $b9, $01, $21, $3d, $c1, $3e        ;; 03:72a8 ????????
-    db   $08, $86, $22, $3e, $00, $8e, $77, $c1        ;; 03:72b0 ????????
-    db   $05, $20, $ea, $c9                            ;; 03:72b8 ????
+    db   $bc, $bd, $be, $bf, $00, $82                  ;; 03:7218 ??????
+
+call_03_721e:
+    ld   E, $0c                                        ;; 03:721e $1e $0c
+    ld   D, $01                                        ;; 03:7220 $16 $01
+    ld   HL, data_03_7250                              ;; 03:7222 $21 $50 $72
+    call call_03_723f                                  ;; 03:7225 $cd $3f $72
+    ld   B, $05                                        ;; 03:7228 $06 $05
+.jr_03_722a:
+    push BC                                            ;; 03:722a $c5
+    ld   HL, data_03_7256                              ;; 03:722b $21 $56 $72
+    call call_03_723f                                  ;; 03:722e $cd $3f $72
+    pop  BC                                            ;; 03:7231 $c1
+    dec  B                                             ;; 03:7232 $05
+    jr   NZ, .jr_03_722a                               ;; 03:7233 $20 $f5
+    ld   HL, data_03_7250                              ;; 03:7235 $21 $50 $72
+    jp   call_03_723f                                  ;; 03:7238 $c3 $3f $72
+
+call_03_723b:
+    ld   C, $14                                        ;; 03:723b $0e $14
+    jr   jr_03_7241                                    ;; 03:723d $18 $02
+
+call_03_723f:
+    ld   C, $06                                        ;; 03:723f $0e $06
+
+jr_03_7241:
+    push DE                                            ;; 03:7241 $d5
+    push HL                                            ;; 03:7242 $e5
+    call call_00_02e8                                  ;; 03:7243 $cd $e8 $02
+    pop  HL                                            ;; 03:7246 $e1
+    call call_00_0165                                  ;; 03:7247 $cd $65 $01
+    call call_00_01b9                                  ;; 03:724a $cd $b9 $01
+    pop  DE                                            ;; 03:724d $d1
+    inc  D                                             ;; 03:724e $14
+    ret                                                ;; 03:724f $c9
+
+data_03_7250:
+    db   $80, $81, $81, $81, $81, $80                  ;; 03:7250 ??????
+
+data_03_7256:
+    db   $82, $03, $03, $03, $03, $82                  ;; 03:7256 ??????
+
+call_03_725c:
+    call call_00_0363                                  ;; 03:725c $cd $63 $03
+    call call_00_01b3                                  ;; 03:725f $cd $b3 $01
+    call call_00_01b9                                  ;; 03:7262 $cd $b9 $01
+    ld   A, [wCD64]                                    ;; 03:7265 $fa $64 $cd
+    ldh  [rOBP0], A                                    ;; 03:7268 $e0 $48
+    ret                                                ;; 03:726a $c9
+
+call_03_726b:
+    call call_03_7287                                  ;; 03:726b $cd $87 $72
+    call call_00_02bb                                  ;; 03:726e $cd $bb $02
+    call call_00_0354                                  ;; 03:7271 $cd $54 $03
+    call call_00_02ca                                  ;; 03:7274 $cd $ca $02
+    ld   A, [wCD58]                                    ;; 03:7277 $fa $58 $cd
+    ld   [wC15B], A                                    ;; 03:727a $ea $5b $c1
+    ld   [wC151], A                                    ;; 03:727d $ea $51 $c1
+    ld   A, [wCD59]                                    ;; 03:7280 $fa $59 $cd
+    ld   [wC15C], A                                    ;; 03:7283 $ea $5c $c1
+    ret                                                ;; 03:7286 $c9
+
+call_03_7287:
+    ld   A, [wC15B]                                    ;; 03:7287 $fa $5b $c1
+    add  A, $f8                                        ;; 03:728a $c6 $f8
+    ld   [wC13B], A                                    ;; 03:728c $ea $3b $c1
+    ld   A, [wC15C]                                    ;; 03:728f $fa $5c $c1
+    adc  A, $ff                                        ;; 03:7292 $ce $ff
+    ld   [wC13C], A                                    ;; 03:7294 $ea $3c $c1
+    ld   A, [wC15D]                                    ;; 03:7297 $fa $5d $c1
+    ld   [wC13D], A                                    ;; 03:729a $ea $3d $c1
+    ld   A, [wC15E]                                    ;; 03:729d $fa $5e $c1
+    ld   [wC13E], A                                    ;; 03:72a0 $ea $3e $c1
+    ld   B, $12                                        ;; 03:72a3 $06 $12
+.jr_03_72a5:
+    push BC                                            ;; 03:72a5 $c5
+    call call_00_02c7                                  ;; 03:72a6 $cd $c7 $02
+    call call_00_01b9                                  ;; 03:72a9 $cd $b9 $01
+    ld   HL, wC13D                                     ;; 03:72ac $21 $3d $c1
+    ld   A, $08                                        ;; 03:72af $3e $08
+    add  A, [HL]                                       ;; 03:72b1 $86
+    ld   [HL+], A                                      ;; 03:72b2 $22
+    ld   A, $00                                        ;; 03:72b3 $3e $00
+    adc  A, [HL]                                       ;; 03:72b5 $8e
+    ld   [HL], A                                       ;; 03:72b6 $77
+    pop  BC                                            ;; 03:72b7 $c1
+    dec  B                                             ;; 03:72b8 $05
+    jr   NZ, .jr_03_72a5                               ;; 03:72b9 $20 $ea
+    ret                                                ;; 03:72bb $c9
 
 data_03_72bc:
     db   $03, $01, $0d, $01, $42, $01, $34, $0b        ;; 03:72bc .?.?.?.?
@@ -2937,10 +2133,20 @@ call_03_7455:
     dec  B                                             ;; 03:7469 $05
     jr   NZ, .jr_03_7461                               ;; 03:746a $20 $f5
     ret                                                ;; 03:746c $c9
-    db   $fa, $00, $cc, $b7, $c8, $11, $02, $0d        ;; 03:746d ????????
-    db   $01, $10, $02, $cd, $d0, $6b, $21, $1a        ;; 03:7475 ????????
-    db   $68, $cd, $89, $6d, $fa, $00, $cc, $21        ;; 03:747d ????????
-    db   $28, $68, $cd, $8f, $01, $c3, $89, $6d        ;; 03:7485 ????????
+
+jp_03_746d:
+    ld   A, [wCC00]                                    ;; 03:746d $fa $00 $cc
+    or   A, A                                          ;; 03:7470 $b7
+    ret  Z                                             ;; 03:7471 $c8
+    ld   DE, $d02                                      ;; 03:7472 $11 $02 $0d
+    ld   BC, $210                                      ;; 03:7475 $01 $10 $02
+    call call_03_6bd0                                  ;; 03:7478 $cd $d0 $6b
+    ld   HL, data_03_681a                              ;; 03:747b $21 $1a $68
+    call call_03_6d89                                  ;; 03:747e $cd $89 $6d
+    ld   A, [wCC00]                                    ;; 03:7481 $fa $00 $cc
+    ld   HL, data_03_6828                              ;; 03:7484 $21 $28 $68
+    call get_ptr_from_table_                           ;; 03:7487 $cd $8f $01
+    jp   call_03_6d89                                  ;; 03:748a $c3 $89 $6d
     db   $11, $02, $0d, $01, $10, $02, $cd, $d0        ;; 03:748d ????????
     db   $6b, $3e, $01, $ea, $7f, $cd, $3e, $03        ;; 03:7495 ????????
     db   $ea, $5d, $cd, $fa, $97, $df, $21, $ff        ;; 03:749d ????????
@@ -2963,7 +2169,7 @@ call_03_74ac:
 jp_03_74be:
     ld   A, L                                          ;; 03:74be $7d
     ld   HL, data_03_6734                              ;; 03:74bf $21 $34 $67
-    call call_00_018f                                  ;; 03:74c2 $cd $8f $01
+    call get_ptr_from_table_                           ;; 03:74c2 $cd $8f $01
     jp   call_03_6d89                                  ;; 03:74c5 $c3 $89 $6d
 
 ;@code
@@ -2986,32 +2192,95 @@ data_03_74c8:
     call call_03_683c                                  ;; 03:74e0 $cd $3c $68
     ld   L, $01                                        ;; 03:74e3 $2e $01
     ret                                                ;; 03:74e5 $c9
+
+data_03_74e6:
     db   $01, $01, $01, $01, $01, $01, $02, $02        ;; 03:74e6 ????????
     db   $02, $04, $04, $04, $04, $04, $08, $08        ;; 03:74ee ????????
     db   $08, $08, $00, $00, $00, $00, $10, $10        ;; 03:74f6 ????????
     db   $10, $30, $30, $30, $50, $50, $50, $60        ;; 03:74fe ????????
-    db   $70, $80, $a0, $f0, $cd, $51, $77, $d8        ;; 03:7506 ????????
-    db   $cd, $b3, $01, $cd, $c9, $78, $31, $fe        ;; 03:750e ????????
-    db   $ff, $cf, $00, $cd, $b4, $75, $fa, $1d        ;; 03:7516 ????????
-    db   $d3, $fe, $02, $28, $01, $af, $ea, $67        ;; 03:751e ????????
-    db   $cd, $cd, $a8, $75, $af, $ea, $71, $cd        ;; 03:7526 ????????
-    db   $ea, $76, $cd, $3c, $ea, $7f, $cd, $ea        ;; 03:752e ????????
-    db   $72, $cd, $21, $8a, $67, $cd, $89, $6d        ;; 03:7536 ????????
-    db   $cd, $92, $76, $38, $39, $cd, $a8, $75        ;; 03:753e ????????
-    db   $cd, $25, $77, $cd, $76, $77, $da, $01        ;; 03:7546 ????????
-    db   $76, $fa, $67, $cd, $e6, $01, $fa, $65        ;; 03:754e ????????
-    db   $cd, $28, $08, $21, $15, $df, $cb, $d6        ;; 03:7556 ????????
-    db   $fa, $66, $cd, $ea, $5c, $cd, $af, $ea        ;; 03:755e ????????
-    db   $72, $cd, $3c, $ea, $7f, $cd, $cd, $52        ;; 03:7566 ????????
-    db   $6d, $cd, $63, $03, $cd, $a8, $75, $06        ;; 03:756e ????????
-    db   $1e, $cd, $bf, $01, $18, $ae, $cd, $5c        ;; 03:7576 ????????
-    db   $72, $cd, $c9, $78, $fa, $15, $df, $cb        ;; 03:757e ????????
-    db   $cf, $ea, $15, $df, $cd, $2b, $02, $47        ;; 03:7586 ????????
-    db   $fa, $5d, $df, $c6, $f8, $6f, $3e, $00        ;; 03:758e ????????
-    db   $ce, $74, $67, $7e, $b8, $38, $08, $fa        ;; 03:7596 ????????
-    db   $53, $df, $cb, $ff, $ea, $53, $df, $c3        ;; 03:759e ????????
-    db   $b5, $02, $af, $ea, $7e, $cd, $cd, $d3        ;; 03:75a6 ????????
-    db   $6e, $af, $ea, $7e, $cd, $c9                  ;; 03:75ae ??????
+    db   $70, $80, $a0, $f0                            ;; 03:7506 ????
+
+jp_03_750a:
+    call call_03_7751                                  ;; 03:750a $cd $51 $77
+    ret  C                                             ;; 03:750d $d8
+    call call_00_01b3                                  ;; 03:750e $cd $b3 $01
+    call call_03_78c9                                  ;; 03:7511 $cd $c9 $78
+    ld   SP, $fffe                                     ;; 03:7514 $31 $fe $ff
+    rst  rst_00_0008                                   ;; 03:7517 $cf
+    db   $00                                           ;; 03:7518 ?
+    call call_03_75b4                                  ;; 03:7519 $cd $b4 $75
+    ld   A, [wD31D]                                    ;; 03:751c $fa $1d $d3
+    cp   A, $02                                        ;; 03:751f $fe $02
+    jr   Z, .jr_03_7524                                ;; 03:7521 $28 $01
+    xor  A, A                                          ;; 03:7523 $af
+.jr_03_7524:
+    ld   [wCD67], A                                    ;; 03:7524 $ea $67 $cd
+    call call_03_75a8                                  ;; 03:7527 $cd $a8 $75
+
+jp_03_752a:
+    xor  A, A                                          ;; 03:752a $af
+    ld   [wCD71], A                                    ;; 03:752b $ea $71 $cd
+    ld   [wCD76], A                                    ;; 03:752e $ea $76 $cd
+    inc  A                                             ;; 03:7531 $3c
+    ld   [wCD7F], A                                    ;; 03:7532 $ea $7f $cd
+    ld   [wCD72], A                                    ;; 03:7535 $ea $72 $cd
+    ld   HL, data_03_678a                              ;; 03:7538 $21 $8a $67
+    call call_03_6d89                                  ;; 03:753b $cd $89 $6d
+    call call_03_7692                                  ;; 03:753e $cd $92 $76
+    jr   C, .jr_03_757c                                ;; 03:7541 $38 $39
+    call call_03_75a8                                  ;; 03:7543 $cd $a8 $75
+    call call_03_7725                                  ;; 03:7546 $cd $25 $77
+    call call_03_7776                                  ;; 03:7549 $cd $76 $77
+    jp   C, jp_03_7601                                 ;; 03:754c $da $01 $76
+    ld   A, [wCD67]                                    ;; 03:754f $fa $67 $cd
+    and  A, $01                                        ;; 03:7552 $e6 $01
+    ld   A, [wCD65]                                    ;; 03:7554 $fa $65 $cd
+    jr   Z, .jr_03_7561                                ;; 03:7557 $28 $08
+    ld   HL, wDF15                                     ;; 03:7559 $21 $15 $df
+    set  2, [HL]                                       ;; 03:755c $cb $d6
+    ld   A, [wCD66]                                    ;; 03:755e $fa $66 $cd
+.jr_03_7561:
+    ld   [wCD5C], A                                    ;; 03:7561 $ea $5c $cd
+    xor  A, A                                          ;; 03:7564 $af
+    ld   [wCD72], A                                    ;; 03:7565 $ea $72 $cd
+    inc  A                                             ;; 03:7568 $3c
+    ld   [wCD7F], A                                    ;; 03:7569 $ea $7f $cd
+    call call_03_6d52                                  ;; 03:756c $cd $52 $6d
+    call call_00_0363                                  ;; 03:756f $cd $63 $03
+    call call_03_75a8                                  ;; 03:7572 $cd $a8 $75
+    ld   B, $1e                                        ;; 03:7575 $06 $1e
+    call call_00_01bf                                  ;; 03:7577 $cd $bf $01
+    jr   jp_03_752a                                    ;; 03:757a $18 $ae
+.jr_03_757c:
+    call call_03_725c                                  ;; 03:757c $cd $5c $72
+    call call_03_78c9                                  ;; 03:757f $cd $c9 $78
+    ld   A, [wDF15]                                    ;; 03:7582 $fa $15 $df
+    set  1, A                                          ;; 03:7585 $cb $cf
+    ld   [wDF15], A                                    ;; 03:7587 $ea $15 $df
+    call call_00_022b                                  ;; 03:758a $cd $2b $02
+    ld   B, A                                          ;; 03:758d $47
+    ld   A, [wCurrentArea]                             ;; 03:758e $fa $5d $df
+    add  A, $f8                                        ;; 03:7591 $c6 $f8
+    ld   L, A                                          ;; 03:7593 $6f
+    ld   A, $00                                        ;; 03:7594 $3e $00
+    adc  A, $74                                        ;; 03:7596 $ce $74
+    ld   H, A                                          ;; 03:7598 $67
+    ld   A, [HL]                                       ;; 03:7599 $7e
+    cp   A, B                                          ;; 03:759a $b8
+    jr   C, .jr_03_75a5                                ;; 03:759b $38 $08
+    ld   A, [wDF53]                                    ;; 03:759d $fa $53 $df
+    set  7, A                                          ;; 03:75a0 $cb $ff
+    ld   [wDF53], A                                    ;; 03:75a2 $ea $53 $df
+.jr_03_75a5:
+    jp   jp_00_02b5                                    ;; 03:75a5 $c3 $b5 $02
+
+call_03_75a8:
+    xor  A, A                                          ;; 03:75a8 $af
+    ld   [wCD7E], A                                    ;; 03:75a9 $ea $7e $cd
+    call call_03_6ed3                                  ;; 03:75ac $cd $d3 $6e
+    xor  A, A                                          ;; 03:75af $af
+    ld   [wCD7E], A                                    ;; 03:75b0 $ea $7e $cd
+    ret                                                ;; 03:75b3 $c9
 
 call_03_75b4:
     xor  A, A                                          ;; 03:75b4 $af
@@ -3036,7 +2305,7 @@ call_03_75b4:
     ld   A, $04                                        ;; 03:75d5 $3e $04
     ld   [wLevelGraphicsIndex], A                      ;; 03:75d7 $ea $ed $d2
     call call_00_02be                                  ;; 03:75da $cd $be $02
-    ld   HL, .data_03_7799                             ;; 03:75dd $21 $99 $77
+    ld   HL, data_03_7799                              ;; 03:75dd $21 $99 $77
     call call_00_02c4                                  ;; 03:75e0 $cd $c4 $02
     call call_03_70b2                                  ;; 03:75e3 $cd $b2 $70
     call call_00_03d2                                  ;; 03:75e6 $cd $d2 $03
@@ -3050,58 +2319,218 @@ call_03_75b4:
     ld   A, $10                                        ;; 03:75fb $3e $10
     ld   [wCD63], A                                    ;; 03:75fd $ea $63 $cd
     ret                                                ;; 03:7600 $c9
-    db   $cd, $58, $78, $cd, $d3, $6e, $11, $03        ;; 03:7601 ????????
-    db   $0b, $cd, $e8, $02, $6b, $62, $3e, $84        ;; 03:7609 ????????
-    db   $01, $02, $00, $cd, $62, $01, $06, $00        ;; 03:7611 ????????
-    db   $cd, $60, $03, $06, $03, $cd, $bf, $01        ;; 03:7619 ????????
-    db   $06, $01, $cd, $60, $03, $06, $03, $cd        ;; 03:7621 ????????
-    db   $bf, $01, $06, $02, $cd, $60, $03, $af        ;; 03:7629 ????????
-    db   $ea, $6d, $cd, $ea, $6e, $cd, $3e, $0e        ;; 03:7631 ????????
-    db   $ea, $69, $cd, $3e, $06, $ea, $6a, $cd        ;; 03:7639 ????????
-    db   $cd, $58, $78, $cd, $7c, $6e, $cd, $b9        ;; 03:7641 ????????
-    db   $01, $cd, $bc, $01, $fa, $c1, $c0, $e6        ;; 03:7649 ????????
-    db   $03, $28, $ed, $cd, $63, $03, $cd, $a4        ;; 03:7651 ????????
-    db   $6e, $11, $03, $0b, $cd, $e8, $02, $6b        ;; 03:7659 ????????
-    db   $62, $3e, $91, $f5, $cd, $5c, $01, $f1        ;; 03:7661 ????????
-    db   $23, $3c, $fe, $93, $38, $f5, $c3, $2a        ;; 03:7669 ????????
-    db   $75, $00, $00, $20, $20, $30, $30, $38        ;; 03:7671 ????????
-    db   $38, $3c, $3c, $38, $38, $30, $30, $20        ;; 03:7679 ????????
-    db   $20, $02, $03, $03, $01, $02, $03, $00        ;; 03:7681 ????????
-    db   $02, $03, $00, $01, $03, $00, $02, $02        ;; 03:7689 ????????
-    db   $00, $21, $72, $76, $cd, $48, $77, $af        ;; 03:7691 ????????
-    db   $ea, $6d, $cd, $ea, $6e, $cd, $cd, $11        ;; 03:7699 ????????
-    db   $77, $cd, $b9, $01, $cd, $bc, $01, $fa        ;; 03:76a1 ????????
-    db   $c1, $c0, $e6, $f3, $28, $f0, $cd, $a4        ;; 03:76a9 ????????
-    db   $6e, $fa, $c1, $c0, $e6, $f0, $28, $23        ;; 03:76b1 ????????
-    db   $fa, $67, $cd, $6f, $26, $00, $29, $29        ;; 03:76b9 ????????
-    db   $11, $82, $76, $19, $fa, $c1, $c0, $07        ;; 03:76c1 ????????
-    db   $38, $09, $23, $07, $38, $05, $23, $07        ;; 03:76c9 ????????
-    db   $38, $01, $23, $7e, $ea, $67, $cd, $cf        ;; 03:76d1 ????????
-    db   $1b, $18, $b6, $fa, $c1, $c0, $cb, $47        ;; 03:76d9 ????????
-    db   $28, $22, $fa, $67, $cd, $fe, $03, $28        ;; 03:76e1 ????????
-    db   $0e, $fe, $02, $28, $02, $b7, $c9, $3e        ;; 03:76e9 ????????
-    db   $02, $ea, $1d, $d3, $c3, $d5, $03, $af        ;; 03:76f1 ????????
-    db   $ea, $1d, $d3, $cf, $1c, $06, $3c, $cd        ;; 03:76f9 ????????
-    db   $bf, $01, $37, $c9, $3e, $03, $18, $cc        ;; 03:7701 ????????
+
+jp_03_7601:
+    call call_03_7858                                  ;; 03:7601 $cd $58 $78
+    call call_03_6ed3                                  ;; 03:7604 $cd $d3 $6e
+    ld   DE, $b03                                      ;; 03:7607 $11 $03 $0b
+    call call_00_02e8                                  ;; 03:760a $cd $e8 $02
+    ld   L, E                                          ;; 03:760d $6b
+    ld   H, D                                          ;; 03:760e $62
+    ld   A, $84                                        ;; 03:760f $3e $84
+    ld   BC, $02                                       ;; 03:7611 $01 $02 $00
+    call memsetVRAM_                                   ;; 03:7614 $cd $62 $01
+    ld   B, $00                                        ;; 03:7617 $06 $00
+    call call_00_0360                                  ;; 03:7619 $cd $60 $03
+    ld   B, $03                                        ;; 03:761c $06 $03
+    call call_00_01bf                                  ;; 03:761e $cd $bf $01
+    ld   B, $01                                        ;; 03:7621 $06 $01
+    call call_00_0360                                  ;; 03:7623 $cd $60 $03
+    ld   B, $03                                        ;; 03:7626 $06 $03
+    call call_00_01bf                                  ;; 03:7628 $cd $bf $01
+    ld   B, $02                                        ;; 03:762b $06 $02
+    call call_00_0360                                  ;; 03:762d $cd $60 $03
+    xor  A, A                                          ;; 03:7630 $af
+    ld   [wCD6D], A                                    ;; 03:7631 $ea $6d $cd
+    ld   [wCD6E], A                                    ;; 03:7634 $ea $6e $cd
+    ld   A, $0e                                        ;; 03:7637 $3e $0e
+    ld   [wCD69], A                                    ;; 03:7639 $ea $69 $cd
+    ld   A, $06                                        ;; 03:763c $3e $06
+    ld   [wCD6A], A                                    ;; 03:763e $ea $6a $cd
+.jr_03_7641:
+    call call_03_7858                                  ;; 03:7641 $cd $58 $78
+    call call_03_6e7c                                  ;; 03:7644 $cd $7c $6e
+    call call_00_01b9                                  ;; 03:7647 $cd $b9 $01
+    call readJoypadInput_                              ;; 03:764a $cd $bc $01
+    ld   A, [wJoypadPressed]                           ;; 03:764d $fa $c1 $c0
+    and  A, $03                                        ;; 03:7650 $e6 $03
+    jr   Z, .jr_03_7641                                ;; 03:7652 $28 $ed
+    call call_00_0363                                  ;; 03:7654 $cd $63 $03
+    call call_03_6ea4                                  ;; 03:7657 $cd $a4 $6e
+    ld   DE, $b03                                      ;; 03:765a $11 $03 $0b
+    call call_00_02e8                                  ;; 03:765d $cd $e8 $02
+    ld   L, E                                          ;; 03:7660 $6b
+    ld   H, D                                          ;; 03:7661 $62
+    ld   A, $91                                        ;; 03:7662 $3e $91
+.jr_03_7664:
+    push AF                                            ;; 03:7664 $f5
+    call call_00_015c                                  ;; 03:7665 $cd $5c $01
+    pop  AF                                            ;; 03:7668 $f1
+    inc  HL                                            ;; 03:7669 $23
+    inc  A                                             ;; 03:766a $3c
+    cp   A, $93                                        ;; 03:766b $fe $93
+    jr   C, .jr_03_7664                                ;; 03:766d $38 $f5
+    jp   jp_03_752a                                    ;; 03:766f $c3 $2a $75
+
+data_03_7672:
+    db   $00, $00, $20, $20, $30, $30, $38, $38        ;; 03:7672 ????????
+    db   $3c, $3c, $38, $38, $30, $30, $20, $20        ;; 03:767a ????????
+
+data_03_7682:
+    db   $02, $03, $03, $01, $02, $03, $00, $02        ;; 03:7682 ????????
+    db   $03, $00, $01, $03, $00, $02, $02, $00        ;; 03:768a ????????
+
+call_03_7692:
+    ld   HL, data_03_7672                              ;; 03:7692 $21 $72 $76
+    call call_03_7748                                  ;; 03:7695 $cd $48 $77
+    xor  A, A                                          ;; 03:7698 $af
+    ld   [wCD6D], A                                    ;; 03:7699 $ea $6d $cd
+    ld   [wCD6E], A                                    ;; 03:769c $ea $6e $cd
+.jr_03_769f:
+    call call_03_7711                                  ;; 03:769f $cd $11 $77
+    call call_00_01b9                                  ;; 03:76a2 $cd $b9 $01
+    call readJoypadInput_                              ;; 03:76a5 $cd $bc $01
+    ld   A, [wJoypadPressed]                           ;; 03:76a8 $fa $c1 $c0
+    and  A, $f3                                        ;; 03:76ab $e6 $f3
+    jr   Z, .jr_03_769f                                ;; 03:76ad $28 $f0
+    call call_03_6ea4                                  ;; 03:76af $cd $a4 $6e
+    ld   A, [wJoypadPressed]                           ;; 03:76b2 $fa $c1 $c0
+    and  A, $f0                                        ;; 03:76b5 $e6 $f0
+    jr   Z, .jr_03_76dc                                ;; 03:76b7 $28 $23
+    ld   A, [wCD67]                                    ;; 03:76b9 $fa $67 $cd
+    ld   L, A                                          ;; 03:76bc $6f
+    ld   H, $00                                        ;; 03:76bd $26 $00
+    add  HL, HL                                        ;; 03:76bf $29
+    add  HL, HL                                        ;; 03:76c0 $29
+    ld   DE, data_03_7682                              ;; 03:76c1 $11 $82 $76
+    add  HL, DE                                        ;; 03:76c4 $19
+    ld   A, [wJoypadPressed]                           ;; 03:76c5 $fa $c1 $c0
+    rlca                                               ;; 03:76c8 $07
+    jr   C, .jr_03_76d4                                ;; 03:76c9 $38 $09
+    inc  HL                                            ;; 03:76cb $23
+    rlca                                               ;; 03:76cc $07
+    jr   C, .jr_03_76d4                                ;; 03:76cd $38 $05
+    inc  HL                                            ;; 03:76cf $23
+    rlca                                               ;; 03:76d0 $07
+    jr   C, .jr_03_76d4                                ;; 03:76d1 $38 $01
+    inc  HL                                            ;; 03:76d3 $23
+.jr_03_76d4:
+    ld   A, [HL]                                       ;; 03:76d4 $7e
+.jr_03_76d5:
+    ld   [wCD67], A                                    ;; 03:76d5 $ea $67 $cd
+    rst  rst_00_0008                                   ;; 03:76d8 $cf
+    db   $1b                                           ;; 03:76d9 ?
+    jr   call_03_7692                                  ;; 03:76da $18 $b6
+.jr_03_76dc:
+    ld   A, [wJoypadPressed]                           ;; 03:76dc $fa $c1 $c0
+    bit  0, A                                          ;; 03:76df $cb $47
+    jr   Z, .jr_03_7705                                ;; 03:76e1 $28 $22
+    ld   A, [wCD67]                                    ;; 03:76e3 $fa $67 $cd
+    cp   A, $03                                        ;; 03:76e6 $fe $03
+    jr   Z, .jr_03_76f8                                ;; 03:76e8 $28 $0e
+    cp   A, $02                                        ;; 03:76ea $fe $02
+    jr   Z, .jr_03_76f0                                ;; 03:76ec $28 $02
+    or   A, A                                          ;; 03:76ee $b7
+    ret                                                ;; 03:76ef $c9
+.jr_03_76f0:
+    ld   A, $02                                        ;; 03:76f0 $3e $02
+    ld   [wD31D], A                                    ;; 03:76f2 $ea $1d $d3
+    jp   jp_00_03d5                                    ;; 03:76f5 $c3 $d5 $03
+.jr_03_76f8:
+    xor  A, A                                          ;; 03:76f8 $af
+    ld   [wD31D], A                                    ;; 03:76f9 $ea $1d $d3
+    rst  rst_00_0008                                   ;; 03:76fc $cf
+    db   $1c                                           ;; 03:76fd ?
+    ld   B, $3c                                        ;; 03:76fe $06 $3c
+    call call_00_01bf                                  ;; 03:7700 $cd $bf $01
+    scf                                                ;; 03:7703 $37
+    ret                                                ;; 03:7704 $c9
+.jr_03_7705:
+    ld   A, $03                                        ;; 03:7705 $3e $03
+    jr   .jr_03_76d5                                   ;; 03:7707 $18 $cc
+
+data_03_7709:
     db   $01, $01, $07, $01, $01, $03, $01, $05        ;; 03:7709 ????????
-    db   $fa, $67, $cd, $11, $09, $77, $cd, $92        ;; 03:7711 ????????
-    db   $01, $7b, $ea, $69, $cd, $7a, $ea, $6a        ;; 03:7719 ????????
-    db   $cd, $c3, $7c, $6e, $21, $63, $99, $3e        ;; 03:7721 ????????
-    db   $91, $cd, $5c, $01, $21, $69, $99, $3e        ;; 03:7729 ????????
-    db   $97, $cd, $5c, $01, $21, $a3, $99, $3e        ;; 03:7731 ????????
-    db   $a1, $cd, $5c, $01, $21, $e3, $99, $3e        ;; 03:7739 ????????
-    db   $b1, $cd, $5c, $01, $21, $1c, $71, $11        ;; 03:7741 ????????
-    db   $50, $88, $01, $10, $00, $c3, $5f, $01        ;; 03:7749 ????????
-    db   $af, $ea, $65, $cd, $ea, $66, $cd, $fa        ;; 03:7751 ????????
-    db   $a2, $df, $47, $21, $03, $79, $2a, $fe        ;; 03:7759 ????????
-    db   $ff, $20, $02, $37, $c9, $b8, $28, $04        ;; 03:7761 ????????
-    db   $23, $23, $18, $f2, $2a, $ea, $65, $cd        ;; 03:7769 ????????
-    db   $2a, $ea, $66, $cd, $c9, $fa, $5d, $df        ;; 03:7771 ????????
-    db   $5f, $16, $00, $21, $e6, $74, $19, $46        ;; 03:7779 ????????
-    db   $fa, $51, $df, $b7, $28, $08, $5f, $21        ;; 03:7781 ????????
-    db   $90, $77, $19, $7e, $a0, $c0, $37, $c9        ;; 03:7789 ????????
+
+call_03_7711:
+    ld   A, [wCD67]                                    ;; 03:7711 $fa $67 $cd
+    ld   DE, data_03_7709                              ;; 03:7714 $11 $09 $77
+    call get_ptr_from_table_de_                        ;; 03:7717 $cd $92 $01
+    ld   A, E                                          ;; 03:771a $7b
+    ld   [wCD69], A                                    ;; 03:771b $ea $69 $cd
+    ld   A, D                                          ;; 03:771e $7a
+    ld   [wCD6A], A                                    ;; 03:771f $ea $6a $cd
+    jp   call_03_6e7c                                  ;; 03:7722 $c3 $7c $6e
+
+call_03_7725:
+    ld   HL, $9963                                     ;; 03:7725 $21 $63 $99
+    ld   A, $91                                        ;; 03:7728 $3e $91
+    call call_00_015c                                  ;; 03:772a $cd $5c $01
+    ld   HL, $9969                                     ;; 03:772d $21 $69 $99
+    ld   A, $97                                        ;; 03:7730 $3e $97
+    call call_00_015c                                  ;; 03:7732 $cd $5c $01
+    ld   HL, $99a3                                     ;; 03:7735 $21 $a3 $99
+    ld   A, $a1                                        ;; 03:7738 $3e $a1
+    call call_00_015c                                  ;; 03:773a $cd $5c $01
+    ld   HL, $99e3                                     ;; 03:773d $21 $e3 $99
+    ld   A, $b1                                        ;; 03:7740 $3e $b1
+    call call_00_015c                                  ;; 03:7742 $cd $5c $01
+    ld   HL, data_03_711c                              ;; 03:7745 $21 $1c $71
+
+call_03_7748:
+    ld   DE, $8850                                     ;; 03:7748 $11 $50 $88
+    ld   BC, $10                                       ;; 03:774b $01 $10 $00
+    jp   memcpyVRAM_                                   ;; 03:774e $c3 $5f $01
+
+call_03_7751:
+    xor  A, A                                          ;; 03:7751 $af
+    ld   [wCD65], A                                    ;; 03:7752 $ea $65 $cd
+    ld   [wCD66], A                                    ;; 03:7755 $ea $66 $cd
+    ld   A, [wGlobalLevelEntryNumber]                  ;; 03:7758 $fa $a2 $df
+    ld   B, A                                          ;; 03:775b $47
+    ld   HL, data_03_7903                              ;; 03:775c $21 $03 $79
+.jr_03_775f:
+    ld   A, [HL+]                                      ;; 03:775f $2a
+    cp   A, $ff                                        ;; 03:7760 $fe $ff
+    jr   NZ, .jr_03_7766                               ;; 03:7762 $20 $02
+    scf                                                ;; 03:7764 $37
+    ret                                                ;; 03:7765 $c9
+.jr_03_7766:
+    cp   A, B                                          ;; 03:7766 $b8
+    jr   Z, .jr_03_776d                                ;; 03:7767 $28 $04
+    inc  HL                                            ;; 03:7769 $23
+    inc  HL                                            ;; 03:776a $23
+    jr   .jr_03_775f                                   ;; 03:776b $18 $f2
+.jr_03_776d:
+    ld   A, [HL+]                                      ;; 03:776d $2a
+    ld   [wCD65], A                                    ;; 03:776e $ea $65 $cd
+    ld   A, [HL+]                                      ;; 03:7771 $2a
+    ld   [wCD66], A                                    ;; 03:7772 $ea $66 $cd
+    ret                                                ;; 03:7775 $c9
+
+call_03_7776:
+    ld   A, [wCurrentArea]                             ;; 03:7776 $fa $5d $df
+    ld   E, A                                          ;; 03:7779 $5f
+    ld   D, $00                                        ;; 03:777a $16 $00
+    ld   HL, data_03_74e6                              ;; 03:777c $21 $e6 $74
+    add  HL, DE                                        ;; 03:777f $19
+    ld   B, [HL]                                       ;; 03:7780 $46
+    ld   A, [wDF51]                                    ;; 03:7781 $fa $51 $df
+    or   A, A                                          ;; 03:7784 $b7
+    jr   Z, .jr_03_778f                                ;; 03:7785 $28 $08
+    ld   E, A                                          ;; 03:7787 $5f
+    ld   HL, .data_03_7790                             ;; 03:7788 $21 $90 $77
+    add  HL, DE                                        ;; 03:778b $19
+    ld   A, [HL]                                       ;; 03:778c $7e
+    and  A, B                                          ;; 03:778d $a0
+    ret  NZ                                            ;; 03:778e $c0
+.jr_03_778f:
+    scf                                                ;; 03:778f $37
+.data_03_7790:
+    ret                                                ;; 03:7790 $c9
     db   $01, $02, $04, $08, $10, $20, $40, $80        ;; 03:7791 ????????
-.data_03_7799:
+
+data_03_7799:
     db   $08, $03, $81, $aa, $3f, $a2, $d4, $0d        ;; 03:7799 ........
     db   $51, $fd, $1a, $a0, $6a, $98, $ea, $46        ;; 03:77a1 ........
     db   $45, $34, $14, $90, $93, $ea, $46, $40        ;; 03:77a9 ........
@@ -3125,17 +2554,51 @@ call_03_75b4:
     db   $08, $59, $00, $33, $f8, $62, $00, $43        ;; 03:7839 ........
     db   $08, $59, $00, $41, $05, $43, $08, $59        ;; 03:7841 ........
     db   $00, $35, $f8, $62, $00, $42, $f5, $00        ;; 03:7849 ........
-    db   $41, $05, $43, $78, $41, $ed, $00, $21        ;; 03:7851 .......?
-    db   $00, $cc, $0e, $02, $06, $08, $cd, $7e        ;; 03:7859 ????????
-    db   $78, $22, $cd, $7e, $78, $5f, $cd, $7e        ;; 03:7861 ????????
-    db   $78, $a3, $22, $05, $20, $f0, $0d, $20        ;; 03:7869 ????????
-    db   $eb, $11, $60, $88, $21, $00, $cc, $01        ;; 03:7871 ????????
-    db   $20, $00, $c3, $5f, $01, $e5, $fa, $c4        ;; 03:7879 ????????
-    db   $c0, $e6, $07, $c6, $9c, $6f, $3e, $78        ;; 03:7881 ????????
-    db   $ce, $00, $67, $7e, $21, $3c, $cc, $8e        ;; 03:7889 ????????
-    db   $ce, $db, $77, $e6, $01, $28, $02, $3e        ;; 03:7891 ????????
-    db   $ff, $e1, $c9, $4b, $92, $31, $19, $4a        ;; 03:7899 ????????
-    db   $0d, $a9, $74                                 ;; 03:78a1 ???
+    db   $41, $05, $43, $78, $41, $ed, $00             ;; 03:7851 .......
+
+call_03_7858:
+    ld   HL, wCC00                                     ;; 03:7858 $21 $00 $cc
+    ld   C, $02                                        ;; 03:785b $0e $02
+.jr_03_785d:
+    ld   B, $08                                        ;; 03:785d $06 $08
+.jr_03_785f:
+    call call_03_787e                                  ;; 03:785f $cd $7e $78
+    ld   [HL+], A                                      ;; 03:7862 $22
+    call call_03_787e                                  ;; 03:7863 $cd $7e $78
+    ld   E, A                                          ;; 03:7866 $5f
+    call call_03_787e                                  ;; 03:7867 $cd $7e $78
+    and  A, E                                          ;; 03:786a $a3
+    ld   [HL+], A                                      ;; 03:786b $22
+    dec  B                                             ;; 03:786c $05
+    jr   NZ, .jr_03_785f                               ;; 03:786d $20 $f0
+    dec  C                                             ;; 03:786f $0d
+    jr   NZ, .jr_03_785d                               ;; 03:7870 $20 $eb
+    ld   DE, $8860                                     ;; 03:7872 $11 $60 $88
+    ld   HL, wCC00                                     ;; 03:7875 $21 $00 $cc
+    ld   BC, $20                                       ;; 03:7878 $01 $20 $00
+    jp   memcpyVRAM_                                   ;; 03:787b $c3 $5f $01
+
+call_03_787e:
+    push HL                                            ;; 03:787e $e5
+    ld   A, [wFrameCount]                              ;; 03:787f $fa $c4 $c0
+    and  A, $07                                        ;; 03:7882 $e6 $07
+    add  A, $9c                                        ;; 03:7884 $c6 $9c
+    ld   L, A                                          ;; 03:7886 $6f
+    ld   A, $78                                        ;; 03:7887 $3e $78
+    adc  A, $00                                        ;; 03:7889 $ce $00
+    ld   H, A                                          ;; 03:788b $67
+    ld   A, [HL]                                       ;; 03:788c $7e
+    ld   HL, wCC3C                                     ;; 03:788d $21 $3c $cc
+    adc  A, [HL]                                       ;; 03:7890 $8e
+    adc  A, $db                                        ;; 03:7891 $ce $db
+    ld   [HL], A                                       ;; 03:7893 $77
+    and  A, $01                                        ;; 03:7894 $e6 $01
+    jr   Z, .jr_03_789a                                ;; 03:7896 $28 $02
+    ld   A, $ff                                        ;; 03:7898 $3e $ff
+.jr_03_789a:
+    pop  HL                                            ;; 03:789a $e1
+    ret                                                ;; 03:789b $c9
+    db   $4b, $92, $31, $19, $4a, $0d, $a9, $74        ;; 03:789c ????????
 
 jp_03_78a4:
     rst  rst_00_0008                                   ;; 03:78a4 $cf
@@ -3161,6 +2624,8 @@ jr_03_78b2:
     ld   [wCD7F], A                                    ;; 03:78c0 $ea $7f $cd
     call call_03_6d52                                  ;; 03:78c3 $cd $52 $6d
     call call_00_0363                                  ;; 03:78c6 $cd $63 $03
+
+call_03_78c9:
     ld   A, $03                                        ;; 03:78c9 $3e $03
     ld   [wC0DC], A                                    ;; 03:78cb $ea $dc $c0
     ld   B, $03                                        ;; 03:78ce $06 $03
@@ -3176,6 +2641,8 @@ jr_03_78b2:
     db   $01, $3e, $03, $ea, $dc, $c0, $06, $05        ;; 03:78eb ????????
     db   $cd, $d0, $78, $06, $3c, $cd, $bf, $01        ;; 03:78f3 ????????
     db   $3e, $57, $18, $dc, $3e, $59, $18, $d8        ;; 03:78fb ????????
+
+data_03_7903:
     db   $06, $03, $04, $07, $05, $06, $13, $0d        ;; 03:7903 ????????
     db   $0e, $17, $20, $21, $1b, $10, $11, $55        ;; 03:790b ????????
     db   $27, $28, $a8, $17, $18, $b3, $37, $38        ;; 03:7913 ????????

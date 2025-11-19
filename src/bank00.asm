@@ -125,10 +125,12 @@ memcpyVRAM_:
 
 memsetVRAM_:
     jp   memsetVRAM                                    ;; 00:0162 $c3 $8f $0c
-    db   $c3, $66, $0f                                 ;; 00:0165 ???
+
+call_00_0165:
+    jp   jp_00_0f66                                    ;; 00:0165 $c3 $66 $0f
 
 call_00_0168:
-    jp   jp_00_0f70                                    ;; 00:0168 $c3 $70 $0f
+    jp   call_00_0f70                                  ;; 00:0168 $c3 $70 $0f
 
 call_00_016b:
     jp   jp_00_21f1                                    ;; 00:016b $c3 $f1 $21
@@ -162,11 +164,11 @@ copy_de_hl_14_:
 memset_:
     jp   memset                                        ;; 00:018c $c3 $1d $0c
 
-call_00_018f:
-    jp   call_00_0d88                                  ;; 00:018f $c3 $88 $0d
+get_ptr_from_table_:
+    jp   get_ptr_from_table                            ;; 00:018f $c3 $88 $0d
 
-call_00_0192:
-    jp   call_00_0d93                                  ;; 00:0192 $c3 $93 $0d
+get_ptr_from_table_de_:
+    jp   get_ptr_from_table_de                         ;; 00:0192 $c3 $93 $0d
 
 call_00_0195:
     jp   call_00_3938                                  ;; 00:0195 $c3 $38 $39
@@ -346,11 +348,16 @@ call_00_029d:
 
 call_00_02af:
     jp   jp_00_239c                                    ;; 00:02af $c3 $9c $23
-    db   $c3, $57, $14, $c3, $6a, $14                  ;; 00:02b2 ??????
+    db   $c3, $57, $14                                 ;; 00:02b2 ???
+
+jp_00_02b5:
+    jp   jp_00_146a                                    ;; 00:02b5 $c3 $6a $14
 
 call_00_02b8:
     jp   jp_00_249e                                    ;; 00:02b8 $c3 $9e $24
-    db   $c3, $36, $1c                                 ;; 00:02bb ???
+
+call_00_02bb:
+    jp   call_00_1c36                                  ;; 00:02bb $c3 $36 $1c
 
 call_00_02be:
     jp   call_00_1c77                                  ;; 00:02be $c3 $77 $1c
@@ -358,7 +365,9 @@ call_00_02be:
 
 call_00_02c4:
     jp   call_00_0f9d                                  ;; 00:02c4 $c3 $9d $0f
-    db   $c3, $2c, $04                                 ;; 00:02c7 ???
+
+call_00_02c7:
+    jp   jp_00_042c                                    ;; 00:02c7 $c3 $2c $04
 
 call_00_02ca:
     jp   jp_00_043e                                    ;; 00:02ca $c3 $3e $04
@@ -414,8 +423,10 @@ call_00_0348:
 
 call_00_034b:
     jp   jp_00_0dff                                    ;; 00:034b $c3 $ff $0d
-    db   $c3, $e0, $06, $c3, $ea, $06, $c3, $e5        ;; 00:034e ????????
-    db   $05                                           ;; 00:0356 ?
+    db   $c3, $e0, $06, $c3, $ea, $06                  ;; 00:034e ??????
+
+call_00_0354:
+    jp   call_00_05e5                                  ;; 00:0354 $c3 $e5 $05
 
 call_00_0357:
     jp   jp_00_0411                                    ;; 00:0357 $c3 $11 $04
@@ -444,8 +455,11 @@ jp_00_036c:
 jp_00_037e:
     jp   jp_00_1415                                    ;; 00:037e $c3 $15 $14
     db   $c3, $10, $04, $c3, $25, $14, $c3, $6b        ;; 00:0381 ????????
-    db   $05, $c3, $75, $05, $c3, $00, $04, $c3        ;; 00:0389 ????????
-    db   $f6, $03, $c3, $be, $06                       ;; 00:0391 ?????
+    db   $05, $c3, $75, $05, $c3, $00, $04             ;; 00:0389 ???????
+
+call_00_0390:
+    jp   jp_00_03f6                                    ;; 00:0390 $c3 $f6 $03
+    db   $c3, $be, $06                                 ;; 00:0393 ???
 
 call_00_0396:
     jp   jp_00_2bdc                                    ;; 00:0396 $c3 $dc $2b
@@ -481,17 +495,30 @@ call_00_03cf:
 
 call_00_03d2:
     jp   call_00_0e9d                                  ;; 00:03d2 $c3 $9d $0e
-    db   $c3, $7b, $17, $c3, $50, $06                  ;; 00:03d5 ??????
+
+jp_00_03d5:
+    jp   jp_00_177b                                    ;; 00:03d5 $c3 $7b $17
+    db   $c3, $50, $06                                 ;; 00:03d8 ???
 
 jp_00_03db:
     jp   jp_00_13c2                                    ;; 00:03db $c3 $c2 $13
     db   $c3, $d1, $05, $c3, $db, $05, $fa, $d3        ;; 00:03de ????????
     db   $c0, $f5, $3e, $01, $ea, $d3, $c0, $ea        ;; 00:03e6 ????????
     db   $00, $21, $cd, $21, $56, $5f, $18, $12        ;; 00:03ee ????????
-    db   $fa, $d3, $c0, $f5, $e7, $cd, $ac, $47        ;; 00:03f6 ????????
-    db   $18, $08, $fa, $d3, $c0, $f5, $e7, $cd        ;; 00:03fe ????????
-    db   $85, $5a, $f1, $ea, $d3, $c0, $ea, $00        ;; 00:0406 ????????
-    db   $21, $c9, $c9                                 ;; 00:040e ???
+
+jp_00_03f6:
+    ld   A, [wActiveRomBank]                           ;; 00:03f6 $fa $d3 $c0
+    push AF                                            ;; 00:03f9 $f5
+    rst  rstReturnToBank1                              ;; 00:03fa $e7
+    call $47ac                                         ;; 00:03fb $cd $ac $47
+    jr   .jr_00_0408                                   ;; 00:03fe $18 $08
+    db   $fa, $d3, $c0, $f5, $e7, $cd, $85, $5a        ;; 00:0400 ????????
+.jr_00_0408:
+    pop  AF                                            ;; 00:0408 $f1
+    ld   [wActiveRomBank], A                           ;; 00:0409 $ea $d3 $c0
+    ld   [$2100], A                                    ;; 00:040c $ea $00 $21
+    ret                                                ;; 00:040f $c9
+    db   $c9                                           ;; 00:0410 ?
 
 jp_00_0411:
     ld   A, [wActiveRomBank]                           ;; 00:0411 $fa $d3 $c0
@@ -501,9 +528,16 @@ jp_00_0411:
     jr   jr_00_0492                                    ;; 00:0419 $18 $77
     db   $fa, $d3, $c0, $f5, $3e, $02, $ea, $d3        ;; 00:041b ????????
     db   $c0, $ea, $00, $21, $cd, $1c, $40, $18        ;; 00:0423 ????????
-    db   $66, $fa, $d3, $c0, $f5, $fa, $d5, $c0        ;; 00:042b ????????
-    db   $ea, $d3, $c0, $ea, $00, $21, $cd, $90        ;; 00:0433 ????????
-    db   $38, $18, $54                                 ;; 00:043b ???
+    db   $66                                           ;; 00:042b ?
+
+jp_00_042c:
+    ld   A, [wActiveRomBank]                           ;; 00:042c $fa $d3 $c0
+    push AF                                            ;; 00:042f $f5
+    ld   A, [wLevelLayoutRomBank]                      ;; 00:0430 $fa $d5 $c0
+    ld   [wActiveRomBank], A                           ;; 00:0433 $ea $d3 $c0
+    ld   [$2100], A                                    ;; 00:0436 $ea $00 $21
+    call call_00_3890                                  ;; 00:0439 $cd $90 $38
+    jr   jr_00_0492                                    ;; 00:043c $18 $54
 
 jp_00_043e:
     ld   HL, wC577                                     ;; 00:043e $21 $77 $c5
@@ -625,9 +659,14 @@ call_00_05a8:
     ld   A, $40                                        ;; 00:05ac $3e $40
     ldh  [hFFB0], A                                    ;; 00:05ae $e0 $b0
     jr   jr_00_057f                                    ;; 00:05b0 $18 $cd
-    db   $3e, $03, $ea, $d3, $c0, $ea, $00, $21        ;; 00:05b2 ????????
-    db   $c3, $0f, $40, $3e, $3c, $e0, $af, $3e        ;; 00:05ba ????????
-    db   $40, $e0, $b0, $18, $b8                       ;; 00:05c2 ?????
+
+jp_00_05b2:
+    ld   A, $03                                        ;; 00:05b2 $3e $03
+    ld   [wActiveRomBank], A                           ;; 00:05b4 $ea $d3 $c0
+    ld   [$2100], A                                    ;; 00:05b7 $ea $00 $21
+    jp   jp_03_400f ;@bank 3                           ;; 00:05ba $c3 $0f $40
+    db   $3e, $3c, $e0, $af, $3e, $40, $e0, $b0        ;; 00:05bd ????????
+    db   $18, $b8                                      ;; 00:05c5 ??
 
 call_00_05c7:
     ld   A, $0c                                        ;; 00:05c7 $3e $0c
@@ -1963,7 +2002,9 @@ call_00_0d58:
     jr   NZ, call_00_0d58                              ;; 00:0d7d $20 $d9
     ret                                                ;; 00:0d7f $c9
 
-jp_00_0d80:
+; On enter: HL points at a table with bytes.
+;   Get entry A from that table and store it in A
+get_byte_from_table:
     add  A, L                                          ;; 00:0d80 $85
     ld   L, A                                          ;; 00:0d81 $6f
     ld   A, $00                                        ;; 00:0d82 $3e $00
@@ -1972,7 +2013,9 @@ jp_00_0d80:
     ld   A, [HL]                                       ;; 00:0d86 $7e
     ret                                                ;; 00:0d87 $c9
 
-call_00_0d88:
+; On enter: HL points at a table with pointers.
+;   Get entry A from that table and store it in HL
+get_ptr_from_table:
     add  A, A                                          ;; 00:0d88 $87
     add  A, L                                          ;; 00:0d89 $85
     ld   L, A                                          ;; 00:0d8a $6f
@@ -1984,7 +2027,9 @@ call_00_0d88:
     ld   L, A                                          ;; 00:0d91 $6f
     ret                                                ;; 00:0d92 $c9
 
-call_00_0d93:
+; On enter: DE points at a table with pointers.
+;   Get entry A from that table and store it in DE
+get_ptr_from_table_de:
     add  A, A                                          ;; 00:0d93 $87
     add  A, E                                          ;; 00:0d94 $83
     ld   E, A                                          ;; 00:0d95 $5f
@@ -2251,10 +2296,15 @@ call_00_0f55:
     ld   [wC250], A                                    ;; 00:0f5f $ea $50 $c2
     ld   [wC259], A                                    ;; 00:0f62 $ea $59 $c2
     ret                                                ;; 00:0f65 $c9
-    db   $cd, $70, $0f, $d8, $3e, $01, $ea, $00        ;; 00:0f66 ????????
-    db   $c1, $c9                                      ;; 00:0f6e ??
 
-jp_00_0f70:
+jp_00_0f66:
+    call call_00_0f70                                  ;; 00:0f66 $cd $70 $0f
+    ret  C                                             ;; 00:0f69 $d8
+    ld   A, $01                                        ;; 00:0f6a $3e $01
+    ld   [wC100], A                                    ;; 00:0f6c $ea $00 $c1
+    ret                                                ;; 00:0f6f $c9
+
+call_00_0f70:
     ld   A, [wC100]                                    ;; 00:0f70 $fa $00 $c1
     or   A, A                                          ;; 00:0f73 $b7
     scf                                                ;; 00:0f74 $37
@@ -3024,6 +3074,8 @@ jr_00_1445:
     call call_00_16a3                                  ;; 00:1461 $cd $a3 $16
     ld   A, [wDFAA]                                    ;; 00:1464 $fa $aa $df
     ld   [wDF16], A                                    ;; 00:1467 $ea $16 $df
+
+jp_00_146a:
     ld   SP, $fffe                                     ;; 00:146a $31 $fe $ff
     rst  rstReturnToBank1                              ;; 00:146d $e7
     xor  A, A                                          ;; 00:146e $af
@@ -3328,8 +3380,12 @@ jp_00_1723:
     db   $fe, $ff, $3e, $03, $ea, $d3, $c0, $ea        ;; 00:175c ????????
     db   $00, $21, $cd, $42, $40, $3e, $64, $18        ;; 00:1764 ????????
     db   $e8, $cd, $42, $2c, $3e, $0e, $ea, $d3        ;; 00:176c ????????
-    db   $c0, $ea, $00, $21, $c3, $04, $40, $e7        ;; 00:1774 ????????
-    db   $cd, $84, $60, $c3, $b2, $05                  ;; 00:177c ??????
+    db   $c0, $ea, $00, $21, $c3, $04, $40             ;; 00:1774 ???????
+
+jp_00_177b:
+    rst  rstReturnToBank1                              ;; 00:177b $e7
+    call $6084                                         ;; 00:177c $cd $84 $60
+    jp   jp_00_05b2                                    ;; 00:177f $c3 $b2 $05
 
 load16hl_add40_store16de:
     ld   A, [HL+]                                      ;; 00:1782 $2a
@@ -4088,7 +4144,7 @@ call_00_1c77:
     ld   H, [HL]                                       ;; 00:1c87 $66
     ld   L, A                                          ;; 00:1c88 $6f
     ld   A, E                                          ;; 00:1c89 $7b
-    call call_00_0d88                                  ;; 00:1c8a $cd $88 $0d
+    call get_ptr_from_table                            ;; 00:1c8a $cd $88 $0d
 .jr_00_1c8d:
     ld   A, [HL+]                                      ;; 00:1c8d $2a
     or   A, A                                          ;; 00:1c8e $b7
@@ -7451,7 +7507,7 @@ jp_00_35f8:
     ld   [wC13D], A                                    ;; 00:3652 $ea $3d $c1
     ld   A, [wC146]                                    ;; 00:3655 $fa $46 $c1
     ld   [wC13E], A                                    ;; 00:3658 $ea $3e $c1
-    jp   jp_00_3890                                    ;; 00:365b $c3 $90 $38
+    jp   call_00_3890                                  ;; 00:365b $c3 $90 $38
 
 call_00_365e:
     bit  7, B                                          ;; 00:365e $cb $78
@@ -7640,7 +7696,7 @@ jp_00_3713:
     ld   A, [HL]                                       ;; 00:378c $7e
     or   A, A                                          ;; 00:378d $b7
     jp   Z, jp_00_3806                                 ;; 00:378e $ca $06 $38
-    jp   jp_00_3890                                    ;; 00:3791 $c3 $90 $38
+    jp   call_00_3890                                  ;; 00:3791 $c3 $90 $38
 
 call_00_3794:
     ld   E, [HL]                                       ;; 00:3794 $5e
@@ -7791,7 +7847,7 @@ jp_00_3806:
     ld   [wC100], A                                    ;; 00:388c $ea $00 $c1
     ret                                                ;; 00:388f $c9
 
-jp_00_3890:
+call_00_3890:
     ld   A, [wC13D]                                    ;; 00:3890 $fa $3d $c1
     and  A, $f8                                        ;; 00:3893 $e6 $f8
     ld   L, A                                          ;; 00:3895 $6f

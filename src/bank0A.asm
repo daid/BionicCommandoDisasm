@@ -3571,7 +3571,7 @@ call_0a_7b5b:
     ld   DE, .data_0a_7bff                             ;; 0a:7bb9 $11 $ff $7b
 .jr_0a_7bbc:
     pop  AF                                            ;; 0a:7bbc $f1
-    call call_00_0192                                  ;; 0a:7bbd $cd $92 $01
+    call get_ptr_from_table_de_                        ;; 0a:7bbd $cd $92 $01
     ld   A, $21                                        ;; 0a:7bc0 $3e $21
     add  A, C                                          ;; 0a:7bc2 $81
     ld   L, A                                          ;; 0a:7bc3 $6f

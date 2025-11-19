@@ -2197,7 +2197,7 @@ call_03_6d89:
     bit  0, [HL]                                       ;; 03:6db0 $cb $46
     jr   Z, .jr_03_6db6                                ;; 03:6db2 $28 $02
     rst  rst_00_0008                                   ;; 03:6db4 $cf
-    dec  D                                             ;; 03:6db5 $15
+    db   $15                                           ;; 03:6db5 .
 .jr_03_6db6:
     ld   HL, wCD7E                                     ;; 03:6db6 $21 $7e $cd
     res  0, [HL]                                       ;; 03:6db9 $cb $86
@@ -2439,7 +2439,7 @@ data_03_6f3f:
     ld   A, $01                                        ;; 03:6f45 $3e $01
     ld   [wCD6F], A                                    ;; 03:6f47 $ea $6f $cd
     rst  rst_00_0008                                   ;; 03:6f4a $cf
-    ld   A, [DE]                                       ;; 03:6f4b $1a
+    db   $1a                                           ;; 03:6f4b .
     call call_00_01b6                                  ;; 03:6f4c $cd $b6 $01
     ld   B, $00                                        ;; 03:6f4f $06 $00
     call call_00_0360                                  ;; 03:6f51 $cd $60 $03
@@ -3139,7 +3139,7 @@ call_03_75b4:
 
 jp_03_78a4:
     rst  rst_00_0008                                   ;; 03:78a4 $cf
-    nop                                                ;; 03:78a5 $00
+    db   $00                                           ;; 03:78a5 ?
     ld   A, $46                                        ;; 03:78a6 $3e $46
     jr   jr_03_78b2                                    ;; 03:78a8 $18 $08
 
@@ -3147,7 +3147,7 @@ jp_03_78aa:
     xor  A, A                                          ;; 03:78aa $af
     ld   [wDFA3], A                                    ;; 03:78ab $ea $a3 $df
     rst  rst_00_0008                                   ;; 03:78ae $cf
-    nop                                                ;; 03:78af $00
+    db   $00                                           ;; 03:78af .
     ld   A, $54                                        ;; 03:78b0 $3e $54
 
 jr_03_78b2:

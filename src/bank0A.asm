@@ -1706,7 +1706,7 @@ jp_0a_5e6e:
     call call_0a_5fe2                                  ;; 0a:5e79 $cd $e2 $5f
 .jr_0a_5e7c:
     rst  rst_00_0008                                   ;; 0a:5e7c $cf
-    nop                                                ;; 0a:5e7d $00
+    db   $00                                           ;; 0a:5e7d .
     di                                                 ;; 0a:5e7e $f3
     ld   HL, wC100                                     ;; 0a:5e7f $21 $00 $c1
     ld   BC, $100                                      ;; 0a:5e82 $01 $00 $01
@@ -3365,7 +3365,7 @@ call_0a_7797:
     ld   DE, data_0a_786e                              ;; 0a:7823 $11 $6e $78
     call call_0a_6012                                  ;; 0a:7826 $cd $12 $60
     rst  rst_00_0008                                   ;; 0a:7829 $cf
-    ld   [DE], A                                       ;; 0a:782a $12
+    db   $12                                           ;; 0a:782a ?
 .jr_0a_782b:
     call call_0a_7840                                  ;; 0a:782b $cd $40 $78
     call call_00_039f                                  ;; 0a:782e $cd $9f $03
@@ -3605,7 +3605,7 @@ call_0a_7c3d:
     ld   HL, data_0a_7393                              ;; 0a:7c3d $21 $93 $73
     call call_0a_5ed3                                  ;; 0a:7c40 $cd $d3 $5e
     rst  rst_00_0008                                   ;; 0a:7c43 $cf
-    inc  [HL]                                          ;; 0a:7c44 $34
+    db   $34                                           ;; 0a:7c44 ?
     ld   B, $3c                                        ;; 0a:7c45 $06 $3c
     call call_00_01bf                                  ;; 0a:7c47 $cd $bf $01
     call call_0a_5fce                                  ;; 0a:7c4a $cd $ce $5f
@@ -3806,7 +3806,6 @@ call_0a_7dfe:
     call call_0a_5ed3                                  ;; 0a:7e01 $cd $d3 $5e
     ld   A, $01                                        ;; 0a:7e04 $3e $01
     ld   [wCD56], A                                    ;; 0a:7e06 $ea $56 $cd
-.jr_0a_7e09:
     ld   A, $28                                        ;; 0a:7e09 $3e $28
     ld   [wCD50], A                                    ;; 0a:7e0b $ea $50 $cd
     ld   A, $24                                        ;; 0a:7e0e $3e $24
@@ -3827,11 +3826,11 @@ call_0a_7dfe:
     ld   DE, .data_0a_7e57                             ;; 0a:7e33 $11 $57 $7e
     call call_0a_6012                                  ;; 0a:7e36 $cd $12 $60
     rst  rst_00_0008                                   ;; 0a:7e39 $cf
-    jr   Z, .jr_0a_7e09                                ;; 0a:7e3a $28 $cd
-    rlca                                               ;; 0a:7e3c $07
-    ld   E, A                                          ;; 0a:7e3d $5f
+    db   $28                                           ;; 0a:7e3a ?
+.jr_0a_7e3b:
+    call call_0a_5f07                                  ;; 0a:7e3b $cd $07 $5f
     call call_0a_6027                                  ;; 0a:7e3e $cd $27 $60
-    jr   NC, $7e3b                                     ;; 0a:7e41 $30 $f8
+    jr   NC, .jr_0a_7e3b                               ;; 0a:7e41 $30 $f8
     ld   A, $11                                        ;; 0a:7e43 $3e $11
     ld   [wBGP], A                                     ;; 0a:7e45 $ea $d9 $c0
     ld   B, $10                                        ;; 0a:7e48 $06 $10

@@ -6,18 +6,28 @@ INCLUDE "include/charmaps.inc"
 INCLUDE "include/constants.inc"
 
 SECTION "bank00", ROM0[$0000]
-    db   $31, $fe, $ff, $f3, $c3, $50, $01, $01        ;; 00:0000 ????????
+;@code
+    ld   SP, $fffe                                     ;; 00:0000 $31 $fe $ff
+    di                                                 ;; 00:0003 $f3
+    jp   romStart                                      ;; 00:0004 $c3 $50 $01
+    db   $01                                           ;; 00:0007 ?
 
+;@rst8
 rst_00_0008:
     ld   A, L                                          ;; 00:0008 $7d
     ld   [wC0DD], A                                    ;; 00:0009 $ea $dd $c0
     ld   A, H                                          ;; 00:000c $7c
     jp   jp_00_3e81                                    ;; 00:000d $c3 $81 $3e
 
+;@code
 rstNOP:
     ret                                                ;; 00:0010 $c9
-    db   $00, $00, $00, $00, $00, $00, $01, $fa        ;; 00:0011 ????????
-    db   $a5, $df, $fe, $2b, $c9, $00, $00             ;; 00:0019 ???????
+    db   $00, $00, $00, $00, $00, $00, $01             ;; 00:0011 ???????
+;@code
+    ld   A, [wDFA5]                                    ;; 00:0018 $fa $a5 $df
+    cp   A, $2b                                        ;; 00:001b $fe $2b
+    ret                                                ;; 00:001d $c9
+    db   $00, $00                                      ;; 00:001e ??
 
 rstReturnToBank1:
     ld   A, $01                                        ;; 00:0020 $3e $01
@@ -2155,7 +2165,7 @@ call_00_0ea9:
 
 jp_00_0eaf:
     rst  rst_00_0008                                   ;; 00:0eaf $cf
-    nop                                                ;; 00:0eb0 $00
+    db   $00                                           ;; 00:0eb0 .
     call call_00_3d86                                  ;; 00:0eb1 $cd $86 $3d
     di                                                 ;; 00:0eb4 $f3
     xor  A, A                                          ;; 00:0eb5 $af
@@ -2975,7 +2985,7 @@ jp_00_1415:
     rst  rstReturnToBank1                              ;; 00:1415 $e7
     ld   SP, $fffe                                     ;; 00:1416 $31 $fe $ff
     rst  rst_00_0008                                   ;; 00:1419 $cf
-    nop                                                ;; 00:141a $00
+    db   $00                                           ;; 00:141a .
     ld   A, [wDFAA]                                    ;; 00:141b $fa $aa $df
     cp   A, $01                                        ;; 00:141e $fe $01
     jr   Z, jr_00_1445                                 ;; 00:1420 $28 $23
@@ -2987,7 +2997,7 @@ jp_00_1425:
     call call_01_6074                                  ;; 00:1429 $cd $74 $60
     push AF                                            ;; 00:142c $f5
     rst  rst_00_0008                                   ;; 00:142d $cf
-    nop                                                ;; 00:142e $00
+    db   $00                                           ;; 00:142e .
     pop  AF                                            ;; 00:142f $f1
     jr   C, jp_00_1415                                 ;; 00:1430 $38 $e3
     ld   A, [wGlobalLevelEntryNumber]                  ;; 00:1432 $fa $a2 $df
@@ -3089,7 +3099,7 @@ jr_00_1445:
     bit  2, A                                          ;; 00:1502 $cb $57
     jr   Z, .jr_00_150a                                ;; 00:1504 $28 $04
     rst  rst_00_0008                                   ;; 00:1506 $cf
-    nop                                                ;; 00:1507 $00
+    db   $00                                           ;; 00:1507 ?
     jr   .jr_00_152f                                   ;; 00:1508 $18 $25
 .jr_00_150a:
     ld   A, [wDFAA]                                    ;; 00:150a $fa $aa $df
@@ -3099,8 +3109,8 @@ jr_00_1445:
     bit  0, A                                          ;; 00:1513 $cb $47
     jr   Z, .jr_00_151b                                ;; 00:1515 $28 $04
     rst  rst_00_0008                                   ;; 00:1517 $cf
-    jr   C, $1532                                      ;; 00:1518 $38 $18
-    inc  D                                             ;; 00:151a $14
+    db   $38                                           ;; 00:1518 ?
+    jr   .jr_00_152f                                   ;; 00:1519 $18 $14
 .jr_00_151b:
     ld   HL, wDF16                                     ;; 00:151b $21 $16 $df
     ld   A, [HL]                                       ;; 00:151e $7e
@@ -3257,7 +3267,7 @@ jp_00_16ca:
 
 jp_00_16d0:
     rst  rst_00_0008                                   ;; 00:16d0 $cf
-    dec  E                                             ;; 00:16d1 $1d
+    db   $1d                                           ;; 00:16d1 ?
     ld   A, $e4                                        ;; 00:16d2 $3e $e4
     ld   [wBGP], A                                     ;; 00:16d4 $ea $d9 $c0
     ld   B, $1e                                        ;; 00:16d7 $06 $1e
@@ -6833,7 +6843,8 @@ call_00_325e:
     ld   L, A                                          ;; 00:3279 $6f
     ld   [HL], $0a                                     ;; 00:327a $36 $0a
     rst  rst_00_0008                                   ;; 00:327c $cf
-    ld   D, $c9                                        ;; 00:327d $16 $c9
+    db   $16                                           ;; 00:327d ?
+    ret                                                ;; 00:327e $c9
 .jr_00_327f:
     ld   DE, wLevelDecodePointerLow                    ;; 00:327f $11 $db $d2
     ld   A, $03                                        ;; 00:3282 $3e $03
@@ -6947,7 +6958,7 @@ call_00_331e:
     ld   L, A                                          ;; 00:333d $6f
     ld   [HL], $3c                                     ;; 00:333e $36 $3c
     rst  rst_00_0008                                   ;; 00:3340 $cf
-    inc  HL                                            ;; 00:3341 $23
+    db   $23                                           ;; 00:3341 ?
     ret                                                ;; 00:3342 $c9
 
 call_00_3343:
@@ -8746,7 +8757,8 @@ call_00_3d96:
 
 jp_00_3de2:
     rst  rst_00_0008                                   ;; 00:3de2 $cf
-    ld   D, $e5                                        ;; 00:3de3 $16 $e5
+    db   $16                                           ;; 00:3de3 .
+    push HL                                            ;; 00:3de4 $e5
     ld   A, [DE]                                       ;; 00:3de5 $1a
     ld   B, A                                          ;; 00:3de6 $47
     ld   A, $12                                        ;; 00:3de7 $3e $12
@@ -8805,7 +8817,7 @@ jr_00_3e22:
 
 jr_00_3e25:
     rst  rst_00_0008                                   ;; 00:3e25 $cf
-    inc  HL                                            ;; 00:3e26 $23
+    db   $23                                           ;; 00:3e26 ?
     ld   L, E                                          ;; 00:3e27 $6b
     ld   H, D                                          ;; 00:3e28 $62
     ld   [HL], $ff                                     ;; 00:3e29 $36 $ff

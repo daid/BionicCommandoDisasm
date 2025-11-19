@@ -857,11 +857,11 @@ jp_02_4e1f:
     ret                                                ;; 02:4f21 $c9
 .jp_02_4f22:
     rst  rst_00_0008                                   ;; 02:4f22 $cf
-    ld   C, $fa                                        ;; 02:4f23 $0e $fa
-    inc  A                                             ;; 02:4f25 $3c
-    jp   NZ, $ea3c                                     ;; 02:4f26 $c2 $3c $ea
-    inc  A                                             ;; 02:4f29 $3c
-    jp   NZ, $f218                                     ;; 02:4f2a $c2 $18 $f2
+    db   $0e                                           ;; 02:4f23 .
+    ld   A, [wC23C]                                    ;; 02:4f24 $fa $3c $c2
+    inc  A                                             ;; 02:4f27 $3c
+    ld   [wC23C], A                                    ;; 02:4f28 $ea $3c $c2
+    jr   .jp_02_4f1f                                   ;; 02:4f2b $18 $f2
 .jp_02_4f2d:
     ld   A, [wMaxHealth]                               ;; 02:4f2d $fa $44 $df
     ld   [wHealth], A                                  ;; 02:4f30 $ea $43 $df
@@ -881,21 +881,21 @@ jp_02_4e1f:
 .jr_02_4f4b:
     push AF                                            ;; 02:4f4b $f5
     rst  rst_00_0008                                   ;; 02:4f4c $cf
-    inc  D                                             ;; 02:4f4d $14
+    db   $14                                           ;; 02:4f4d ?
     pop  AF                                            ;; 02:4f4e $f1
 .jr_02_4f4f:
     ld   [wExtraLifeCount], A                          ;; 02:4f4f $ea $45 $df
     jr   .jp_02_4f1f                                   ;; 02:4f52 $18 $cb
 .jp_02_4f54:
     rst  rst_00_0008                                   ;; 02:4f54 $cf
-    inc  D                                             ;; 02:4f55 $14
+    db   $14                                           ;; 02:4f55 ?
     ld   A, [wDF4C]                                    ;; 02:4f56 $fa $4c $df
     set  0, A                                          ;; 02:4f59 $cb $c7
     ld   [wDF4C], A                                    ;; 02:4f5b $ea $4c $df
     jr   .jp_02_4f1f                                   ;; 02:4f5e $18 $bf
 .jp_02_4f60:
     rst  rst_00_0008                                   ;; 02:4f60 $cf
-    inc  D                                             ;; 02:4f61 $14
+    db   $14                                           ;; 02:4f61 ?
     ld   A, $2d                                        ;; 02:4f62 $3e $2d
     add  A, C                                          ;; 02:4f64 $81
     ld   L, A                                          ;; 02:4f65 $6f
@@ -913,7 +913,7 @@ jp_02_4e1f:
     jr   .jp_02_4f1f                                   ;; 02:4f78 $18 $a5
 .jp_02_4f7a:
     rst  rst_00_0008                                   ;; 02:4f7a $cf
-    inc  D                                             ;; 02:4f7b $14
+    db   $14                                           ;; 02:4f7b ?
     ld   A, [wDF4A]                                    ;; 02:4f7c $fa $4a $df
     set  4, A                                          ;; 02:4f7f $cb $e7
     ld   [wDF4A], A                                    ;; 02:4f81 $ea $4a $df
@@ -928,7 +928,7 @@ jp_02_4e1f:
 .jr_02_4f92:
     push AF                                            ;; 02:4f92 $f5
     rst  rst_00_0008                                   ;; 02:4f93 $cf
-    inc  D                                             ;; 02:4f94 $14
+    db   $14                                           ;; 02:4f94 ?
     pop  AF                                            ;; 02:4f95 $f1
 .jr_02_4f96:
     ld   [wContinueCount], A                           ;; 02:4f96 $ea $52 $df
@@ -1355,7 +1355,7 @@ jp_02_5266:
 
 jp_02_5272:
     rst  rst_00_0008                                   ;; 02:5272 $cf
-    rrca                                               ;; 02:5273 $0f
+    db   $0f                                           ;; 02:5273 .
 
 jr_02_5274:
     ld   A, $1a                                        ;; 02:5274 $3e $1a

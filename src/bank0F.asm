@@ -130,7 +130,7 @@ jp_0f_4097:
     ld   A, [wJoypadDown]                              ;; 0f:4108 $fa $c0 $c0
     ld   [wC201], A                                    ;; 0f:410b $ea $01 $c2
     rst  rst_00_0008                                   ;; 0f:410e $cf
-    inc  E                                             ;; 0f:410f $1c
+    db   $1c                                           ;; 0f:410f .
     ld   B, $3c                                        ;; 0f:4110 $06 $3c
     call call_00_01bf                                  ;; 0f:4112 $cd $bf $01
     ld   A, [wCC02]                                    ;; 0f:4115 $fa $02 $cc
@@ -138,7 +138,7 @@ jp_0f_4097:
     ret                                                ;; 0f:4119 $c9
 .jr_0f_411a:
     rst  rst_00_0008                                   ;; 0f:411a $cf
-    dec  DE                                            ;; 0f:411b $1b
+    db   $1b                                           ;; 0f:411b .
     ld   HL, wCC02                                     ;; 0f:411c $21 $02 $cc
     inc  [HL]                                          ;; 0f:411f $34
     ld   A, [wCC04]                                    ;; 0f:4120 $fa $04 $cc
@@ -150,7 +150,7 @@ jp_0f_4097:
     jr   .jr_0f_40d9                                   ;; 0f:412a $18 $ad
 .jr_0f_412c:
     rst  rst_00_0008                                   ;; 0f:412c $cf
-    dec  DE                                            ;; 0f:412d $1b
+    db   $1b                                           ;; 0f:412d .
     ld   HL, wCC02                                     ;; 0f:412e $21 $02 $cc
     dec  [HL]                                          ;; 0f:4131 $35
     bit  7, [HL]                                       ;; 0f:4132 $cb $7e
@@ -248,7 +248,7 @@ call_0f_41b0:
 
 call_0f_41d3:
     rst  rst_00_0008                                   ;; 0f:41d3 $cf
-    nop                                                ;; 0f:41d4 $00
+    db   $00                                           ;; 0f:41d4 .
     xor  A, A                                          ;; 0f:41d5 $af
     ldh  [rIF], A                                      ;; 0f:41d6 $e0 $0f
     ld   A, $03                                        ;; 0f:41d8 $3e $03
@@ -1422,7 +1422,7 @@ jp_0f_4a54:
     or   A, A                                          ;; 0f:4a57 $b7
     ret  NZ                                            ;; 0f:4a58 $c0
     rst  rst_00_0008                                   ;; 0f:4a59 $cf
-    inc  H                                             ;; 0f:4a5a $24
+    db   $24                                           ;; 0f:4a5a ?
     call call_00_01b3                                  ;; 0f:4a5b $cd $b3 $01
     call call_00_01b9                                  ;; 0f:4a5e $cd $b9 $01
     ld   A, [wBGP]                                     ;; 0f:4a61 $fa $d9 $c0
@@ -2873,7 +2873,7 @@ jp_0f_6f5a:
     ld   DE, data_0f_7149                              ;; 0f:6f5a $11 $49 $71
     call call_0f_7392                                  ;; 0f:6f5d $cd $92 $73
     rst  rst_00_0008                                   ;; 0f:6f60 $cf
-    inc  A                                             ;; 0f:6f61 $3c
+    db   $3c                                           ;; 0f:6f61 ?
     ld   HL, data_0f_74c3                              ;; 0f:6f62 $21 $c3 $74
     call call_00_02c4                                  ;; 0f:6f65 $cd $c4 $02
     call call_00_030f                                  ;; 0f:6f68 $cd $0f $03
@@ -2909,7 +2909,6 @@ jp_0f_6f5a:
     call call_0f_7388                                  ;; 0f:6fb4 $cd $88 $73
     ld   B, $1e                                        ;; 0f:6fb7 $06 $1e
     call call_0f_4bd6                                  ;; 0f:6fb9 $cd $d6 $4b
-.jr_0f_6fbc:
     ld   HL, data_0f_7367                              ;; 0f:6fbc $21 $67 $73
     ld   DE, data_0f_7324                              ;; 0f:6fbf $11 $24 $73
     ld   BC, data_0f_5a1e                              ;; 0f:6fc2 $01 $1e $5a
@@ -2919,7 +2918,7 @@ jp_0f_6f5a:
     ld   BC, $101                                      ;; 0f:6fce $01 $01 $01
     call call_0f_7018                                  ;; 0f:6fd1 $cd $18 $70
     rst  rst_00_0008                                   ;; 0f:6fd4 $cf
-    inc  D                                             ;; 0f:6fd5 $14
+    db   $14                                           ;; 0f:6fd5 ?
     call call_00_01b9                                  ;; 0f:6fd6 $cd $b9 $01
     ld   HL, data_0f_7378                              ;; 0f:6fd9 $21 $78 $73
     ld   DE, data_0f_7324                              ;; 0f:6fdc $11 $24 $73
@@ -2930,15 +2929,27 @@ jp_0f_6f5a:
     xor  A, A                                          ;; 0f:6fe6 $af
     ld   [wContinueCount], A                           ;; 0f:6fe7 $ea $52 $df
     rst  rst_00_0008                                   ;; 0f:6fea $cf
-    nop                                                ;; 0f:6feb $00
+    db   $00                                           ;; 0f:6feb ?
     rst  rst_00_0008                                   ;; 0f:6fec $cf
-    jr   .jr_0f_6fbc                                   ;; 0f:6fed $18 $cd
-    db   $b9, $01, $3e, $05, $f5, $21, $35, $73        ;; 0f:6fef ????????
-    db   $11, $24, $73, $01, $02, $02, $cd, $18        ;; 0f:6ff7 ????????
-    db   $70, $21, $35, $73, $11, $24, $73, $01        ;; 0f:6fff ????????
-    db   $0c, $1e, $cd, $18, $70, $f1, $3d, $20        ;; 0f:7007 ????????
-    db   $e3, $06, $3c, $cd, $d6, $4b, $c3, $53        ;; 0f:700f ????????
-    db   $01                                           ;; 0f:7017 ?
+    db   $18                                           ;; 0f:6fed ?
+    call call_00_01b9                                  ;; 0f:6fee $cd $b9 $01
+    ld   A, $05                                        ;; 0f:6ff1 $3e $05
+.jr_0f_6ff3:
+    push AF                                            ;; 0f:6ff3 $f5
+    ld   HL, data_0f_7335                              ;; 0f:6ff4 $21 $35 $73
+    ld   DE, data_0f_7324                              ;; 0f:6ff7 $11 $24 $73
+    ld   BC, $202                                      ;; 0f:6ffa $01 $02 $02
+    call call_0f_7018                                  ;; 0f:6ffd $cd $18 $70
+    ld   HL, data_0f_7335                              ;; 0f:7000 $21 $35 $73
+    ld   DE, data_0f_7324                              ;; 0f:7003 $11 $24 $73
+    ld   BC, $1e0c                                     ;; 0f:7006 $01 $0c $1e
+    call call_0f_7018                                  ;; 0f:7009 $cd $18 $70
+    pop  AF                                            ;; 0f:700c $f1
+    dec  A                                             ;; 0f:700d $3d
+    jr   NZ, .jr_0f_6ff3                               ;; 0f:700e $20 $e3
+    ld   B, $3c                                        ;; 0f:7010 $06 $3c
+    call call_0f_4bd6                                  ;; 0f:7012 $cd $d6 $4b
+    jp   jp_00_0153                                    ;; 0f:7015 $c3 $53 $01
 
 call_0f_7018:
     push DE                                            ;; 0f:7018 $d5
@@ -3305,11 +3316,14 @@ data_0f_731e:
 data_0f_7324:
     db   $80, $80, $80, $80, $80, $80, $80, $80        ;; 0f:7324 ????????
     db   $80, $80, $80, $80, $80, $80, $80, $80        ;; 0f:732c ????????
-    db   $00, $80, $80, $80, $80, $80, $90, $9d        ;; 0f:7334 ????????
-    db   $9d, $9a, $9d, $80, $80, $80, $80, $80        ;; 0f:733c ????????
-    db   $80, $00, $80, $80, $80, $80, $9b, $8c        ;; 0f:7344 ????????
-    db   $9e, $9e, $a2, $9a, $9d, $8f, $80, $80        ;; 0f:734c ????????
-    db   $80, $80, $00                                 ;; 0f:7354 ???
+    db   $00                                           ;; 0f:7334 ?
+
+data_0f_7335:
+    db   $80, $80, $80, $80, $80, $90, $9d, $9d        ;; 0f:7335 ????????
+    db   $9a, $9d, $80, $80, $80, $80, $80, $80        ;; 0f:733d ????????
+    db   $00, $80, $80, $80, $80, $9b, $8c, $9e        ;; 0f:7345 ????????
+    db   $9e, $a2, $9a, $9d, $8f, $80, $80, $80        ;; 0f:734d ????????
+    db   $80, $00                                      ;; 0f:7355 ??
 
 data_0f_7357:
     db   $94, $99, $9b, $a0, $9f, $80, $9b, $8c        ;; 0f:7357 ????????
@@ -3379,7 +3393,7 @@ call_0f_73b4:
     ld   D, A                                          ;; 0f:73ee $57
     call call_0f_729a                                  ;; 0f:73ef $cd $9a $72
     rst  rst_00_0008                                   ;; 0f:73f2 $cf
-    inc  C                                             ;; 0f:73f3 $0c
+    db   $0c                                           ;; 0f:73f3 ?
     jr   .jr_0f_73e1                                   ;; 0f:73f4 $18 $eb
 .jr_0f_73f6:
     ld   A, [wCC24]                                    ;; 0f:73f6 $fa $24 $cc
@@ -3388,7 +3402,7 @@ call_0f_73b4:
     ld   [wCC24], A                                    ;; 0f:73fc $ea $24 $cc
     call call_0f_7485                                  ;; 0f:73ff $cd $85 $74
     rst  rst_00_0008                                   ;; 0f:7402 $cf
-    dec  BC                                            ;; 0f:7403 $0b
+    db   $0b                                           ;; 0f:7403 ?
     jr   .jr_0f_73e1                                   ;; 0f:7404 $18 $db
 .jr_0f_7406:
     ret                                                ;; 0f:7406 $c9

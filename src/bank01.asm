@@ -510,12 +510,12 @@ call_01_4797:
     ld   A, $ff                                        ;; 01:47a4 $3e $ff
     ld   BC, $04                                       ;; 01:47a6 $01 $04 $00
     call memset                                        ;; 01:47a9 $cd $1d $0c
-    ld   A, [wDF4E]                                    ;; 01:47ac $fa $4e $df
+    ld   A, [wSelectedWeapon]                          ;; 01:47ac $fa $4e $df
     cp   A, $06                                        ;; 01:47af $fe $06
     call Z, call_01_47ea                               ;; 01:47b1 $cc $ea $47
     xor  A, A                                          ;; 01:47b4 $af
     ld   [wD2B4], A                                    ;; 01:47b5 $ea $b4 $d2
-    ld   A, [wDF4E]                                    ;; 01:47b8 $fa $4e $df
+    ld   A, [wSelectedWeapon]                          ;; 01:47b8 $fa $4e $df
     or   A, A                                          ;; 01:47bb $b7
     jr   NZ, .jr_01_47c1                               ;; 01:47bc $20 $03
     ld   A, [wC2AA]                                    ;; 01:47be $fa $aa $c2
@@ -530,7 +530,7 @@ call_01_4797:
     add  HL, DE                                        ;; 01:47cc $19
     ld   DE, wD2AA                                     ;; 01:47cd $11 $aa $d2
     call call_00_0bce                                  ;; 01:47d0 $cd $ce $0b
-    ld   A, [wDF50]                                    ;; 01:47d3 $fa $50 $df
+    ld   A, [wSelectedTool]                            ;; 01:47d3 $fa $50 $df
     cp   A, $03                                        ;; 01:47d6 $fe $03
     ret  NZ                                            ;; 01:47d8 $c0
     ld   A, $01                                        ;; 01:47d9 $3e $01
@@ -560,7 +560,7 @@ call_01_47ea:
     db   $ff, $78, $7f, $1c, $1f, $07, $07, $01        ;; 01:481a ????????
 
 call_01_4822:
-    ld   A, [wDF4E]                                    ;; 01:4822 $fa $4e $df
+    ld   A, [wSelectedWeapon]                          ;; 01:4822 $fa $4e $df
     or   A, A                                          ;; 01:4825 $b7
     ret  Z                                             ;; 01:4826 $c8
     call call_01_4932                                  ;; 01:4827 $cd $32 $49
@@ -2585,7 +2585,7 @@ call_01_559c:
     jr   C, jr_01_55ea                                 ;; 01:55bf $38 $29
 .jr_01_55c1:
     ld   DE, $140                                      ;; 01:55c1 $11 $40 $01
-    ld   A, [wDF50]                                    ;; 01:55c4 $fa $50 $df
+    ld   A, [wSelectedTool]                            ;; 01:55c4 $fa $50 $df
     cp   A, $05                                        ;; 01:55c7 $fe $05
     jr   NZ, .jr_01_55ce                               ;; 01:55c9 $20 $03
     ld   DE, $180                                      ;; 01:55cb $11 $80 $01
@@ -4111,7 +4111,7 @@ call_01_6059:
     ld   A, [HL]                                       ;; 01:605c $7e
     or   A, A                                          ;; 01:605d $b7
     jr   NZ, .jr_01_6068                               ;; 01:605e $20 $08
-    ld   A, [wDF50]                                    ;; 01:6060 $fa $50 $df
+    ld   A, [wSelectedTool]                            ;; 01:6060 $fa $50 $df
     cp   A, $01                                        ;; 01:6063 $fe $01
     jr   Z, .jr_01_6067                                ;; 01:6065 $28 $00
 .jr_01_6067:
@@ -4125,17 +4125,17 @@ call_01_6059:
 
 call_01_6074:
     call call_01_6aab                                  ;; 01:6074 $cd $ab $6a
-    ld   A, [wDF4E]                                    ;; 01:6077 $fa $4e $df
+    ld   A, [wSelectedWeapon]                          ;; 01:6077 $fa $4e $df
     cp   A, $06                                        ;; 01:607a $fe $06
     jr   C, .jr_01_6084                                ;; 01:607c $38 $06
     ld   A, [wC2AA]                                    ;; 01:607e $fa $aa $c2
-    ld   [wDF4E], A                                    ;; 01:6081 $ea $4e $df
+    ld   [wSelectedWeapon], A                          ;; 01:6081 $ea $4e $df
 .jr_01_6084:
-    ld   A, [wDF4E]                                    ;; 01:6084 $fa $4e $df
+    ld   A, [wSelectedWeapon]                          ;; 01:6084 $fa $4e $df
     or   A, A                                          ;; 01:6087 $b7
     jr   NZ, .jr_01_608e                               ;; 01:6088 $20 $04
     inc  A                                             ;; 01:608a $3c
-    ld   [wDF4E], A                                    ;; 01:608b $ea $4e $df
+    ld   [wSelectedWeapon], A                          ;; 01:608b $ea $4e $df
 .jr_01_608e:
     call call_00_0e8f                                  ;; 01:608e $cd $8f $0e
     call call_01_62f4                                  ;; 01:6091 $cd $f4 $62
@@ -4537,36 +4537,36 @@ call_01_62f4:
 
 data_01_6355:
     db   $60, $06                                      ;; 01:6355 ..
-    dw   wDF4A                                         ;; 01:6357 pP
+    dw   wAvailableWeaponItems                         ;; 01:6357 pP
 
 data_01_6359:
-    dw   wDF4E                                         ;; 01:6359 pP
+    dw   wSelectedWeapon                               ;; 01:6359 pP
     db   $05                                           ;; 01:635b .
     dw   $0071                                         ;; 01:635c wW
     db   $66, $09                                      ;; 01:635e ..
-    dw   wDF4B                                         ;; 01:6360 pP
+    dw   wAvailableProtectorItems                      ;; 01:6360 pP
     db   $4f, $df, $03, $89, $00, $6f, $04             ;; 01:6362 .......
-    dw   wDF4C                                         ;; 01:6369 pP
+    dw   wAvailableToolItems                           ;; 01:6369 pP
     db   $50, $df, $05, $95, $00, $73, $0c             ;; 01:636b .......
-    dw   wDF4D                                         ;; 01:6372 pP
-    dw   wDF51                                         ;; 01:6374 pP
+    dw   wAvailableVideoReceiverItems                  ;; 01:6372 pP
+    dw   wSelectedReceiver                             ;; 01:6374 pP
     db   $04                                           ;; 01:6376 .
     dw   $00a9                                         ;; 01:6377 wW
 
 call_01_6379:
-    ld   A, [wDF4E]                                    ;; 01:6379 $fa $4e $df
+    ld   A, [wSelectedWeapon]                          ;; 01:6379 $fa $4e $df
     ld   HL, $71                                       ;; 01:637c $21 $71 $00
     ld   DE, $99e4                                     ;; 01:637f $11 $e4 $99
     call call_01_63a6                                  ;; 01:6382 $cd $a6 $63
-    ld   A, [wDF4F]                                    ;; 01:6385 $fa $4f $df
+    ld   A, [wSelectedProtector]                       ;; 01:6385 $fa $4f $df
     ld   HL, $89                                       ;; 01:6388 $21 $89 $00
     ld   DE, $99e7                                     ;; 01:638b $11 $e7 $99
     call call_01_63a6                                  ;; 01:638e $cd $a6 $63
-    ld   A, [wDF50]                                    ;; 01:6391 $fa $50 $df
+    ld   A, [wSelectedTool]                            ;; 01:6391 $fa $50 $df
     ld   HL, $95                                       ;; 01:6394 $21 $95 $00
     ld   DE, $99ea                                     ;; 01:6397 $11 $ea $99
     call call_01_63a6                                  ;; 01:639a $cd $a6 $63
-    ld   A, [wDF51]                                    ;; 01:639d $fa $51 $df
+    ld   A, [wSelectedReceiver]                        ;; 01:639d $fa $51 $df
     ld   HL, $a9                                       ;; 01:63a0 $21 $a9 $00
     ld   DE, $99ed                                     ;; 01:63a3 $11 $ed $99
 
@@ -5532,7 +5532,7 @@ call_01_6a67:
     ret                                                ;; 01:6aaa $c9
 
 call_01_6aab:
-    ld   A, [wDF4B]                                    ;; 01:6aab $fa $4b $df
+    ld   A, [wAvailableProtectorItems]                 ;; 01:6aab $fa $4b $df
     bit  1, A                                          ;; 01:6aae $cb $4f
     ret  Z                                             ;; 01:6ab0 $c8
     ld   A, $0c                                        ;; 01:6ab1 $3e $0c
@@ -6409,7 +6409,7 @@ call_01_72d5:
     call call_00_1275                                  ;; 01:72e0 $cd $75 $12
     ld   DE, data_01_6c09                              ;; 01:72e3 $11 $09 $6c
     call NZ, call_01_72f2                              ;; 01:72e6 $c4 $f2 $72
-    ld   A, [wDF4B]                                    ;; 01:72e9 $fa $4b $df
+    ld   A, [wAvailableProtectorItems]                 ;; 01:72e9 $fa $4b $df
     bit  2, A                                          ;; 01:72ec $cb $57
     ret  Z                                             ;; 01:72ee $c8
     ld   DE, data_01_6c28                              ;; 01:72ef $11 $28 $6c
@@ -7472,17 +7472,17 @@ call_01_793f:
     ld   A, B                                          ;; 01:798e $78
     cp   A, $05                                        ;; 01:798f $fe $05
     jr   C, .jr_01_7967                                ;; 01:7991 $38 $d4
-    ld   HL, wDF4A                                     ;; 01:7993 $21 $4a $df
-    ld   DE, wDF4E                                     ;; 01:7996 $11 $4e $df
+    ld   HL, wAvailableWeaponItems                     ;; 01:7993 $21 $4a $df
+    ld   DE, wSelectedWeapon                           ;; 01:7996 $11 $4e $df
     call call_01_79b8                                  ;; 01:7999 $cd $b8 $79
-    ld   HL, wDF4B                                     ;; 01:799c $21 $4b $df
-    ld   DE, wDF4F                                     ;; 01:799f $11 $4f $df
+    ld   HL, wAvailableProtectorItems                  ;; 01:799c $21 $4b $df
+    ld   DE, wSelectedProtector                        ;; 01:799f $11 $4f $df
     call call_01_79b8                                  ;; 01:79a2 $cd $b8 $79
-    ld   HL, wDF4C                                     ;; 01:79a5 $21 $4c $df
-    ld   DE, wDF50                                     ;; 01:79a8 $11 $50 $df
+    ld   HL, wAvailableToolItems                       ;; 01:79a5 $21 $4c $df
+    ld   DE, wSelectedTool                             ;; 01:79a8 $11 $50 $df
     call call_01_79b8                                  ;; 01:79ab $cd $b8 $79
-    ld   HL, wDF4D                                     ;; 01:79ae $21 $4d $df
-    ld   DE, wDF51                                     ;; 01:79b1 $11 $51 $df
+    ld   HL, wAvailableVideoReceiverItems              ;; 01:79ae $21 $4d $df
+    ld   DE, wSelectedReceiver                         ;; 01:79b1 $11 $51 $df
     call call_01_79b8                                  ;; 01:79b4 $cd $b8 $79
     ret                                                ;; 01:79b7 $c9
 

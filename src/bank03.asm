@@ -1236,7 +1236,7 @@ jr_03_6ce7:
     ldh  [rOBP0], A                                    ;; 03:6d3e $e0 $48
     ld   A, [wDFB7]                                    ;; 03:6d40 $fa $b7 $df
     ld   [wBGP], A                                     ;; 03:6d43 $ea $d9 $c0
-    ld   A, [wDF4E]                                    ;; 03:6d46 $fa $4e $df
+    ld   A, [wSelectedWeapon]                          ;; 03:6d46 $fa $4e $df
     cp   A, $06                                        ;; 03:6d49 $fe $06
     call Z, call_00_0390                               ;; 03:6d4b $cc $90 $03
     call readJoypadInput_                              ;; 03:6d4e $cd $bc $01
@@ -2043,7 +2043,7 @@ call_03_73d8:
     cp   A, $51                                        ;; 03:73f6 $fe $51
     jr   NZ, .jr_03_7404                               ;; 03:73f8 $20 $0a
     ld   A, [wC2AA]                                    ;; 03:73fa $fa $aa $c2
-    ld   [wDF4E], A                                    ;; 03:73fd $ea $4e $df
+    ld   [wSelectedWeapon], A                          ;; 03:73fd $ea $4e $df
     xor  A, A                                          ;; 03:7400 $af
     ld   [wDF5C], A                                    ;; 03:7401 $ea $5c $df
 .jr_03_7404:
@@ -2515,7 +2515,7 @@ call_03_7776:
     ld   HL, data_03_74e6                              ;; 03:777c $21 $e6 $74
     add  HL, DE                                        ;; 03:777f $19
     ld   B, [HL]                                       ;; 03:7780 $46
-    ld   A, [wDF51]                                    ;; 03:7781 $fa $51 $df
+    ld   A, [wSelectedReceiver]                        ;; 03:7781 $fa $51 $df
     or   A, A                                          ;; 03:7784 $b7
     jr   Z, .jr_03_778f                                ;; 03:7785 $28 $08
     ld   E, A                                          ;; 03:7787 $5f

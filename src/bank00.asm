@@ -2989,7 +2989,7 @@ jp_00_13c2:
     xor  A, A                                          ;; 00:13c2 $af
     ld   [wDFAA], A                                    ;; 00:13c3 $ea $aa $df
     ld   HL, wDFAF                                     ;; 00:13c6 $21 $af $df
-    ld   DE, wDF4E                                     ;; 00:13c9 $11 $4e $df
+    ld   DE, wSelectedWeapon                           ;; 00:13c9 $11 $4e $df
     call copy_hl_de_4                                  ;; 00:13cc $cd $da $0b
 
 jp_00_13cf:
@@ -3240,18 +3240,18 @@ jp_00_15ad:
     ld   [wContinueCount], A                           ;; 00:15ae $ea $52 $df
     ld   [wDFA9], A                                    ;; 00:15b1 $ea $a9 $df
     ld   A, $01                                        ;; 00:15b4 $3e $01
-    ld   [wDF4A], A                                    ;; 00:15b6 $ea $4a $df
+    ld   [wAvailableWeaponItems], A                    ;; 00:15b6 $ea $4a $df
     xor  A, A                                          ;; 00:15b9 $af
-    ld   [wDF4B], A                                    ;; 00:15ba $ea $4b $df
-    ld   [wDF4C], A                                    ;; 00:15bd $ea $4c $df
+    ld   [wAvailableProtectorItems], A                 ;; 00:15ba $ea $4b $df
+    ld   [wAvailableToolItems], A                      ;; 00:15bd $ea $4c $df
     ld   A, $01                                        ;; 00:15c0 $3e $01
-    ld   [wDF4D], A                                    ;; 00:15c2 $ea $4d $df
+    ld   [wAvailableVideoReceiverItems], A             ;; 00:15c2 $ea $4d $df
     xor  A, A                                          ;; 00:15c5 $af
-    ld   [wDF4F], A                                    ;; 00:15c6 $ea $4f $df
-    ld   [wDF50], A                                    ;; 00:15c9 $ea $50 $df
+    ld   [wSelectedProtector], A                       ;; 00:15c6 $ea $4f $df
+    ld   [wSelectedTool], A                            ;; 00:15c9 $ea $50 $df
     inc  A                                             ;; 00:15cc $3c
-    ld   [wDF4E], A                                    ;; 00:15cd $ea $4e $df
-    ld   [wDF51], A                                    ;; 00:15d0 $ea $51 $df
+    ld   [wSelectedWeapon], A                          ;; 00:15cd $ea $4e $df
+    ld   [wSelectedReceiver], A                        ;; 00:15d0 $ea $51 $df
     call call_01_78e5                                  ;; 00:15d3 $cd $e5 $78
     ld   HL, wDF54                                     ;; 00:15d6 $21 $54 $df
     ld   BC, $08                                       ;; 00:15d9 $01 $08 $00
@@ -3290,14 +3290,14 @@ jp_00_15ad:
     db   $16, $17, $c3, $15, $14                       ;; 00:169e ?????
 
 call_00_16a3:
-    ld   A, [wDF50]                                    ;; 00:16a3 $fa $50 $df
+    ld   A, [wSelectedTool]                            ;; 00:16a3 $fa $50 $df
     cp   A, $02                                        ;; 00:16a6 $fe $02
     ld   A, $00                                        ;; 00:16a8 $3e $00
     jr   NZ, .jr_00_16ad                               ;; 00:16aa $20 $01
     inc  A                                             ;; 00:16ac $3c
 .jr_00_16ad:
     ld   [wDF0B], A                                    ;; 00:16ad $ea $0b $df
-    ld   A, [wDF4F]                                    ;; 00:16b0 $fa $4f $df
+    ld   A, [wSelectedProtector]                       ;; 00:16b0 $fa $4f $df
     ld   E, $01                                        ;; 00:16b3 $1e $01
     cp   A, $01                                        ;; 00:16b5 $fe $01
     jr   Z, .jr_00_16c1                                ;; 00:16b7 $28 $08
@@ -6913,7 +6913,7 @@ call_00_3288:
     add  A, C                                          ;; 00:328c $81
     ld   L, A                                          ;; 00:328d $6f
     ld   [HL], $0a                                     ;; 00:328e $36 $0a
-    ld   A, [wDF50]                                    ;; 00:3290 $fa $50 $df
+    ld   A, [wSelectedTool]                            ;; 00:3290 $fa $50 $df
     cp   A, $05                                        ;; 00:3293 $fe $05
     jr   NZ, .jr_00_329a                               ;; 00:3295 $20 $03
     call call_00_325e                                  ;; 00:3297 $cd $5e $32
@@ -6973,7 +6973,7 @@ jp_00_32e6:
     add  A, C                                          ;; 00:32fe $81
     ld   L, A                                          ;; 00:32ff $6f
     ld   B, [HL]                                       ;; 00:3300 $46
-    ld   A, [wDF4F]                                    ;; 00:3301 $fa $4f $df
+    ld   A, [wSelectedProtector]                       ;; 00:3301 $fa $4f $df
     cp   A, $03                                        ;; 00:3304 $fe $03
     jr   NZ, .jr_00_331b                               ;; 00:3306 $20 $13
     xor  A, A                                          ;; 00:3308 $af

@@ -1660,28 +1660,32 @@ wDF48:
 wDF49:
     ds 1                                               ;; df49
 
-wDF4A:
+; bitmask of which weapons you have
+wAvailableWeaponItems:
     ds 1                                               ;; df4a
 
-wDF4B:
+; bitmask of which protector items you have
+wAvailableProtectorItems:
     ds 1                                               ;; df4b
 
-wDF4C:
+; bitmask of which tools you have
+wAvailableToolItems:
     ds 1                                               ;; df4c
 
-wDF4D:
+; bitmask of which receivers you have
+wAvailableVideoReceiverItems:
     ds 1                                               ;; df4d
 
-wDF4E:
+wSelectedWeapon:
     ds 1                                               ;; df4e
 
-wDF4F:
+wSelectedProtector:
     ds 1                                               ;; df4f
 
-wDF50:
+wSelectedTool:
     ds 1                                               ;; df50
 
-wDF51:
+wSelectedReceiver:
     ds 1                                               ;; df51
 
 wContinueCount:

@@ -3350,7 +3350,7 @@ jp_07_77e6:
     ret                                                ;; 07:77e6 $c9
 
 jp_07_77e7:
-    ld   HL, wDF4E                                     ;; 07:77e7 $21 $4e $df
+    ld   HL, wSelectedWeapon                           ;; 07:77e7 $21 $4e $df
     ld   DE, wDFAF                                     ;; 07:77ea $11 $af $df
     call copy_hl_de_4_                                 ;; 07:77ed $cd $80 $01
     ld   A, $01                                        ;; 07:77f0 $3e $01
@@ -3371,7 +3371,7 @@ jp_07_7807:
 .jr_07_7811:
     ld   A, [HL+]                                      ;; 07:7811 $2a
     ld   [wGlobalLevelEntryNumber], A                  ;; 07:7812 $ea $a2 $df
-    ld   DE, wDF4E                                     ;; 07:7815 $11 $4e $df
+    ld   DE, wSelectedWeapon                           ;; 07:7815 $11 $4e $df
     call copy_hl_de_4_                                 ;; 07:7818 $cd $80 $01
     ld   A, L                                          ;; 07:781b $7d
     ld   [wD320], A                                    ;; 07:781c $ea $20 $d3

@@ -635,14 +635,14 @@ jp_02_4dab:
     ld   A, [HL]                                       ;; 02:4dd0 $7e
     cp   A, $04                                        ;; 02:4dd1 $fe $04
     jr   NZ, .jr_02_4dde                               ;; 02:4dd3 $20 $09
-    ld   A, [wDF4C]                                    ;; 02:4dd5 $fa $4c $df
+    ld   A, [wAvailableToolItems]                      ;; 02:4dd5 $fa $4c $df
     bit  0, A                                          ;; 02:4dd8 $cb $47
     jr   NZ, .jr_02_4dba                               ;; 02:4dda $20 $de
     jr   .jr_02_4de9                                   ;; 02:4ddc $18 $0b
 .jr_02_4dde:
     cp   A, $31                                        ;; 02:4dde $fe $31
     jr   NZ, .jr_02_4de9                               ;; 02:4de0 $20 $07
-    ld   A, [wDF4A]                                    ;; 02:4de2 $fa $4a $df
+    ld   A, [wAvailableWeaponItems]                    ;; 02:4de2 $fa $4a $df
     bit  4, A                                          ;; 02:4de5 $cb $67
     jr   NZ, .jr_02_4dba                               ;; 02:4de7 $20 $d1
 .jr_02_4de9:
@@ -889,9 +889,9 @@ jp_02_4e1f:
 .jp_02_4f54:
     rst  rst_00_0008                                   ;; 02:4f54 $cf
     db   $14                                           ;; 02:4f55 ?
-    ld   A, [wDF4C]                                    ;; 02:4f56 $fa $4c $df
+    ld   A, [wAvailableToolItems]                      ;; 02:4f56 $fa $4c $df
     set  0, A                                          ;; 02:4f59 $cb $c7
-    ld   [wDF4C], A                                    ;; 02:4f5b $ea $4c $df
+    ld   [wAvailableToolItems], A                      ;; 02:4f5b $ea $4c $df
     jr   .jp_02_4f1f                                   ;; 02:4f5e $18 $bf
 .jp_02_4f60:
     rst  rst_00_0008                                   ;; 02:4f60 $cf
@@ -907,16 +907,16 @@ jp_02_4e1f:
     ld   D, A                                          ;; 02:4f6e $57
     ld   A, [DE]                                       ;; 02:4f6f $1a
     ld   E, A                                          ;; 02:4f70 $5f
-    ld   A, [wDF4D]                                    ;; 02:4f71 $fa $4d $df
+    ld   A, [wAvailableVideoReceiverItems]             ;; 02:4f71 $fa $4d $df
     or   A, E                                          ;; 02:4f74 $b3
-    ld   [wDF4D], A                                    ;; 02:4f75 $ea $4d $df
+    ld   [wAvailableVideoReceiverItems], A             ;; 02:4f75 $ea $4d $df
     jr   .jp_02_4f1f                                   ;; 02:4f78 $18 $a5
 .jp_02_4f7a:
     rst  rst_00_0008                                   ;; 02:4f7a $cf
     db   $14                                           ;; 02:4f7b ?
-    ld   A, [wDF4A]                                    ;; 02:4f7c $fa $4a $df
+    ld   A, [wAvailableWeaponItems]                    ;; 02:4f7c $fa $4a $df
     set  4, A                                          ;; 02:4f7f $cb $e7
-    ld   [wDF4A], A                                    ;; 02:4f81 $ea $4a $df
+    ld   [wAvailableWeaponItems], A                    ;; 02:4f81 $ea $4a $df
     jr   .jp_02_4f1f                                   ;; 02:4f84 $18 $99
 .jp_02_4f86:
     ld   A, [wContinueCount]                           ;; 02:4f86 $fa $52 $df

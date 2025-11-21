@@ -33,7 +33,8 @@ call_03_4015:
 
 call_03_401e:
     jp   jp_03_6bae                                    ;; 03:401e $c3 $ae $6b
-;@code
+
+call_03_4021:
     jp   jp_03_6bb1                                    ;; 03:4021 $c3 $b1 $6b
     jp   call_03_6bd0                                  ;; 03:4024 $c3 $d0 $6b
     jp   call_03_6d89                                  ;; 03:4027 $c3 $89 $6d

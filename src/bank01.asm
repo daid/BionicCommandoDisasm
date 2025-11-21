@@ -510,6 +510,8 @@ call_01_4797:
     ld   A, $ff                                        ;; 01:47a4 $3e $ff
     ld   BC, $04                                       ;; 01:47a6 $01 $04 $00
     call memset                                        ;; 01:47a9 $cd $1d $0c
+
+call_01_47ac:
     ld   A, [wSelectedWeapon]                          ;; 01:47ac $fa $4e $df
     cp   A, $06                                        ;; 01:47af $fe $06
     call Z, call_01_47ea                               ;; 01:47b1 $cc $ea $47
@@ -4127,10 +4129,11 @@ call_01_6074:
     call call_01_6aab                                  ;; 01:6074 $cd $ab $6a
     ld   A, [wSelectedWeapon]                          ;; 01:6077 $fa $4e $df
     cp   A, $06                                        ;; 01:607a $fe $06
-    jr   C, .jr_01_6084                                ;; 01:607c $38 $06
+    jr   C, call_01_6084                               ;; 01:607c $38 $06
     ld   A, [wC2AA]                                    ;; 01:607e $fa $aa $c2
     ld   [wSelectedWeapon], A                          ;; 01:6081 $ea $4e $df
-.jr_01_6084:
+
+call_01_6084:
     ld   A, [wSelectedWeapon]                          ;; 01:6084 $fa $4e $df
     or   A, A                                          ;; 01:6087 $b7
     jr   NZ, .jr_01_608e                               ;; 01:6088 $20 $04

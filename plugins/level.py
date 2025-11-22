@@ -26,6 +26,37 @@ def level_data(memory, addr):
                 DataBlock(memory, entry_ptr, format="bbwwwwwwp", amount=1)
             else:
                 DataBlock(memory, entry_ptr, format="bbwwwwwwpp", amount=1)
+            
+        entrance_data_ptr = memory.word(entry_ptr + 0x0E)
+        while memory.byte(entrance_data_ptr) != 0xFF:
+            if not memory[entrance_data_ptr]:
+                DataBlock(memory, entrance_data_ptr, format="bbbbbb", amount=1)
+            entrance_data_ptr += 6
+        if not memory[entrance_data_ptr]:
+            DataBlock(memory, entrance_data_ptr, format="b", amount=1)
+
+        object_data_ptr = memory.word(entry_ptr + 0x10)
+        if 0x09 <= n <= 0x0D:  # Entrances 09-0D do not have object data pointers, as they get overruled
+            continue
+        while memory.byte(object_data_ptr) != 0x00:
+            if memory.byte(object_data_ptr) == 0xFE:
+                if not memory[object_data_ptr]:
+                    DataBlock(memory, object_data_ptr, format="bw", amount=1)
+                print(f"FE: {memory.bankNumber:02x}:{object_data_ptr:04x}")
+                break
+            if memory.byte(object_data_ptr) == 0xFD:
+                if not memory[object_data_ptr]:
+                    DataBlock(memory, object_data_ptr, format="bbb", amount=1)
+                object_data_ptr += 3
+                continue
+            if memory.byte(object_data_ptr) == 0xFC:
+                if not memory[object_data_ptr]:
+                    DataBlock(memory, object_data_ptr, format="bbb", amount=1)
+                object_data_ptr += 3
+                continue
+            if not memory[object_data_ptr]:
+                DataBlock(memory, object_data_ptr, format="bbbb", amount=1)
+            object_data_ptr += 4
 
     layout_count = 0
     while layout_count == 0 or memory.getLabel(layout_table_addr + layout_count * 3) is None:

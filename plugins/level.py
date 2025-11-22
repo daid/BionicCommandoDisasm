@@ -22,7 +22,10 @@ def level_data(memory, addr):
         memory.addLabel(entry_ptr, f"level_{memory.bankNumber:02x}_entry_{n:02x}")
 
         if not memory[entry_ptr]:
-            DataBlock(memory, entry_ptr, format="bbwwwwwwp", amount=1)
+            if 0x09 <= n <= 0x0D:  # Entrances 09-0D do not have object data pointers, as they get overruled
+                DataBlock(memory, entry_ptr, format="bbwwwwwwp", amount=1)
+            else:
+                DataBlock(memory, entry_ptr, format="bbwwwwwwpp", amount=1)
 
     layout_count = 0
     while layout_count == 0 or memory.getLabel(layout_table_addr + layout_count * 3) is None:
@@ -34,5 +37,4 @@ def level_data(memory, addr):
         memory.addLabel(memory.word(layout_addr+4), f"level_{memory.bankNumber:02x}_layout_{layout_count:02x}_metametatiles")
         memory.addLabel(memory.word(layout_addr+6), f"level_{memory.bankNumber:02x}_layout_{layout_count:02x}_tilemap")
         layout_count += 1
-    print(layout_count)
     DataBlock(memory, layout_table_addr, format="pb", amount=layout_count)

@@ -3612,7 +3612,7 @@ call_00_17fc:
     ld   A, $04                                        ;; 00:191d $3e $04
     ld   [wActiveRomBank], A                           ;; 00:191f $ea $d3 $c0
     ld   [$2100], A                                    ;; 00:1922 $ea $00 $21
-    call call_04_4004                                  ;; 00:1925 $cd $04 $40
+    call overruleEntryObjectPointer_                   ;; 00:1925 $cd $04 $40
     ld   A, [wLevelEntryRomBank]                       ;; 00:1928 $fa $d8 $c0
     ld   [wActiveRomBank], A                           ;; 00:192b $ea $d3 $c0
     ld   [$2100], A                                    ;; 00:192e $ea $00 $21

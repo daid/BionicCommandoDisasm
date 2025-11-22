@@ -2065,7 +2065,11 @@ get_ptr_from_table_indirect:
     ld   H, [HL]                                       ;; 00:0daa $66
     ld   L, A                                          ;; 00:0dab $6f
     ret                                                ;; 00:0dac $c9
+
+BitshiftTable:
     db   $01, $02, $04, $08, $10, $20, $40, $80        ;; 00:0dad .....???
+
+BitshiftMaskTable:
     db   $01, $03, $07, $0f, $1f, $3f, $7f, $ff        ;; 00:0db5 ?????.?.
 
 jp_00_0dbd:
@@ -2798,9 +2802,9 @@ call_00_1293:
     cp   A, $09                                        ;; 00:1293 $fe $09
     jr   NC, .jr_00_12a6                               ;; 00:1295 $30 $0f
     dec  A                                             ;; 00:1297 $3d
-    add  A, $ad                                        ;; 00:1298 $c6 $ad
+    add  A, LOW(BitshiftTable) ;@=low target=BitshiftTable ;; 00:1298 $c6 $ad
     ld   L, A                                          ;; 00:129a $6f
-    ld   A, $0d                                        ;; 00:129b $3e $0d
+    ld   A, HIGH(BitshiftTable) ;@=high target=BitshiftTable ;; 00:129b $3e $0d
     adc  A, $00                                        ;; 00:129d $ce $00
     ld   H, A                                          ;; 00:129f $67
     ld   A, [HL]                                       ;; 00:12a0 $7e
@@ -2813,9 +2817,9 @@ call_00_1293:
     sub  A, $09                                        ;; 00:12aa $d6 $09
     ld   C, A                                          ;; 00:12ac $4f
     and  A, $07                                        ;; 00:12ad $e6 $07
-    add  A, $ad                                        ;; 00:12af $c6 $ad
+    add  A, LOW(BitshiftTable) ;@=low target=BitshiftTable ;; 00:12af $c6 $ad
     ld   L, A                                          ;; 00:12b1 $6f
-    ld   A, $0d                                        ;; 00:12b2 $3e $0d
+    ld   A, HIGH(BitshiftTable) ;@=high target=BitshiftTable ;; 00:12b2 $3e $0d
     adc  A, $00                                        ;; 00:12b4 $ce $00
     ld   H, A                                          ;; 00:12b6 $67
     ld   A, [HL]                                       ;; 00:12b7 $7e
@@ -3437,25 +3441,25 @@ call_00_178c:
 
 getBankForLevelLayoutNumber:
     cp   A, $50                                        ;; 00:17ba $fe $50
-    jr   NC, .jr_00_17c2                               ;; 00:17bc $30 $04
+    jr   NC, .above_50                                 ;; 00:17bc $30 $04
     ld   B, $04                                        ;; 00:17be $06 $04
-    jr   .jr_00_17da                                   ;; 00:17c0 $18 $18
-.jr_00_17c2:
+    jr   .return                                       ;; 00:17c0 $18 $18
+.above_50:
     cp   A, $a0                                        ;; 00:17c2 $fe $a0
-    jr   NC, .jr_00_17cc                               ;; 00:17c4 $30 $06
+    jr   NC, ._above_a0                                ;; 00:17c4 $30 $06
     ld   B, $08                                        ;; 00:17c6 $06 $08
     sub  A, $50                                        ;; 00:17c8 $d6 $50
-    jr   .jr_00_17da                                   ;; 00:17ca $18 $0e
-.jr_00_17cc:
+    jr   .return                                       ;; 00:17ca $18 $0e
+._above_a0:
     cp   A, $d0                                        ;; 00:17cc $fe $d0
-    jr   NC, .jr_00_17d6                               ;; 00:17ce $30 $06
+    jr   NC, .above_d0                                 ;; 00:17ce $30 $06
     ld   B, $09                                        ;; 00:17d0 $06 $09
     sub  A, $a0                                        ;; 00:17d2 $d6 $a0
-    jr   .jr_00_17da                                   ;; 00:17d4 $18 $04
-.jr_00_17d6:
+    jr   .return                                       ;; 00:17d4 $18 $04
+.above_d0:
     ld   B, $03                                        ;; 00:17d6 $06 $03
     sub  A, $d0                                        ;; 00:17d8 $d6 $d0
-.jr_00_17da:
+.return:
     ret                                                ;; 00:17da $c9
 
 ; For level entry number A return the bank in B and the level entry offset in A
@@ -4125,26 +4129,26 @@ call_00_1c4d:
     ld   HL, $4000                                     ;; 00:1c4d $21 $00 $40
     ld   A, [wLevelGraphicsIndex]                      ;; 00:1c50 $fa $ed $d2
     cp   A, $50                                        ;; 00:1c53 $fe $50
-    jr   NC, .jr_00_1c5b                               ;; 00:1c55 $30 $04
+    jr   NC, .above_50                                 ;; 00:1c55 $30 $04
     ld   B, $05                                        ;; 00:1c57 $06 $05
-    jr   .jr_00_1c76                                   ;; 00:1c59 $18 $1b
-.jr_00_1c5b:
+    jr   .return                                       ;; 00:1c59 $18 $1b
+.above_50:
     cp   A, $a0                                        ;; 00:1c5b $fe $a0
-    jr   NC, .jr_00_1c65                               ;; 00:1c5d $30 $06
+    jr   NC, .above_a0                                 ;; 00:1c5d $30 $06
     ld   B, $0b                                        ;; 00:1c5f $06 $0b
     sub  A, $50                                        ;; 00:1c61 $d6 $50
-    jr   .jr_00_1c76                                   ;; 00:1c63 $18 $11
-.jr_00_1c65:
+    jr   .return                                       ;; 00:1c63 $18 $11
+.above_a0:
     cp   A, $d0                                        ;; 00:1c65 $fe $d0
-    jr   NC, .jr_00_1c6f                               ;; 00:1c67 $30 $06
+    jr   NC, .above_d0                                 ;; 00:1c67 $30 $06
     ld   B, $0f                                        ;; 00:1c69 $06 $0f
     sub  A, $a0                                        ;; 00:1c6b $d6 $a0
-    jr   .jr_00_1c76                                   ;; 00:1c6d $18 $07
-.jr_00_1c6f:
+    jr   .return                                       ;; 00:1c6d $18 $07
+.above_d0:
     ld   B, $03                                        ;; 00:1c6f $06 $03
     sub  A, $d0                                        ;; 00:1c71 $d6 $d0
     ld   HL, $4004                                     ;; 00:1c73 $21 $04 $40
-.jr_00_1c76:
+.return:
     ret                                                ;; 00:1c76 $c9
 
 call_00_1c77:

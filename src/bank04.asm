@@ -13,7 +13,6 @@ SECTION "bank04", ROMX[$4000], BANK[$04]
 overruleEntryObjectPointer_:
     jp   overruleEntryObjectPointer                    ;; 04:4004 $c3 $ee $46
 
-;@code
 call_04_4007:
     jp   jp_04_7d29                                    ;; 04:4007 $c3 $29 $7d
     db   $28                                           ;; 04:400a ?
@@ -2518,11 +2517,24 @@ data_04_7d07:
     db   $00, $05, $09, $02, $02, $01                  ;; 04:7d07 ??????
     db   $ff                                           ;; 04:7d0d ?
 
+;@data format=bb amount=13
+; If DF15 is set then overrule the exit target according to this table.
+; First byte is the currently loaded global entry number, the 2nd is the new target.
 data_04_7d0e:
-    db   $06, $01, $07, $04, $13, $12, $17, $16        ;; 04:7d0e ????????
-    db   $1b, $1a, $55, $53, $a8, $a7, $b3, $ab        ;; 04:7d16 ????????
-    db   $bb, $b8, $cc, $c3, $25, $23, $d1, $d0        ;; 04:7d1e ????????
-    db   $7a, $78, $ff                                 ;; 04:7d26 ???
+    db   $06, $01                                      ;; 04:7d0e ?? $00
+    db   $07, $04                                      ;; 04:7d10 ?? $01
+    db   $13, $12                                      ;; 04:7d12 ?? $02
+    db   $17, $16                                      ;; 04:7d14 ?? $03
+    db   $1b, $1a                                      ;; 04:7d16 ?? $04
+    db   $55, $53                                      ;; 04:7d18 ?? $05
+    db   $a8, $a7                                      ;; 04:7d1a ?? $06
+    db   $b3, $ab                                      ;; 04:7d1c ?? $07
+    db   $bb, $b8                                      ;; 04:7d1e ?? $08
+    db   $cc, $c3                                      ;; 04:7d20 ?? $09
+    db   $25, $23                                      ;; 04:7d22 ?? $0a
+    db   $d1, $d0                                      ;; 04:7d24 ?? $0b
+    db   $7a, $78                                      ;; 04:7d26 ?? $0c
+    db   $ff                                           ;; 04:7d28 ?
 
 jp_04_7d29:
     ld   HL, wDF15                                     ;; 04:7d29 $21 $15 $df

@@ -349,7 +349,10 @@ wC22C:
     ds 1                                               ;; c22c
 
 wC22D:
-    ds 3                                               ;; c22d
+    ds 1                                               ;; c22d
+
+wC22E:
+    ds 2                                               ;; c22e
 
 wC230:
     ds 1                                               ;; c230
@@ -512,7 +515,10 @@ wC2A9:
     ds 1                                               ;; c2a9
 
 wC2AA:
-    ds 2                                               ;; c2aa
+    ds 1                                               ;; c2aa
+
+wC2AB:
+    ds 1                                               ;; c2ab
 
 wC2AC:
     ds 41                                              ;; c2ac
@@ -752,7 +758,10 @@ wC5B0:
     ds 1                                               ;; c5b0
 
 wC5B1:
-    ds 2                                               ;; c5b1
+    ds 1                                               ;; c5b1
+
+wC5B2:
+    ds 1                                               ;; c5b2
 
 wC5B3:
     ds 1                                               ;; c5b3
@@ -1461,7 +1470,7 @@ wD2EF:
 wD2F0:
     ds 1                                               ;; d2f0
 
-wD2F1:
+wLevelExitDataPtr:
     ds 1                                               ;; d2f1
 .high:
     ds 1                                               ;; d2f2
@@ -1601,7 +1610,13 @@ wDF0C:
     ds 1                                               ;; df0c
 
 wDF0D:
-    ds 3                                               ;; df0d
+    ds 1                                               ;; df0d
+
+wDF0E:
+    ds 1                                               ;; df0e
+
+wDF0F:
+    ds 1                                               ;; df0f
 
 wDF10:
     ds 1                                               ;; df10
@@ -1779,7 +1794,10 @@ wDFA5:
     ds 2                                               ;; dfa5
 
 wDFA7:
-    ds 2                                               ;; dfa7
+    ds 1                                               ;; dfa7
+
+wDFA8:
+    ds 1                                               ;; dfa8
 
 wDFA9:
     ds 1                                               ;; dfa9

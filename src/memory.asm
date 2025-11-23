@@ -509,7 +509,19 @@ wC26F:
     ds 11                                              ;; c26f
 
 wC27A:
-    ds 47                                              ;; c27a
+    ds 43                                              ;; c27a
+
+wC2A5:
+    ds 1                                               ;; c2a5
+
+wC2A6:
+    ds 1                                               ;; c2a6
+
+wC2A7:
+    ds 1                                               ;; c2a7
+
+wC2A8:
+    ds 1                                               ;; c2a8
 
 wC2A9:
     ds 1                                               ;; c2a9
@@ -563,7 +575,10 @@ wC2E9:
     ds 1                                               ;; c2e9
 
 wC2EA:
-    ds 24                                              ;; c2ea
+    ds 1                                               ;; c2ea
+
+wC2EB:
+    ds 23                                              ;; c2eb
 
 wC302:
     ds 1                                               ;; c302
@@ -893,7 +908,10 @@ wC728:
     ds 3                                               ;; c728
 
 wC72B:
-    ds 1237                                            ;; c72b
+    ds 213                                             ;; c72b
+
+wC800:
+    ds 1024                                            ;; c800
 
 wCC00:
     ds 1                                               ;; cc00
@@ -1025,7 +1043,10 @@ wCC4A:
     ds 1                                               ;; cc4a
 
 wCC4B:
-    ds 221                                             ;; cc4b
+    ds 53                                              ;; cc4b
+
+wCC80:
+    ds 168                                             ;; cc80
 
 wCD28:
     ds 40                                              ;; cd28
